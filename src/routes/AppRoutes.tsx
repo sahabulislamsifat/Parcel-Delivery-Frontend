@@ -11,6 +11,7 @@ export const router = createBrowserRouter([
   {
     Component: App,
     path: "/",
+    errorElement: <NotFound />,
     children: [
       {
         Component: Home,
@@ -33,9 +34,5 @@ export const router = createBrowserRouter([
   {
     Component: Register,
     path: "/register",
-  },
-  {
-    Component: NotFound,
-    path: "/notFound",
   },
 ]);
