@@ -1,7 +1,9 @@
+import Carousel from "./Carousel";
+
 const Hero = () => {
   return (
     <div>
-      <h3>This is hero section..........</h3>
+      <Carousel></Carousel>
     </div>
   );
 };
