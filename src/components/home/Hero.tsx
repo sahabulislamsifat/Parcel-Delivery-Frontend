@@ -2,8 +2,8 @@ import Carousel from "./Carousel";
 
 const Hero = () => {
   return (
-    <div>
-      <Carousel></Carousel>
+    <div className="bg-white dark:bg-gray-900 transition-colors duration-300">
+      <Carousel />
     </div>
   );
 };

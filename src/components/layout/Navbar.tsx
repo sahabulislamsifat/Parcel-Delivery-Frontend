@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { NavLink } from "react-router";
+import ModeToggle from "./ModeToggle";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -9,11 +10,11 @@ const Navbar = () => {
     "font-medium tracking-wide text-[#009CFE] border-b-2 border-[#009CFE]";
 
   const normalClass =
-    "font-medium tracking-wide text-gray-700 hover:text-[#005DB5] transition-colors duration-200";
+    "font-medium tracking-wide text-gray-700 dark:text-gray-300 hover:text-[#005DB5] dark:hover:text-[#33B7FF] transition-colors duration-200";
 
   return (
-    <div className="shadow-sm relative">
-      <div className="text-black px-4 py-1 mx-auto max-w-11/12 relative">
+    <div className="shadow-sm relative bg-white dark:bg-gray-900 transition-colors duration-300">
+      <div className="text-black dark:text-gray-100 px-4 py-1 mx-auto max-w-11/12 relative">
         <div className="relative flex items-center justify-between">
           <a
             href="/"
@@ -73,6 +74,10 @@ const Navbar = () => {
                 About us
               </NavLink>
             </li>
+
+            {/* Mode Toggler  */}
+            <ModeToggle />
+
             <li>
               <NavLink
                 to="/login"
@@ -97,7 +102,7 @@ const Navbar = () => {
             >
               {isMenuOpen ? (
                 <svg
-                  className="w-6 h-6 text-gray-700"
+                  className="w-6 h-6 text-gray-700 dark:text-gray-300"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -111,7 +116,7 @@ const Navbar = () => {
                 </svg>
               ) : (
                 <svg
-                  className="w-6 h-6 text-gray-700"
+                  className="w-6 h-6 text-gray-700 dark:text-gray-300"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -131,13 +136,15 @@ const Navbar = () => {
 
       {/* Mobile Dropdown Menu */}
       {isMenuOpen && (
-        <div className="lg:hidden bg-white w-full border-t border-gray-200 shadow-sm absolute left-0 top-[100%] z-40">
+        <div className="lg:hidden bg-white dark:bg-gray-900 w-full border-t border-gray-200 dark:border-gray-700 shadow-sm absolute left-0 top-[100%] z-40 transition-colors duration-300">
           <ul className="flex flex-col items-center space-y-4 py-5">
             <li>
               <NavLink
                 to="/"
                 className={({ isActive }) =>
-                  isActive ? "text-[#009CFE] font-semibold" : "text-gray-700"
+                  isActive
+                    ? "text-[#009CFE] font-semibold"
+                    : "text-gray-700 dark:text-gray-300"
                 }
               >
                 Home
@@ -147,7 +154,9 @@ const Navbar = () => {
               <NavLink
                 to="/truckparcel"
                 className={({ isActive }) =>
-                  isActive ? "text-[#009CFE] font-semibold" : "text-gray-700"
+                  isActive
+                    ? "text-[#009CFE] font-semibold"
+                    : "text-gray-700 dark:text-gray-300"
                 }
               >
                 TruckParcel
@@ -157,7 +166,9 @@ const Navbar = () => {
               <NavLink
                 to="/contact"
                 className={({ isActive }) =>
-                  isActive ? "text-[#009CFE] font-semibold" : "text-gray-700"
+                  isActive
+                    ? "text-[#009CFE] font-semibold"
+                    : "text-gray-700 dark:text-gray-300"
                 }
               >
                 Contact
@@ -167,12 +178,18 @@ const Navbar = () => {
               <NavLink
                 to="/about"
                 className={({ isActive }) =>
-                  isActive ? "text-[#009CFE] font-semibold" : "text-gray-700"
+                  isActive
+                    ? "text-[#009CFE] font-semibold"
+                    : "text-gray-700 dark:text-gray-300"
                 }
               >
                 About Us
               </NavLink>
             </li>
+
+            {/* Mode Toggler  */}
+            <ModeToggle />
+
             <li>
               <NavLink
                 to="/login"

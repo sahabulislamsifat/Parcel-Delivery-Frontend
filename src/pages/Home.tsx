@@ -4,13 +4,15 @@ import TrackParcel from "./TrackParcel";
 
 const Home = () => {
   return (
-    <div>
+    <div className="bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 transition-colors duration-300">
       {/* Hero Section */}
-      <Hero></Hero>
+      <Hero />
+
       {/* TrackParcel Section */}
-      <TrackParcel></TrackParcel>
+      <TrackParcel />
+
       {/* FAQ Section */}
-      <FAQ></FAQ>
+      <FAQ />
     </div>
   );
 };

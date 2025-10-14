@@ -2,12 +2,12 @@ import { Link } from "react-router";
 
 const NotFound = () => {
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen px-4 bg-gray-50 text-center">
+    <div className="flex flex-col items-center justify-center min-h-screen px-4 bg-gray-50 dark:bg-gray-900 text-center transition-colors duration-300">
       <h1 className="text-6xl font-bold text-[#009CFE] mb-4">404</h1>
-      <h2 className="text-2xl font-semibold text-gray-900 mb-4">
+      <h2 className="text-2xl font-semibold text-gray-900 dark:text-gray-100 mb-4">
         Page Not Found
       </h2>
-      <p className="text-gray-600 mb-8">
+      <p className="text-gray-600 dark:text-gray-300 mb-8">
         Oops! The page you are looking for does not exist or has been moved.
       </p>
       <Link
