@@ -8,10 +8,10 @@ interface PublicLayoutProps {
 
 const PublicLayout = ({ children }: PublicLayoutProps) => {
   return (
-    <div className="w-full min-h-screen flex flex-col">
-      <Navbar></Navbar>
+    <div className="w-full min-h-screen flex flex-col bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 transition-colors duration-300">
+      <Navbar />
       <div className="grow-1 w-11/12 mx-auto">{children}</div>
-      <Footer></Footer>
+      <Footer />
     </div>
   );
 };

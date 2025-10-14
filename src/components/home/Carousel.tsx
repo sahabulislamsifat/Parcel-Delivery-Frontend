@@ -22,7 +22,7 @@ import Slide from "./Slide";
 
 const Carousel = () => {
   return (
-    <div>
+    <div className="bg-white dark:bg-gray-900 transition-colors duration-300">
       <div className="container px-6 py-10 mx-auto">
         <Swiper
           spaceBetween={30}

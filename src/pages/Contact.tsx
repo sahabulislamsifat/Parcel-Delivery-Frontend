@@ -24,13 +24,13 @@ const Contact = () => {
   };
 
   return (
-    <div className="px-4 py-16 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8 lg:py-20">
+    <div className="px-4 py-16 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8 lg:py-20 dark:bg-gray-900 dark:text-gray-100">
       {/* Header */}
       <div className="max-w-xl sm:mx-auto text-center mb-12">
-        <h2 className="text-3xl font-bold text-gray-900 sm:text-4xl">
+        <h2 className="text-3xl font-bold text-gray-900 dark:text-gray-100 sm:text-4xl">
           Get in Touch
         </h2>
-        <p className="mt-3 text-gray-600">
+        <p className="mt-3 text-gray-600 dark:text-gray-300">
           Have questions or need support? Fill out the form below or reach us
           directly.
         </p>
@@ -38,8 +38,8 @@ const Contact = () => {
 
       <div className="grid gap-8 lg:grid-cols-2">
         {/* Contact Form */}
-        <div className="bg-white shadow-sm p-8">
-          <h3 className="text-xl font-semibold text-gray-900 mb-6">
+        <div className="bg-white dark:bg-gray-800 shadow-sm p-8">
+          <h3 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-6">
             Send a Message
           </h3>
           <form onSubmit={handleSubmit} className="space-y-4">
@@ -49,7 +49,7 @@ const Contact = () => {
               value={formData.name}
               onChange={handleChange}
               placeholder="Your Name"
-              className="w-full px-4 py-3 border border-gray-300 focus:outline-none focus:ring-2"
+              className="w-full px-4 py-3 border border-gray-300 dark:border-gray-700 focus:outline-none focus:ring-2 dark:bg-gray-700 dark:text-gray-100"
               required
             />
             <input
@@ -58,7 +58,7 @@ const Contact = () => {
               value={formData.email}
               onChange={handleChange}
               placeholder="Your Email"
-              className="w-full px-4 py-3 border border-gray-300 focus:outline-none focus:ring-2"
+              className="w-full px-4 py-3 border border-gray-300 dark:border-gray-700 focus:outline-none focus:ring-2 dark:bg-gray-700 dark:text-gray-100"
               required
             />
             <input
@@ -67,7 +67,7 @@ const Contact = () => {
               value={formData.subject}
               onChange={handleChange}
               placeholder="Subject"
-              className="w-full px-4 py-3 border border-gray-300  focus:outline-none focus:ring-2"
+              className="w-full px-4 py-3 border border-gray-300 dark:border-gray-700 focus:outline-none focus:ring-2 dark:bg-gray-700 dark:text-gray-100"
               required
             />
             <textarea
@@ -75,12 +75,12 @@ const Contact = () => {
               value={formData.message}
               onChange={handleChange}
               placeholder="Your Message"
-              className="w-full px-4 py-3 border border-gray-300  h-32 focus:outline-none focus:ring-2"
+              className="w-full px-4 py-3 border border-gray-300 dark:border-gray-700 h-32 focus:outline-none focus:ring-2 dark:bg-gray-700 dark:text-gray-100"
               required
             ></textarea>
             <button
               type="submit"
-              className="text-white font-semibold px-6 py-3  w-full transition duration-300 cursor-pointer"
+              className="text-white font-semibold px-6 py-3 w-full transition duration-300 cursor-pointer"
               style={{
                 backgroundColor: "#009CFE",
               }}
@@ -102,8 +102,10 @@ const Contact = () => {
           <div className="flex items-start space-x-4">
             <FaMapMarkerAlt className="text-[#009CFE] w-6 h-6 mt-1" />
             <div>
-              <h4 className="font-semibold text-gray-900">Address</h4>
-              <p className="text-gray-600">
+              <h4 className="font-semibold text-gray-900 dark:text-gray-100">
+                Address
+              </h4>
+              <p className="text-gray-600 dark:text-gray-300">
                 123 ParcelXpress St, Dhaka, Bangladesh
               </p>
             </div>
@@ -111,20 +113,28 @@ const Contact = () => {
           <div className="flex items-start space-x-4">
             <FaPhoneAlt className="text-[#009CFE] w-6 h-6 mt-1" />
             <div>
-              <h4 className="font-semibold text-gray-900">Phone</h4>
-              <p className="text-gray-600">+880 1632 165523</p>
+              <h4 className="font-semibold text-gray-900 dark:text-gray-100">
+                Phone
+              </h4>
+              <p className="text-gray-600 dark:text-gray-300">
+                +880 1632 165523
+              </p>
             </div>
           </div>
           <div className="flex items-start space-x-4">
             <FaEnvelope className="text-[#009CFE] w-6 h-6 mt-1" />
             <div>
-              <h4 className="font-semibold text-gray-900">Email</h4>
-              <p className="text-gray-600">support@parcelxpress.com</p>
+              <h4 className="font-semibold text-gray-900 dark:text-gray-100">
+                Email
+              </h4>
+              <p className="text-gray-600 dark:text-gray-300">
+                support@parcelxpress.com
+              </p>
             </div>
           </div>
 
           {/* Map Placeholder */}
-          <div className="mt-6 w-full h-64 bg-gray-200 flex items-center justify-center text-gray-500">
+          <div className="mt-6 w-full h-64 bg-gray-200 dark:bg-gray-700 flex items-center justify-center text-gray-500 dark:text-gray-300">
             Map Placeholder
           </div>
         </div>

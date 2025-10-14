@@ -40,13 +40,13 @@ const TrackParcel = () => {
   };
 
   return (
-    <div className="px-4 py-16 mx-auto w-11/12">
+    <section className="bg-white dark:bg-gray-900 text-gray-700 dark:text-gray-300 transition-colors duration-300 px-4 py-16 mx-auto w-11/12">
       {/* Header */}
       <div className="text-center mb-10">
-        <h2 className="text-3xl font-bold text-gray-900 sm:text-4xl">
+        <h2 className="text-3xl font-bold text-gray-900 dark:text-white sm:text-4xl">
           Track Your Parcel
         </h2>
-        <p className="text-gray-600 mt-3">
+        <p className="text-gray-600 dark:text-gray-400 mt-3">
           Enter your tracking ID below to get the latest status of your
           delivery.
         </p>
@@ -62,7 +62,7 @@ const TrackParcel = () => {
           placeholder="Enter Tracking ID (e.g., PX123456)"
           value={trackingId}
           onChange={(e) => setTrackingId(e.target.value)}
-          className="w-full px-4 py-3 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#009CFE]"
+          className="w-full px-4 py-3 border border-gray-300 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-200 focus:outline-none focus:ring-2 focus:ring-[#009CFE] transition-colors duration-300"
         />
         <button
           type="submit"
@@ -80,11 +80,11 @@ const TrackParcel = () => {
 
       {/* Tracking Result */}
       {trackingData && (
-        <div className="max-w-2xl mx-auto mt-10 bg-white border border-gray-200 rounded-xl shadow-sm p-6">
-          <h3 className="text-xl font-semibold text-gray-900 mb-4">
+        <div className="max-w-2xl mx-auto mt-10 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl shadow-sm p-6 transition-colors duration-300">
+          <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">
             Tracking Details
           </h3>
-          <div className="space-y-2 text-gray-700">
+          <div className="space-y-2 text-gray-700 dark:text-gray-300">
             <p>
               <span className="font-medium">Tracking ID:</span>{" "}
               {trackingData.id}
@@ -107,14 +107,14 @@ const TrackParcel = () => {
 
           {/* Timeline */}
           <div className="mt-6">
-            <h4 className="font-semibold text-gray-900 mb-3">
+            <h4 className="font-semibold text-gray-900 dark:text-white mb-3">
               Delivery Progress
             </h4>
             <ul className="space-y-2">
               {trackingData.history.map((step: any, index: number) => (
                 <li
                   key={index}
-                  className="flex items-center space-x-3 text-gray-700"
+                  className="flex items-center space-x-3 text-gray-700 dark:text-gray-300"
                 >
                   <span className="w-2 h-2 bg-[#009CFE] rounded-full"></span>
                   <p>
@@ -130,17 +130,17 @@ const TrackParcel = () => {
 
       {/* Help Section */}
       <div className="text-center mt-12">
-        <p className="text-gray-600">
+        <p className="text-gray-600 dark:text-gray-400">
           Need help with your delivery?{" "}
           <a
             href="/support"
-            className="text-[#009CFE] hover:underline font-medium"
+            className="text-[#009CFE] dark:text-[#33B7FF] hover:underline font-medium"
           >
             Contact Support
           </a>
         </p>
       </div>
-    </div>
+    </section>
   );
 };
 
