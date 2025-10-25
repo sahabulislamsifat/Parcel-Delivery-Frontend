@@ -1,11 +1,44 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useState } from "react";
 import { Link, useNavigate } from "react-router";
 import { FaGoogle } from "react-icons/fa";
+import { useLoginMutation } from "@/redux/features/auth/authApi";
+import { toast } from "sonner";
+import type { SubmitHandler } from "react-hook-form";
+import type { ILogin } from "@/types";
 
 const Login = () => {
   const navigate = useNavigate();
-  const [formData, setFormData] = useState({ email: "", password: "" });
-  const [error, setError] = useState("");
+  const [formData, setFormData] = useState<ILogin>({
+    email: "",
+    password: "",
+  });
+
+  const [login, { isLoading }] = useLoginMutation();
+
+  const onSubmit: SubmitHandler<ILogin> = async (data) => {
+    try {
+      const res = await login(data).unwrap();
+
+      if (res?.success) {
+        toast.success("✅ Logged in successfully");
+        navigate("/");
+      } else {
+        toast.error("Invalid email or password");
+      }
+    } catch (err: any) {
+      console.error(err);
+
+      if (err?.data?.message === "Password does not match") {
+        toast.error("❌ Invalid credentials");
+      } else if (err?.data?.message === "User is not verified") {
+        toast.error("⚠️ Your account is not verified");
+        navigate("/verify", { state: data.email });
+      } else {
+        toast.error("Something went wrong! Please try again.");
+      }
+    }
+  };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -13,16 +46,7 @@ const Login = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    setError("");
-
-    if (
-      formData.email === "test@parcelxpress.com" &&
-      formData.password === "Password123"
-    ) {
-      navigate("/");
-    } else {
-      setError("Invalid email or password");
-    }
+    onSubmit(formData);
   };
 
   return (
@@ -71,12 +95,13 @@ const Login = () => {
             className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded focus:outline-none focus:ring-2 focus:ring-[#009CFE] dark:bg-gray-700 dark:text-gray-100"
             required
           />
-          {error && <p className="text-red-500 text-sm">{error}</p>}
+
           <button
             type="submit"
-            className="w-full py-3 bg-[#009CFE] hover:bg-[#005DB5] text-white font-semibold rounded transition-colors duration-300 cursor-pointer"
+            disabled={isLoading}
+            className="w-full py-3 bg-[#009CFE] hover:bg-[#005DB5] text-white font-semibold rounded transition-colors duration-300 cursor-pointer disabled:opacity-60"
           >
-            Login
+            {isLoading ? "Logging in..." : "Login"}
           </button>
         </form>
 
