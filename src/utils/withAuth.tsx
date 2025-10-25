@@ -1,5 +1,20 @@
-const withAuth = () => {
-  return <div>this is with auth HOC</div>;
-};
+import { useUserInfoQuery } from "@/redux/features/auth/authApi";
+import type { TRole } from "@/types";
+import type { ComponentType } from "react";
+import { Navigate } from "react-router";
 
-export default withAuth;
+export const withAuth = (Component: ComponentType, requiredRole?: TRole) => {
+  return function AuthWrapper() {
+    const { data, isLoading } = useUserInfoQuery(undefined);
+
+    if (!isLoading && !data?.data?.email) {
+      return <Navigate to="/login" />;
+    }
+
+    if (requiredRole && !isLoading && requiredRole !== data?.data?.role) {
+      return <Navigate to="/not-found" />;
+    }
+
+    return <Component />;
+  };
+};

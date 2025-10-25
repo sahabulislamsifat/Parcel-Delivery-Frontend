@@ -1,14 +1,36 @@
 import { useState } from "react";
 import { NavLink } from "react-router";
 import ModeToggle from "./ModeToggle";
+import {
+  useUserInfoQuery,
+  useLogoutMutation,
+} from "@/redux/features/auth/authApi";
+import { useAppDispatch } from "@/redux/hook";
+import { authApi } from "@/redux/features/auth/authApi";
+import { toast } from "sonner";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const { data } = useUserInfoQuery(undefined);
+  const [logout] = useLogoutMutation();
+  const dispatch = useAppDispatch();
 
-  // Active link class
+  const user = data?.data; // logged-in user data
+  console.log("User DATA:", user);
+
+  const handleLogout = async () => {
+    try {
+      await logout(undefined);
+      dispatch(authApi.util.resetApiState());
+      toast.success("Logged out successfully");
+    } catch {
+      toast.error("Failed to logout");
+    }
+  };
+
   const activeClass =
     "font-medium tracking-wide text-[#009CFE] border-b-2 border-[#009CFE]";
-
   const normalClass =
     "font-medium tracking-wide text-gray-700 dark:text-gray-300 hover:text-[#005DB5] dark:hover:text-[#33B7FF] transition-colors duration-200";
 
@@ -75,21 +97,69 @@ const Navbar = () => {
               </NavLink>
             </li>
 
-            {/* Mode Toggler  */}
+            {/* Dashboard only for logged-in users */}
+            {user && (
+              <li>
+                <NavLink
+                  to="/dashboard"
+                  className={({ isActive }) =>
+                    isActive ? activeClass : normalClass
+                  }
+                >
+                  Dashboard
+                </NavLink>
+              </li>
+            )}
+
+            {/* Mode Toggler */}
             <ModeToggle />
 
-            <li>
-              <NavLink
-                to="/login"
-                className={({ isActive }) =>
-                  isActive
-                    ? "inline-flex items-center justify-center h-8 px-4 font-medium bg-[#009CFE] text-white"
-                    : "inline-flex items-center justify-center h-8 px-4 font-medium bg-[#009CFE] hover:bg-[#005DB5] text-white"
-                }
-              >
-                Login
-              </NavLink>
-            </li>
+            {/* Auth Section */}
+            {!user ? (
+              <li>
+                <NavLink
+                  to="/login"
+                  className={({ isActive }) =>
+                    isActive
+                      ? "inline-flex items-center justify-center h-8 px-4 font-medium bg-[#009CFE] text-white"
+                      : "inline-flex items-center justify-center h-8 px-4 font-medium bg-[#009CFE] hover:bg-[#005DB5] text-white"
+                  }
+                >
+                  Login
+                </NavLink>
+              </li>
+            ) : (
+              <li className="relative">
+                <button
+                  onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+                  className="flex items-center focus:outline-none"
+                >
+                  <img
+                    src={
+                      "https://cdn-icons-png.flaticon.com/512/149/149071.png"
+                    }
+                    alt="User Avatar"
+                    className="w-10 h-10 rounded-full border border-gray-300 dark:border-gray-700 cursor-pointer"
+                  />
+                </button>
+
+                {/* Dropdown */}
+                {isDropdownOpen && (
+                  <div className="absolute right-0 mt-3 w-40 bg-white dark:bg-gray-800 shadow-md rounded-md border border-gray-200 dark:border-gray-700 py-2 z-50">
+                    <p className="text-sm text-center text-gray-700 dark:text-gray-300 font-medium px-2">
+                      {user?.name || "User"}
+                    </p>
+                    <hr className="my-1 border-gray-200 dark:border-gray-700" />
+                    <button
+                      onClick={handleLogout}
+                      className="w-full text-left px-4 py-2 text-sm text-red-500 hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer"
+                    >
+                      Logout
+                    </button>
+                  </div>
+                )}
+              </li>
+            )}
           </ul>
 
           {/* Mobile Menu Button */}
@@ -187,21 +257,42 @@ const Navbar = () => {
               </NavLink>
             </li>
 
-            {/* Mode Toggler  */}
+            {user && (
+              <li>
+                <NavLink
+                  to="/dashboard"
+                  className={({ isActive }) =>
+                    isActive
+                      ? "text-[#009CFE] font-semibold"
+                      : "text-gray-700 dark:text-gray-300"
+                  }
+                >
+                  Dashboard
+                </NavLink>
+              </li>
+            )}
+
             <ModeToggle />
 
-            <li>
-              <NavLink
-                to="/login"
-                className={({ isActive }) =>
-                  isActive
-                    ? "inline-flex items-center justify-center h-8 px-4 font-medium bg-[#009CFE] text-white"
-                    : "inline-flex items-center justify-center h-8 px-4 font-medium bg-[#009CFE] hover:bg-[#005DB5] text-white"
-                }
-              >
-                Login
-              </NavLink>
-            </li>
+            {!user ? (
+              <li>
+                <NavLink
+                  to="/login"
+                  className="inline-flex items-center justify-center h-8 px-4 font-medium bg-[#009CFE] hover:bg-[#005DB5] text-white"
+                >
+                  Login
+                </NavLink>
+              </li>
+            ) : (
+              <li>
+                <button
+                  onClick={handleLogout}
+                  className="inline-flex items-center justify-center h-8 px-4 font-medium bg-red-500 hover:bg-red-600 text-white rounded"
+                >
+                  Logout
+                </button>
+              </li>
+            )}
           </ul>
         </div>
       )}
