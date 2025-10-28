@@ -1,23 +1,37 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useState } from "react";
 import { Link, useNavigate } from "react-router";
 import { FaGoogle } from "react-icons/fa";
+import { useRegisterMutation } from "@/redux/features/auth/authApi";
+import { setUser } from "@/redux/features/auth/authSlice";
+import { useDispatch } from "react-redux";
+import config from "@/components/config";
 
 const Register = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  // RTK Query register mutation
+  const [registerUser, { isLoading }] = useRegisterMutation();
+
+  // Local form states
   const [formData, setFormData] = useState({
     name: "",
     email: "",
+    phone: "",
     password: "",
     confirmPassword: "",
   });
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
 
+  // Handle input change
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  // Handle submit
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError("");
     setSuccess("");
@@ -27,10 +41,44 @@ const Register = () => {
       return;
     }
 
-    setSuccess("Account created successfully!");
-    setFormData({ name: "", email: "", password: "", confirmPassword: "" });
+    try {
+      const payload = {
+        name: formData.name,
+        email: formData.email,
+        phone: formData.phone,
+        password: formData.password,
+        role: "SENDER", // Default role
+      } as any;
 
-    setTimeout(() => navigate("/login"), 1500);
+      const result = await registerUser(payload).unwrap();
+
+      if (result.success) {
+        dispatch(setUser(result.data));
+        setSuccess("Account created successfully!");
+        setFormData({
+          name: "",
+          email: "",
+          phone: "",
+          password: "",
+          confirmPassword: "",
+        });
+
+        setTimeout(() => navigate("/login"), 1500);
+      } else {
+        setError(result.message || "Registration failed. Try again.");
+      }
+    } catch (err: any) {
+      setError(
+        err?.data?.message ||
+          err?.message ||
+          "Something went wrong during registration."
+      );
+    }
+  };
+
+  // Handle Google OAuth
+  const handleGoogleRegister = () => {
+    window.open(`${config.baseUrl}/auth/google`, "_self");
   };
 
   return (
@@ -71,6 +119,16 @@ const Register = () => {
             required
           />
           <input
+            type="tel"
+            name="phone"
+            placeholder="Phone Number"
+            value={formData.phone}
+            onChange={handleChange}
+            pattern="^(\+?\d{1,3}[- ]?)?\d{10,15}$"
+            className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded focus:outline-none focus:ring-2 focus:ring-[#009CFE] dark:bg-gray-700 dark:text-gray-100"
+            required
+          />
+          <input
             type="password"
             name="password"
             placeholder="Password"
@@ -88,13 +146,16 @@ const Register = () => {
             className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded focus:outline-none focus:ring-2 focus:ring-[#009CFE] dark:bg-gray-700 dark:text-gray-100"
             required
           />
+
           {error && <p className="text-red-500 text-sm">{error}</p>}
           {success && <p className="text-green-600 text-sm">{success}</p>}
+
           <button
             type="submit"
+            disabled={isLoading}
             className="w-full py-3 bg-[#009CFE] hover:bg-[#005DB5] text-white font-semibold rounded cursor-pointer transition-colors duration-300"
           >
-            Register
+            {isLoading ? "Creating Account..." : "Register"}
           </button>
         </form>
 
@@ -107,7 +168,7 @@ const Register = () => {
 
         <button
           type="button"
-          onClick={() => window.open("https://accounts.google.com/signin")}
+          onClick={handleGoogleRegister}
           className="w-full flex items-center justify-center gap-2 py-3 border border-gray-300 dark:border-gray-600 rounded hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors cursor-pointer dark:text-gray-100"
         >
           <FaGoogle />

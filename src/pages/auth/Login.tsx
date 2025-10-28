@@ -6,6 +6,7 @@ import { useLoginMutation } from "@/redux/features/auth/authApi";
 import { toast } from "sonner";
 import type { SubmitHandler } from "react-hook-form";
 import type { ILogin } from "@/types";
+import config from "@/components/config";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -47,6 +48,11 @@ const Login = () => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     onSubmit(formData);
+  };
+
+  // Handle Google OAuth
+  const handleGoogleLogin = () => {
+    window.open(`${config.baseUrl}/auth/google`, "_self");
   };
 
   return (
@@ -124,7 +130,7 @@ const Login = () => {
 
         <button
           type="button"
-          onClick={() => window.open("https://accounts.google.com/signin")}
+          onClick={handleGoogleLogin}
           className="w-full flex items-center justify-center gap-2 py-3 border border-gray-300 dark:border-gray-600 rounded hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors cursor-pointer dark:text-gray-100"
         >
           <FaGoogle />
