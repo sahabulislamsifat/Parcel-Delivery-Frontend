@@ -8,6 +8,23 @@ import {
 import { useAppDispatch } from "@/redux/hook";
 import { authApi } from "@/redux/features/auth/authApi";
 import { toast } from "sonner";
+import { role } from "@/constants/role";
+
+// 🔹 Helper: return dashboard route based on user role
+const getDashboardRoute = (userRole: string) => {
+  switch (userRole) {
+    case role?.admin:
+      return "/admin";
+    case role?.sender:
+      return "/sender";
+    case role?.receiver:
+      return "/receiver";
+    default:
+      return "/";
+  }
+};
+
+// console.log(role);
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -16,8 +33,8 @@ const Navbar = () => {
   const [logout] = useLogoutMutation();
   const dispatch = useAppDispatch();
 
-  const user = data?.data; // logged-in user data
-  console.log("User DATA:", user);
+  const user = data?.data;
+  // console.log(user?.role);
 
   const handleLogout = async () => {
     try {
@@ -101,7 +118,7 @@ const Navbar = () => {
             {user && (
               <li>
                 <NavLink
-                  to="/dashboard"
+                  to={getDashboardRoute(user.role)}
                   className={({ isActive }) =>
                     isActive ? activeClass : normalClass
                   }
@@ -136,6 +153,7 @@ const Navbar = () => {
                 >
                   <img
                     src={
+                      user?.picture ||
                       "https://cdn-icons-png.flaticon.com/512/149/149071.png"
                     }
                     alt="User Avatar"
@@ -260,7 +278,7 @@ const Navbar = () => {
             {user && (
               <li>
                 <NavLink
-                  to="/dashboard"
+                  to={getDashboardRoute(user.role)}
                   className={({ isActive }) =>
                     isActive
                       ? "text-[#009CFE] font-semibold"

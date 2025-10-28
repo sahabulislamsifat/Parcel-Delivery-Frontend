@@ -6,7 +6,8 @@ interface IUser {
   _id: string;
   email: string;
   name?: string;
-  role: "SUPER_ADMIN" | "ADMIN" | "SENDER" | "RECEIVER";
+  picture?: string;
+  role: "ADMIN" | "SENDER" | "RECEIVER";
 }
 
 export const authApi = baseApi.injectEndpoints({

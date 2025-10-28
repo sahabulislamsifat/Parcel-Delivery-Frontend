@@ -18,7 +18,7 @@ export interface ISidebarItem {
   }[];
 }
 
-export type TRole = "SUPER_ADMIN" | "ADMIN" | "SENDER" | "RECEIVER";
+export type TRole = "ADMIN" | "SENDER" | "RECEIVER";
 
 type ZodIssue = {
   code: string;
