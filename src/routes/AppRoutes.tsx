@@ -14,6 +14,7 @@ import { generateRoutes } from "@/utils/generateRoutes";
 import { adminSidebarItems } from "./adminSidebarItem";
 import { senderSidebarItems } from "./senderSidebarItem";
 import { receiverSidebarItems } from "./receiverSidebarItem";
+import Profile from "@/components/modules/common/Profile"; // ✅ import Profile
 
 export const router = createBrowserRouter([
   {
@@ -35,6 +36,8 @@ export const router = createBrowserRouter([
       },
     ],
   },
+
+  // ADMIN ROUTES
   {
     Component: withAuth(DashboardLayout, role.admin as TRole),
     path: "/admin",
@@ -42,11 +45,13 @@ export const router = createBrowserRouter([
       { index: true, element: <Navigate to="/admin/analytics" /> },
       ...generateRoutes(adminSidebarItems),
       {
-        // path: "bookings/:id",
-        // Component: withAuth(AdminBookingDetails, role.superAdmin as TRole),
+        path: "profile",
+        Component: withAuth(Profile, role.admin as TRole),
       },
     ],
   },
+
+  // SENDER ROUTES
   {
     Component: withAuth(DashboardLayout, role.sender as TRole),
     path: "/sender",
@@ -54,11 +59,13 @@ export const router = createBrowserRouter([
       { index: true, element: <Navigate to="/sender/analytics" /> },
       ...generateRoutes(senderSidebarItems),
       {
-        // path: "bookings/:id",
-        // Component: withAuth(AdminBookingDetails, role.superAdmin as TRole),
+        path: "profile",
+        Component: withAuth(Profile, role.sender as TRole),
       },
     ],
   },
+
+  // RECEIVER ROUTES
   {
     Component: withAuth(DashboardLayout, role.receiver as TRole),
     path: "/receiver",
@@ -66,11 +73,13 @@ export const router = createBrowserRouter([
       { index: true, element: <Navigate to="/receiver/analytics" /> },
       ...generateRoutes(receiverSidebarItems),
       {
-        // path: "bookings/:id",
-        // Component: withAuth(AdminBookingDetails, role.superAdmin as TRole),
+        path: "profile",
+        Component: withAuth(Profile, role.receiver as TRole),
       },
     ],
   },
+
+  // PUBLIC ROUTES
   {
     Component: Login,
     path: "/login",

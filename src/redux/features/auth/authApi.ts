@@ -1,14 +1,7 @@
-import type { IResponse, ISendOtp, IVerifyOtp } from "@/types";
+import type { IResponse, ISendOtp, IUser, IVerifyOtp } from "@/types";
 import { baseApi } from "../api/baseApi";
 
 // Logged-in user type (adjust fields as needed)
-interface IUser {
-  _id: string;
-  email: string;
-  name?: string;
-  picture?: string;
-  role: "ADMIN" | "SENDER" | "RECEIVER";
-}
 
 export const authApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({

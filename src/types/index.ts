@@ -2,6 +2,15 @@ import type { ComponentType } from "react";
 
 export type { ISendOtp, IVerifyOtp, ILogin } from "./auth.type";
 
+export interface IUser {
+  createdAt: string | number | Date;
+  _id: string;
+  email: string;
+  name?: string;
+  picture?: string;
+  role: "ADMIN" | "SENDER" | "RECEIVER";
+}
+
 export interface IResponse<T> {
   statusCode: number;
   success: boolean;
