@@ -3,19 +3,25 @@ import type { ComponentType } from "react";
 export type { ISendOtp, IVerifyOtp, ILogin } from "./auth.type";
 
 export interface IUser {
-  createdAt: string | number | Date;
   _id: string;
   email: string;
   name?: string;
   picture?: string;
   role: "ADMIN" | "SENDER" | "RECEIVER";
+  createdAt: string | number | Date;
 }
 
-export interface IResponse<T> {
+export interface IResponseWithMeta<T> {
   statusCode: number;
   success: boolean;
   message: string;
   data: T;
+  meta?: {
+    total: number;
+    page: number;
+    limit: number;
+    totalPages: number;
+  };
 }
 
 export interface ISidebarItem {
@@ -28,6 +34,26 @@ export interface ISidebarItem {
 }
 
 export type TRole = "ADMIN" | "SENDER" | "RECEIVER";
+
+export interface IUserQueryParams {
+  page?: number;
+  limit?: number;
+  role?: string;
+  status?: string;
+  search?: string;
+}
+
+export interface IUserListResponse {
+  data: IUser[];
+  meta: {
+    total: number;
+    page: number;
+    limit: number;
+    totalPages: number;
+  };
+}
+
+export type ApiData<T> = IResponseWithMeta<T>["data"];
 
 type ZodIssue = {
   code: string;

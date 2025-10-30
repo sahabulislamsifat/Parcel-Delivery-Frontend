@@ -1,3 +1,4 @@
+import ManageAllUsers from "@/components/modules/admin/ManageAllUsers";
 import type { ISidebarItem } from "@/types";
 import { lazy } from "react";
 
@@ -17,11 +18,11 @@ export const adminSidebarItems: ISidebarItem[] = [
   {
     title: "ParcelXpress",
     items: [
-      //   {
-      //     title: "All Bookings (Manage)",
-      //     url: "/admin/all-bookings",
-      //     component: AllBookingsTable,
-      //   },
+      {
+        title: "Manage All Users",
+        url: "/admin/manage-all-users",
+        component: ManageAllUsers,
+      },
     ],
   },
 ];
