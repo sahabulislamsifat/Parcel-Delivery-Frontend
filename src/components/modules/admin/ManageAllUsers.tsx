@@ -2,7 +2,6 @@
 import { useEffect, useState } from "react";
 import { useAppSelector, useAppDispatch } from "@/redux/hook";
 import { Loader2, Trash2, ShieldBan, ShieldCheck, Edit2 } from "lucide-react";
-import { FaArrowLeftLong, FaArrowRightLong } from "react-icons/fa6";
 import { toast } from "sonner";
 import {
   useBlockUserMutation,
@@ -155,7 +154,7 @@ const ManageAllUsers = () => {
       </div>
 
       {/* Users Table */}
-      <div className="overflow-x-auto bg-white dark:bg-[#101828] rounded-none shadow">
+      <div className="overflow-x-auto bg-white dark:bg-[#101828] rounded-none">
         {isLoading ? (
           <div className="flex justify-center py-10">
             <Loader2 className="animate-spin h-8 w-8 text-blue-600" />
@@ -163,7 +162,7 @@ const ManageAllUsers = () => {
         ) : (
           <table className="min-w-full border-collapse">
             <thead>
-              <tr className="bg-gray-100 dark:bg-gradient-to-l from-blue-300 via-white to-gray-200 dark:text-black text-left">
+              <tr className="bg-gray-100 bg-gradient-to-l from-blue-300 via-white to-gray-200 text-black text-left">
                 <th className="p-3">Name</th>
                 <th className="p-3">Email</th>
                 <th className="p-3">Role</th>
@@ -193,7 +192,7 @@ const ManageAllUsers = () => {
                     <td className="p-3">{user.role}</td>
                     <td className="p-3">
                       <span
-                        className={`px-3 py-1 rounded-none text-sm font-medium ${
+                        className={`px-3 py-1 rounded-full text-sm font-semibold ${
                           (user as any).status === "BLOCKED"
                             ? "bg-red-100 text-red-600"
                             : "bg-green-100 text-green-600"
@@ -207,7 +206,7 @@ const ManageAllUsers = () => {
                         onClick={() =>
                           handleBlockToggle(user._id, (user as any).status)
                         }
-                        className={`p-2 cursor-pointer rounded-none ${
+                        className={`p-2 hover:scale-110 transition cursor-pointer rounded-full ${
                           (user as any).status === "BLOCKED"
                             ? "bg-green-100 hover:bg-green-200 text-green-600"
                             : "bg-red-100 hover:bg-red-200 text-red-600"
@@ -226,7 +225,7 @@ const ManageAllUsers = () => {
                       </button>
                       <button
                         onClick={() => handleEdit(user)}
-                        className="p-2 rounded-none cursor-pointer bg-blue-100 hover:bg-blue-200 text-blue-600"
+                        className="p-2 rounded-full hover:scale-110 transition cursor-pointer bg-blue-100 hover:bg-blue-200 text-blue-600"
                         title="Edit User"
                       >
                         <Edit2 size={18} />
@@ -237,7 +236,7 @@ const ManageAllUsers = () => {
                         <AlertDialogTrigger asChild>
                           <button
                             onClick={() => setSelectedUserId(user._id)}
-                            className="p-2 rounded-none cursor-pointer bg-gray-100 hover:bg-gray-200 text-gray-600"
+                            className="p-2 bg-gray-100 text-gray-700 rounded-full hover:bg-red-100 cursor-pointer hover:text-red-600 hover:scale-110 transition"
                             title="Delete User"
                           >
                             <Trash2 size={18} />
@@ -293,9 +292,9 @@ const ManageAllUsers = () => {
           title="Previous"
           onClick={() => handlePageChange(page - 1)}
           disabled={page <= 1}
-          className="p-2 border rounded-none px-5 cursor-pointer disabled:opacity-50"
+          className="px-4 py-1 rounded-none bg-gray-100 dark:bg-gray-800 disabled:opacity-50"
         >
-          <FaArrowLeftLong />
+          ← Prev
         </button>
         <span className="text-sm">
           Page {meta.page} of {meta.totalPages}
@@ -304,9 +303,9 @@ const ManageAllUsers = () => {
           title="Next"
           onClick={() => handlePageChange(page + 1)}
           disabled={page >= meta.totalPages}
-          className="p-2 border rounded-none cursor-pointer px-6 disabled:opacity-50 flex items-center gap-1"
+          className="px-4 py-1 rounded-none bg-gray-100 dark:bg-gray-800 disabled:opacity-50"
         >
-          <FaArrowRightLong />
+          Next →
         </button>
       </div>
 

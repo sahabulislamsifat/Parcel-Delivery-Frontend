@@ -2,6 +2,8 @@ import type { ComponentType } from "react";
 
 export type { ISendOtp, IVerifyOtp, ILogin } from "./auth.type";
 
+export type { ParcelStatus } from "./parcel.type";
+
 export interface IUser {
   _id: string;
   email: string;
