@@ -164,7 +164,7 @@ const Navbar = () => {
                 {/* Dropdown */}
                 {isDropdownOpen && (
                   <div className="absolute right-0 mt-3 w-40 bg-white dark:bg-gray-800 shadow-md rounded-none border border-gray-200 dark:border-gray-700 py-2 z-50">
-                    <p className="text-sm text-center text-gray-700 dark:text-gray-300 font-medium px-2">
+                    <p className="text-sm text-gray-700 dark:text-gray-300 font-medium px-4">
                       {user?.name || "User"}
                     </p>
                     <hr className="my-1 border-gray-200 dark:border-gray-700" />

@@ -20,6 +20,8 @@ import { getSidebarItems } from "@/utils/getSidebarItem";
 import { useAppDispatch } from "@/redux/hook";
 import { authApi } from "@/redux/features/auth/authApi";
 import { toast } from "sonner";
+import { GrLogout } from "react-icons/gr";
+import { RiProfileLine } from "react-icons/ri";
 
 const AppSidebar = (props: any) => {
   const { data: userData } = useUserInfoQuery(undefined);
@@ -78,15 +80,15 @@ const AppSidebar = (props: any) => {
       <div className="mb-4 flex flex-col gap-4 bg-white dark:bg-[#101828]">
         <Link
           to={`/${role.toLowerCase()}/profile`}
-          className="hover:bg-[#009CFE] w-full hover:text-white mx-auto py-1 px-2 dark:text-white text-center transition-colors duration-200"
+          className="hover:bg-[#2a2c2c] w-full hover:text-white mx-auto py-1 px-4 dark:text-white text-start transition-colors duration-200 flex items-center gap-2"
         >
-          Profile
+          <RiProfileLine /> Profile
         </Link>
         <button
           onClick={handleLogout}
-          className="bg-red-600 hover:bg-red-700 w-full mx-auto py-1 text-white transition-colors duration-200"
+          className="hover:bg-red-700 w-full mx-auto py-1 text-white transition-colors duration-200 text-start px-4 cursor-pointer flex items-center gap-2"
         >
-          Logout
+          <GrLogout /> Logout
         </button>
       </div>
 

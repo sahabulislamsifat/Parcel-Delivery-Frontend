@@ -3,16 +3,18 @@ import ManageAllUsers from "@/components/modules/admin/ManageAllUsers";
 import type { ISidebarItem } from "@/types";
 import { lazy } from "react";
 
-const Analytics = lazy(() => import("@/components/modules/admin/Analytics"));
+const ParcelAnalytics = lazy(
+  () => import("@/components/modules/admin/ParcelAnalytics")
+);
 
 export const adminSidebarItems: ISidebarItem[] = [
   {
-    title: "Dashboard",
+    title: "Admin",
     items: [
       {
-        title: "Analytics",
+        title: "Parcel Analytics",
         url: "/admin/analytics",
-        component: Analytics,
+        component: ParcelAnalytics,
       },
     ],
   },

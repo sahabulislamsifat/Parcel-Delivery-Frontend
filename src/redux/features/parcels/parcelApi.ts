@@ -4,11 +4,22 @@ import { baseApi } from "../api/baseApi";
 export const parcelApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
     // Get all parcels (Admin)
-    getAllParcels: builder.query<any, { page?: number; limit?: number }>({
-      query: ({ page = 1, limit = 10 }) => ({
-        url: `/parcel/all-parcels?page=${page}&limit=${limit}`,
-        method: "GET",
-      }),
+    getAllParcels: builder.query<
+      any,
+      { page?: number; limit?: number; search?: string }
+    >({
+      query: ({ page = 1, limit = 10, search }) => {
+        const params = new URLSearchParams({
+          page: page.toString(),
+          limit: limit.toString(),
+        });
+        if (search) params.append("search", search);
+
+        return {
+          url: `/parcel/all-parcels?${params.toString()}`,
+          method: "GET",
+        };
+      },
       providesTags: ["PARCEL"],
     }),
 
@@ -40,6 +51,15 @@ export const parcelApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: ["PARCEL"],
     }),
+
+    // Parcel Statistics
+    getParcelStatistics: builder.query<any, void>({
+      query: () => ({
+        url: "/parcel/statistics",
+        method: "GET",
+      }),
+      providesTags: ["PARCEL"],
+    }),
   }),
 });
 
@@ -48,4 +68,5 @@ export const {
   useUpdateParcelStatusMutation,
   useBlockUnblockParcelMutation,
   useDeleteParcelMutation,
+  useGetParcelStatisticsQuery,
 } = parcelApi;

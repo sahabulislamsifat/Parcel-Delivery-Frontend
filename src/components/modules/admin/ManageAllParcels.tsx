@@ -43,9 +43,16 @@ const PARCEL_STATUSES: ParcelStatus[] = [
 const ManageAllParcels = () => {
   const [page, setPage] = useState(1);
   const [selectedParcelId, setSelectedParcelId] = useState<string | null>(null);
+  const [search, setSearch] = useState("");
+  const [localSearch, setLocalSearch] = useState("");
   const limit = 10;
 
-  const { data, isLoading, refetch } = useGetAllParcelsQuery({ page, limit });
+  const { data, isLoading, refetch } = useGetAllParcelsQuery({
+    page,
+    limit,
+    search: search || undefined,
+  });
+
   const [deleteParcel] = useDeleteParcelMutation();
   const [blockUnblockParcel] = useBlockUnblockParcelMutation();
   const [updateParcelStatus] = useUpdateParcelStatusMutation();
@@ -93,6 +100,12 @@ const ManageAllParcels = () => {
     }
   };
 
+  const handleSearch = (e: React.FormEvent) => {
+    e.preventDefault();
+    setSearch(localSearch);
+    setPage(1);
+  };
+
   if (isLoading)
     return (
       <div className="flex justify-center items-center h-80">
@@ -102,7 +115,26 @@ const ManageAllParcels = () => {
 
   return (
     <div className="p-6">
-      <h2 className="text-2xl font-semibold mb-6">Manage All Parcels</h2>
+      <h2 className="text-2xl font-medium mb-6">Manage All Parcels</h2>
+
+      {/* 🔍 Search Bar */}
+      <div className="mb-4 flex flex-wrap items-center gap-3">
+        <form onSubmit={handleSearch} className="flex items-center gap-2">
+          <input
+            type="text"
+            value={localSearch}
+            onChange={(e) => setLocalSearch(e.target.value)}
+            placeholder="Search by Tracking ID, Sender, or Receiver..."
+            className="border rounded-none px-3 py-2 w-72"
+          />
+          <button
+            type="submit"
+            className="bg-blue-600 text-white px-4 py-2 rounded-none cursor-pointer hover:bg-blue-700"
+          >
+            Search
+          </button>
+        </form>
+      </div>
 
       <div className="overflow-x-auto bg-white dark:bg-gray-900 rounded-none">
         <table className="min-w-full text-sm text-gray-700 dark:text-gray-300">
