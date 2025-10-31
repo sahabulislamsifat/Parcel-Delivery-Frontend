@@ -69,7 +69,7 @@ const Profile = () => {
 
   return (
     <div className="min-h-[80vh] flex justify-center items-center dark:bg-[#101828] py-10 px-4">
-      <div className="bg-white dark:bg-[#101828] shadow-lg rounded-2xl w-full max-w-md p-6 md:p-8 transition-all duration-300">
+      <div className="bg-white dark:bg-[#101828] shadow-lg rounded-none w-full max-w-md p-6 md:p-8 transition-all duration-300">
         <div className="flex flex-col items-center gap-4">
           {/* Avatar */}
           <div className="w-24 h-24 rounded-full bg-gradient-to-tr from-blue-500 to-purple-500 flex items-center justify-center text-white text-4xl font-semibold shadow-md">

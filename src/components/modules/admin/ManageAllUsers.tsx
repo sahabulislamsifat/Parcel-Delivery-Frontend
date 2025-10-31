@@ -1,15 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useEffect, useState } from "react";
 import { useAppSelector, useAppDispatch } from "@/redux/hook";
-import {
-  Loader2,
-  Trash2,
-  ShieldBan,
-  ShieldCheck,
-  Edit2,
-  ChevronLeft,
-  ChevronRight,
-} from "lucide-react";
+import { Loader2, Trash2, ShieldBan, ShieldCheck, Edit2 } from "lucide-react";
+import { FaArrowLeftLong, FaArrowRightLong } from "react-icons/fa6";
 import { toast } from "sonner";
 import {
   useBlockUserMutation,
@@ -19,6 +12,17 @@ import {
 } from "@/redux/features/users/usersApi";
 import { setFilters } from "@/redux/features/users/usersSlice";
 import type { IResponseWithMeta, IUserListResponse } from "@/types";
+import {
+  AlertDialog,
+  AlertDialogTrigger,
+  AlertDialogContent,
+  AlertDialogHeader,
+  AlertDialogFooter,
+  AlertDialogTitle,
+  AlertDialogDescription,
+  AlertDialogCancel,
+  AlertDialogAction,
+} from "@/components/ui/alert-dialog";
 
 const ManageAllUsers = () => {
   const dispatch = useAppDispatch();
@@ -29,6 +33,7 @@ const ManageAllUsers = () => {
   const [localSearch, setLocalSearch] = useState(search);
   const [editingUser, setEditingUser] = useState<any>(null);
   const [updateData, setUpdateData] = useState({ role: "", status: "" });
+  const [selectedUserId, setSelectedUserId] = useState<string | null>(null); // for delete dialog
 
   const { data, isLoading, refetch } = useGetAllUsersQuery({
     page,
@@ -69,25 +74,23 @@ const ManageAllUsers = () => {
     }
   };
 
-  //  Handle delete
-  const handleDelete = async (id: string) => {
-    if (!confirm("Are you sure you want to delete this user?")) return;
+  const confirmDelete = async () => {
+    if (!selectedUserId) return;
     try {
-      await deleteUser(id).unwrap();
+      await deleteUser(selectedUserId).unwrap();
       toast.success("User deleted successfully");
+      setSelectedUserId(null);
       refetch();
     } catch (err: any) {
       toast.error(err?.data?.message || "Failed to delete user");
     }
   };
 
-  // Handle pagination
   const handlePageChange = (newPage: number) => {
     if (newPage < 1 || newPage > meta.totalPages) return;
     dispatch(setFilters({ page: newPage }));
   };
 
-  // Handle edit user
   const handleEdit = (user: any) => {
     setEditingUser(user);
     setUpdateData({ role: user.role, status: (user as any).status });
@@ -96,7 +99,7 @@ const ManageAllUsers = () => {
   const handleUpdateSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      await updateUser({ id: editingUser._id, body: updateData }).unwrap();
+      await updateUser({ id: editingUser._id, data: updateData }).unwrap();
       toast.success("User updated successfully");
       setEditingUser(null);
       refetch();
@@ -143,7 +146,7 @@ const ManageAllUsers = () => {
           onChange={(e) =>
             dispatch(setFilters({ status: e.target.value || "" }))
           }
-          className="border rounded-none bg-[#101828] px-3 py-2"
+          className="border rounded-none bg-white dark:bg-[#101828] px-3 py-2"
         >
           <option value="">All Status</option>
           <option value="ACTIVE">Active</option>
@@ -228,13 +231,44 @@ const ManageAllUsers = () => {
                       >
                         <Edit2 size={18} />
                       </button>
-                      <button
-                        onClick={() => handleDelete(user._id)}
-                        className="p-2 rounded-none cursor-pointer bg-gray-100 hover:bg-gray-200 text-gray-600"
-                        title="Delete User"
-                      >
-                        <Trash2 size={18} />
-                      </button>
+
+                      {/* Delete with AlertDialog */}
+                      <AlertDialog>
+                        <AlertDialogTrigger asChild>
+                          <button
+                            onClick={() => setSelectedUserId(user._id)}
+                            className="p-2 rounded-none cursor-pointer bg-gray-100 hover:bg-gray-200 text-gray-600"
+                            title="Delete User"
+                          >
+                            <Trash2 size={18} />
+                          </button>
+                        </AlertDialogTrigger>
+                        <AlertDialogContent className="rounded-none">
+                          <AlertDialogHeader>
+                            <AlertDialogTitle>
+                              Are you sure you want to delete this user?
+                            </AlertDialogTitle>
+                            <AlertDialogDescription>
+                              This action cannot be undone. The user’s data will
+                              be permanently removed.
+                            </AlertDialogDescription>
+                          </AlertDialogHeader>
+                          <AlertDialogFooter>
+                            <AlertDialogCancel
+                              className="rounded-none"
+                              onClick={() => setSelectedUserId(null)}
+                            >
+                              Cancel
+                            </AlertDialogCancel>
+                            <AlertDialogAction
+                              onClick={confirmDelete}
+                              className="bg-red-600 rounded-none hover:bg-red-700"
+                            >
+                              Yes, Delete
+                            </AlertDialogAction>
+                          </AlertDialogFooter>
+                        </AlertDialogContent>
+                      </AlertDialog>
                     </td>
                   </tr>
                 ))
@@ -256,28 +290,30 @@ const ManageAllUsers = () => {
       {/* Pagination */}
       <div className="flex justify-center items-center gap-4 mt-6">
         <button
+          title="Previous"
           onClick={() => handlePageChange(page - 1)}
           disabled={page <= 1}
-          className="p-2 border rounded-md disabled:opacity-50"
+          className="p-2 border rounded-none px-5 cursor-pointer disabled:opacity-50"
         >
-          <ChevronLeft size={20} />
+          <FaArrowLeftLong />
         </button>
         <span className="text-sm">
           Page {meta.page} of {meta.totalPages}
         </span>
         <button
+          title="Next"
           onClick={() => handlePageChange(page + 1)}
           disabled={page >= meta.totalPages}
-          className="p-2 border rounded-md disabled:opacity-50"
+          className="p-2 border rounded-none cursor-pointer px-6 disabled:opacity-50 flex items-center gap-1"
         >
-          <ChevronRight size={20} />
+          <FaArrowRightLong />
         </button>
       </div>
 
       {/* Edit Modal */}
       {editingUser && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-          <div className="bg-white dark:bg-gray-900 rounded-xl shadow-lg p-6 w-96">
+          <div className="bg-white dark:bg-[#101828] rounded-none shadow-lg p-6 w-96">
             <h3 className="text-xl font-semibold mb-4">
               Edit User: {editingUser.name}
             </h3>
@@ -289,7 +325,7 @@ const ManageAllUsers = () => {
                   onChange={(e) =>
                     setUpdateData({ ...updateData, role: e.target.value })
                   }
-                  className="w-full border rounded-md px-3 py-2"
+                  className="w-full border rounded-none dark:bg-[#101828] px-3 py-2"
                 >
                   <option value="ADMIN">Admin</option>
                   <option value="SENDER">Sender</option>
@@ -304,7 +340,7 @@ const ManageAllUsers = () => {
                   onChange={(e) =>
                     setUpdateData({ ...updateData, status: e.target.value })
                   }
-                  className="w-full border rounded-md px-3 py-2"
+                  className="w-full border rounded-none dark:bg-[#101828] px-3 py-2"
                 >
                   <option value="ACTIVE">Active</option>
                   <option value="BLOCKED">Blocked</option>
@@ -315,13 +351,13 @@ const ManageAllUsers = () => {
                 <button
                   type="button"
                   onClick={() => setEditingUser(null)}
-                  className="px-4 py-2 border rounded-md"
+                  className="px-4 py-2 border rounded-none"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
-                  className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700"
+                  className="px-4 py-2 bg-blue-600 text-white rounded-none hover:bg-blue-700"
                 >
                   Save Changes
                 </button>

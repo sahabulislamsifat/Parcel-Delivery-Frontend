@@ -75,10 +75,10 @@ const AppSidebar = (props: any) => {
       </SidebarContent>
 
       {/* Profile + Logout */}
-      <div className="mb-4 flex flex-col gap-4 bg-[#101828]">
+      <div className="mb-4 flex flex-col gap-4 bg-white dark:bg-[#101828]">
         <Link
           to={`/${role.toLowerCase()}/profile`}
-          className="hover:bg-[#009CFE] w-full mx-auto py-1 px-2 text-white text-center transition-colors duration-200"
+          className="hover:bg-[#009CFE] w-full hover:text-white mx-auto py-1 px-2 dark:text-white text-center transition-colors duration-200"
         >
           Profile
         </Link>

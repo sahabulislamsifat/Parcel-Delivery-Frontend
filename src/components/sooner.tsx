@@ -14,14 +14,14 @@ const Toaster = ({ ...props }: ToasterProps) => {
           className:
             "border text-sm font-medium shadow-md transition-all duration-300",
           success: {
-            className: "bg-green-500 text-white border-green-600",
+            className: "bg-green-500 text-white rounded-none border-green-600",
             iconTheme: {
               primary: "white",
               secondary: "green",
             },
           },
           error: {
-            className: "bg-red-500 text-white border-red-600",
+            className: "bg-red-500 text-white border-red-600 rounded-none",
             iconTheme: {
               primary: "white",
               secondary: "red",

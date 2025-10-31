@@ -32,13 +32,16 @@ export const userApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: ["USER"],
     }),
+
     updateUser: builder.mutation({
-      query: ({ id, body }) => ({
+      query: ({ id, data }) => ({
         url: `/user/${id}`,
         method: "PATCH",
-        body,
+        data,
       }),
+      invalidatesTags: ["USER"],
     }),
+
     deleteUser: builder.mutation<IResponseWithMeta<null>, string>({
       query: (id) => ({
         url: `/user/delete/${id}`,
