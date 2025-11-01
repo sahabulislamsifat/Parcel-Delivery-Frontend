@@ -45,6 +45,7 @@ const ManageAllUsers = () => {
     isLoading: boolean;
     refetch: () => void;
   };
+  console.log(data);
 
   const [blockUser] = useBlockUserMutation();
   const [deleteUser] = useDeleteUserMutation();
@@ -52,6 +53,7 @@ const ManageAllUsers = () => {
 
   const users = Array.isArray(data?.data) ? data.data : [];
   const meta = data?.meta || { totalPages: 1, page: 1 };
+  console.log(users);
 
   useEffect(() => {
     refetch();
@@ -261,7 +263,7 @@ const ManageAllUsers = () => {
                             </AlertDialogCancel>
                             <AlertDialogAction
                               onClick={confirmDelete}
-                              className="bg-red-600 rounded-none hover:bg-red-700"
+                              className="bg-red-600 rounded-none text-white hover:bg-red-700"
                             >
                               Yes, Delete
                             </AlertDialogAction>

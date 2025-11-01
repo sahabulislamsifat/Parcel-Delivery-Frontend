@@ -3,6 +3,7 @@ import { useState } from "react";
 import { useUserInfoQuery } from "@/redux/features/auth/authApi";
 import { toast } from "sonner";
 import { Loader2, User, Mail, Shield, Calendar, Lock } from "lucide-react";
+import { FiEdit } from "react-icons/fi";
 
 const Profile = () => {
   const { data, isLoading, isError } = useUserInfoQuery(undefined);
@@ -118,13 +119,13 @@ const Profile = () => {
         <div className="mt-8 flex flex-col sm:flex-row justify-between gap-3">
           <button
             onClick={() => toast.info("Edit feature coming soon!")}
-            className="flex-1 py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-none transition-all duration-200"
+            className="flex items-center justify-center gap-2 flex-1 py-2 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-none transition-all duration-200"
           >
-            Edit Profile
+            <FiEdit /> Edit Profile
           </button>
           <button
             onClick={() => setIsModalOpen(true)}
-            className="flex items-center justify-center gap-2 flex-1 py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-none transition-all duration-200"
+            className="flex items-center justify-center gap-2 flex-1 py-2 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-none transition-all duration-200"
           >
             <Lock size={18} />
             Change Password

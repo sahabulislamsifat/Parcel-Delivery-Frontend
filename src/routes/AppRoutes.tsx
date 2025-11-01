@@ -14,7 +14,7 @@ import { generateRoutes } from "@/utils/generateRoutes";
 import { adminSidebarItems } from "./adminSidebarItem";
 import { senderSidebarItems } from "./senderSidebarItem";
 import { receiverSidebarItems } from "./receiverSidebarItem";
-import Profile from "@/components/modules/common/Profile"; // ✅ import Profile
+import Profile from "@/components/modules/common/Profile";
 
 export const router = createBrowserRouter([
   {
@@ -40,9 +40,9 @@ export const router = createBrowserRouter([
   // ADMIN ROUTES
   {
     Component: withAuth(DashboardLayout, role.admin as TRole),
-    path: "/admin",
+    path: "/admin-dashboard",
     children: [
-      { index: true, element: <Navigate to="/admin/analytics" /> },
+      { index: true, element: <Navigate to="/admin-dashboard/overview" /> },
       ...generateRoutes(adminSidebarItems),
       {
         path: "profile",
@@ -54,9 +54,9 @@ export const router = createBrowserRouter([
   // SENDER ROUTES
   {
     Component: withAuth(DashboardLayout, role.sender as TRole),
-    path: "/sender",
+    path: "/sender-dashboard",
     children: [
-      { index: true, element: <Navigate to="/sender/analytics" /> },
+      { index: true, element: <Navigate to="/sender-dashboard/overview" /> },
       ...generateRoutes(senderSidebarItems),
       {
         path: "profile",
@@ -68,9 +68,9 @@ export const router = createBrowserRouter([
   // RECEIVER ROUTES
   {
     Component: withAuth(DashboardLayout, role.receiver as TRole),
-    path: "/receiver",
+    path: "/receiver-dashboard",
     children: [
-      { index: true, element: <Navigate to="/receiver/analytics" /> },
+      { index: true, element: <Navigate to="/receiver-dashboard/overview" /> },
       ...generateRoutes(receiverSidebarItems),
       {
         path: "profile",

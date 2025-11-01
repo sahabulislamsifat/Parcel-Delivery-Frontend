@@ -14,11 +14,11 @@ import { role } from "@/constants/role";
 const getDashboardRoute = (userRole: string) => {
   switch (userRole) {
     case role?.admin:
-      return "/admin";
+      return "/admin-dashboard";
     case role?.sender:
-      return "/sender";
+      return "/sender-dashboard";
     case role?.receiver:
-      return "/receiver";
+      return "/receiver-dashboard";
     default:
       return "/";
   }

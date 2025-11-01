@@ -9,6 +9,17 @@ import { baseApi } from "../api/baseApi";
 // User API endpoints
 export const userApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
+    getAllReceivers: builder.query<
+      IResponseWithMeta<IUserListResponse>,
+      IUserQueryParams
+    >({
+      query: (params) => ({
+        url: "/user/all-receivers",
+        method: "GET",
+        params,
+      }),
+      providesTags: ["SENDER"],
+    }),
     getAllUsers: builder.query<
       IResponseWithMeta<IUserListResponse>,
       IUserQueryParams
@@ -18,7 +29,7 @@ export const userApi = baseApi.injectEndpoints({
         method: "GET",
         params,
       }),
-      providesTags: ["USER"],
+      providesTags: ["ADMIN"],
     }),
 
     blockUser: builder.mutation<
@@ -53,6 +64,7 @@ export const userApi = baseApi.injectEndpoints({
 });
 
 export const {
+  useGetAllReceiversQuery,
   useGetAllUsersQuery,
   useBlockUserMutation,
   useUpdateUserMutation,

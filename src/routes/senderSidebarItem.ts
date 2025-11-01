@@ -1,9 +1,10 @@
 import MyParcels from "@/components/modules/sender/MyParcels";
+import CreateParcel from "@/components/modules/sender/CreateParcel";
 import type { ISidebarItem } from "@/types";
 import { lazy } from "react";
 
-const SenderAnalytics = lazy(
-  () => import("@/components/modules/sender/SenderAnalytics")
+const SenderOverview = lazy(
+  () => import("@/components/modules/sender/SenderOverview")
 );
 
 export const senderSidebarItems: ISidebarItem[] = [
@@ -11,9 +12,9 @@ export const senderSidebarItems: ISidebarItem[] = [
     title: "Sender",
     items: [
       {
-        title: "Analytics",
-        url: "/sender/analytics",
-        component: SenderAnalytics,
+        title: "Overview",
+        url: "/sender-dashboard/overview",
+        component: SenderOverview,
       },
     ],
   },
@@ -21,13 +22,13 @@ export const senderSidebarItems: ISidebarItem[] = [
     title: "ParcelXpress",
     items: [
       {
-        title: "My Parcels",
-        url: "/sender/my-parcels",
-        component: MyParcels,
+        title: "Create Parcel",
+        url: "/sender-dashboard/create-parcel",
+        component: CreateParcel,
       },
       {
-        title: "Parcel Booking",
-        url: "/sender/booking-parcel",
+        title: "View My Parcels",
+        url: "/sender-dashboard/my-parcels",
         component: MyParcels,
       },
     ],

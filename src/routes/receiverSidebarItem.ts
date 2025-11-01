@@ -1,15 +1,20 @@
+import DeliveryHistory from "@/components/modules/receiver/DeliveryHistory";
 import IncomingParcels from "@/components/modules/receiver/IncomingParcels";
-import ReceiverAnalytics from "@/components/modules/receiver/ReceiverAnalytics";
 import type { ISidebarItem } from "@/types";
+import { lazy } from "react";
+
+const ReceiverOverview = lazy(
+  () => import("@/components/modules/receiver/ReceiverOverview")
+);
 
 export const receiverSidebarItems: ISidebarItem[] = [
   {
     title: "Receiver",
     items: [
       {
-        title: "Analytics",
-        url: "/receiver/analytics",
-        component: ReceiverAnalytics,
+        title: "Overview",
+        url: "/receiver-dashboard/overview",
+        component: ReceiverOverview,
       },
     ],
   },
@@ -18,8 +23,13 @@ export const receiverSidebarItems: ISidebarItem[] = [
     items: [
       {
         title: "Incoming Parcels",
-        url: "/receiver/incoming-parcels",
+        url: "/receiver-dashboard/incoming-parcels",
         component: IncomingParcels,
+      },
+      {
+        title: "Delivery History",
+        url: "/receiver-dashboard/delivery-history",
+        component: DeliveryHistory,
       },
     ],
   },

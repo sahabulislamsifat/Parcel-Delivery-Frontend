@@ -79,14 +79,14 @@ const AppSidebar = (props: any) => {
       {/* Profile + Logout */}
       <div className="mb-4 flex flex-col gap-4 bg-white dark:bg-[#101828]">
         <Link
-          to={`/${role.toLowerCase()}/profile`}
+          to={`/${role.toLowerCase()}-dashboard/profile`}
           className="hover:bg-[#2a2c2c] w-full hover:text-white mx-auto py-1 px-4 dark:text-white text-start transition-colors duration-200 flex items-center gap-2"
         >
           <RiProfileLine /> Profile
         </Link>
         <button
           onClick={handleLogout}
-          className="hover:bg-red-700 w-full mx-auto py-1 text-white transition-colors duration-200 text-start px-4 cursor-pointer flex items-center gap-2"
+          className="hover:bg-red-700 w-full mx-auto py-1 hover:text-white dark:text-white transition-colors duration-200 text-start px-4 cursor-pointer flex items-center gap-2"
         >
           <GrLogout /> Logout
         </button>
