@@ -14,27 +14,7 @@ export const parcelApi = baseApi.injectEndpoints({
       invalidatesTags: ["PARCEL"],
     }),
 
-    // Get all parcels (Admin)
-    getAllParcels: builder.query<
-      any,
-      { page?: number; limit?: number; search?: string }
-    >({
-      query: ({ page = 1, limit = 10, search }) => {
-        const params = new URLSearchParams({
-          page: page.toString(),
-          limit: limit.toString(),
-        });
-        if (search) params.append("search", search);
-
-        return {
-          url: `/parcel/all-parcels?${params.toString()}`,
-          method: "GET",
-        };
-      },
-      providesTags: ["PARCEL"],
-    }),
-
-    // NEW: Sender’s own parcels
+    // Sender’s own parcels
     getMyParcels: builder.query<
       any,
       { page?: number; limit?: number; search?: string }
@@ -54,11 +34,72 @@ export const parcelApi = baseApi.injectEndpoints({
       providesTags: ["PARCEL"],
     }),
 
+    // Receiver
+    getIncomingParcels: builder.query<
+      any,
+      { page?: number; limit?: number; search?: string }
+    >({
+      query: ({ page = 1, limit = 10, search }) => {
+        const params = new URLSearchParams({
+          page: page.toString(),
+          limit: limit.toString(),
+        });
+        if (search) params.append("search", search);
+        return {
+          url: `/parcel/incoming-parcels?${params.toString()}`,
+          method: "GET",
+        };
+      },
+      providesTags: ["PARCEL"],
+    }),
+
+    getReceiverStats: builder.query({
+      query: () => ({
+        url: "/parcel/receiver-statistics",
+        method: "GET",
+      }),
+      providesTags: ["PARCEL"],
+    }),
+
     getParcelById: builder.query({
       query: (id) => ({
         url: `/parcel/${id}`,
         method: "GET",
       }),
+      providesTags: ["PARCEL"],
+    }),
+    // Delivered parcels (sender view)
+    getDeliveredParcels: builder.query<any, { page?: number; limit?: number }>({
+      query: ({ page = 1, limit = 10 }) => {
+        const params = new URLSearchParams({
+          page: page.toString(),
+          limit: limit.toString(),
+        });
+        return {
+          url: `/parcel/delivered?${params.toString()}`,
+          method: "GET",
+        };
+      },
+      providesTags: ["PARCEL"],
+    }),
+
+    // Get all parcels (Admin)
+    getAllParcels: builder.query<
+      any,
+      { page?: number; limit?: number; search?: string }
+    >({
+      query: ({ page = 1, limit = 10, search }) => {
+        const params = new URLSearchParams({
+          page: page.toString(),
+          limit: limit.toString(),
+        });
+        if (search) params.append("search", search);
+
+        return {
+          url: `/parcel/all-parcels?${params.toString()}`,
+          method: "GET",
+        };
+      },
       providesTags: ["PARCEL"],
     }),
 
@@ -105,9 +146,12 @@ export const parcelApi = baseApi.injectEndpoints({
 export const {
   useCreateParcelMutation,
   useLazyGetMyParcelsQuery,
-  useGetParcelByIdQuery,
-  useGetAllParcelsQuery,
   useGetMyParcelsQuery,
+  useGetIncomingParcelsQuery,
+  useGetReceiverStatsQuery,
+  useGetParcelByIdQuery,
+  useGetDeliveredParcelsQuery,
+  useGetAllParcelsQuery,
   useUpdateParcelStatusMutation,
   useBlockUnblockParcelMutation,
   useDeleteParcelMutation,

@@ -44,6 +44,7 @@ const ParcelAnalytics = () => {
     );
 
   const stats = data.data;
+  // console.log(stats);
 
   const chartData = [
     { name: "Delivered", value: stats.delivered },
