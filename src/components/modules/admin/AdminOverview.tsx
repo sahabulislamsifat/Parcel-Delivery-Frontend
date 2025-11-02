@@ -1,7 +1,7 @@
 import { useUserInfoQuery } from "@/redux/features/auth/authApi";
 import ParcelAnalytics from "./ParcelAnalytics";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Loader2 } from "lucide-react";
+import LoadingSpinner from "@/components/LoadingSpinner";
 
 const AdminOverview = () => {
   const { data, isLoading, isError } = useUserInfoQuery(undefined);
@@ -9,7 +9,7 @@ const AdminOverview = () => {
   if (isLoading)
     return (
       <div className="flex justify-center items-center h-80">
-        <Loader2 className="animate-spin text-primary w-10 h-10" />
+        <LoadingSpinner></LoadingSpinner>
       </div>
     );
 

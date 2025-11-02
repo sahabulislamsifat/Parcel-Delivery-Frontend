@@ -39,6 +39,7 @@ import {
 import { cn } from "@/lib/utils";
 import { useCreateParcelMutation } from "@/redux/features/parcels/parcelApi";
 import { useGetAllReceiversQuery } from "@/redux/features/users/usersApi";
+import LoadingSpinner from "@/components/LoadingSpinner";
 
 // Zod Schema for Validation
 const parcelSchema = z.object({
@@ -112,6 +113,13 @@ const CreateParcel = () => {
       });
     }
   };
+
+  if (isLoading)
+    return (
+      <div className="flex justify-center items-center h-80">
+        <LoadingSpinner></LoadingSpinner>
+      </div>
+    );
 
   return (
     <div className="w-full max-w-3xl mx-auto px-5">

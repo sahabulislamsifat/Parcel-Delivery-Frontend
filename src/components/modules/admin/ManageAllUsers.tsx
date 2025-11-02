@@ -22,6 +22,7 @@ import {
   AlertDialogCancel,
   AlertDialogAction,
 } from "@/components/ui/alert-dialog";
+import LoadingSpinner from "@/components/LoadingSpinner";
 
 const ManageAllUsers = () => {
   const dispatch = useAppDispatch();
@@ -108,6 +109,13 @@ const ManageAllUsers = () => {
       toast.error(err?.data?.message || "Failed to update user");
     }
   };
+
+  if (isLoading)
+    return (
+      <div className="flex justify-center items-center h-80">
+        <LoadingSpinner></LoadingSpinner>
+      </div>
+    );
 
   return (
     <div className="p-6">

@@ -28,6 +28,7 @@ import {
   useGetDeliveredParcelsQuery,
   useGetParcelByIdQuery,
 } from "@/redux/features/parcels/parcelApi"; // Make sure you have this API endpoint
+import LoadingSpinner from "@/components/LoadingSpinner";
 
 const DeliveryHistory = () => {
   const [page, setPage] = useState(1);
@@ -39,7 +40,7 @@ const DeliveryHistory = () => {
     page,
     limit,
   });
-  console.log(data);
+  // console.log(data);
 
   const parcels = Array.isArray(data?.data) ? data.data : [];
   const meta = data?.meta || { totalPages: 1, page: 1 };
@@ -58,6 +59,13 @@ const DeliveryHistory = () => {
     );
     return { total, totalEarnings };
   }, [parcels]);
+
+  if (isLoading)
+    return (
+      <div className="flex justify-center items-center h-80">
+        <LoadingSpinner></LoadingSpinner>
+      </div>
+    );
 
   return (
     <div className="w-full px-4 md:px-8 space-y-8">

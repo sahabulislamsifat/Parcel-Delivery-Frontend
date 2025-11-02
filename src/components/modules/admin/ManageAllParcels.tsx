@@ -36,6 +36,7 @@ import {
   DialogTitle,
   DialogDescription,
 } from "@/components/ui/dialog";
+import LoadingSpinner from "@/components/LoadingSpinner";
 
 const PARCEL_STATUSES: ParcelStatus[] = [
   "REQUESTED",
@@ -106,7 +107,7 @@ const ManageAllParcels = () => {
   if (isLoading)
     return (
       <div className="flex justify-center items-center h-80">
-        <Loader2 className="animate-spin text-blue-600" size={40} />
+        <LoadingSpinner></LoadingSpinner>
       </div>
     );
 

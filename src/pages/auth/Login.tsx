@@ -7,6 +7,7 @@ import { toast } from "sonner";
 import type { SubmitHandler } from "react-hook-form";
 import type { ILogin } from "@/types";
 import config from "@/components/config";
+import LoadingSpinner from "@/components/LoadingSpinner";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -54,6 +55,13 @@ const Login = () => {
   const handleGoogleLogin = () => {
     window.open(`${config.baseUrl}/auth/google`, "_self");
   };
+
+  if (isLoading)
+    return (
+      <div className="flex justify-center items-center h-80">
+        <LoadingSpinner></LoadingSpinner>
+      </div>
+    );
 
   return (
     <div className="grid min-h-screen lg:grid-cols-2 dark:bg-gray-900">

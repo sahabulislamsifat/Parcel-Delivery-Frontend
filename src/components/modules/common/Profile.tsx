@@ -4,6 +4,7 @@ import { useUserInfoQuery } from "@/redux/features/auth/authApi";
 import { toast } from "sonner";
 import { Loader2, User, Mail, Shield, Calendar, Lock } from "lucide-react";
 import { FiEdit } from "react-icons/fi";
+import LoadingSpinner from "@/components/LoadingSpinner";
 
 const Profile = () => {
   const { data, isLoading, isError } = useUserInfoQuery(undefined);
@@ -50,13 +51,12 @@ const Profile = () => {
     }
   };
 
-  if (isLoading) {
+  if (isLoading)
     return (
-      <div className="flex items-center justify-center h-[80vh]">
-        <Loader2 className="w-8 h-8 animate-spin text-primary" />
+      <div className="flex justify-center items-center h-80">
+        <LoadingSpinner></LoadingSpinner>
       </div>
     );
-  }
 
   if (isError || !data?.data) {
     return (

@@ -36,6 +36,7 @@ import {
   useGetIncomingParcelsQuery,
   useGetParcelByIdQuery,
 } from "@/redux/features/parcels/parcelApi";
+import LoadingSpinner from "@/components/LoadingSpinner";
 
 const IncomingParcels = () => {
   const [page, setPage] = useState(1);
@@ -82,9 +83,16 @@ const IncomingParcels = () => {
     return { total, delivered, pending, cancelled, totalEarnings };
   }, [parcels]);
 
-  console.log(stats);
+  // console.log(stats);
 
   const parcel = parcelDetails?.data;
+
+  if (isLoading)
+    return (
+      <div className="flex justify-center items-center h-80">
+        <LoadingSpinner></LoadingSpinner>
+      </div>
+    );
 
   return (
     <div className="w-full px-4 md:px-8 space-y-8">

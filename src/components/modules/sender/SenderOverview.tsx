@@ -24,6 +24,7 @@ import {
   TableCell,
 } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
+import LoadingSpinner from "@/components/LoadingSpinner";
 
 interface Parcel {
   _id: string;
@@ -60,6 +61,13 @@ const SenderOverview = () => {
 
     return { total, delivered, pending, cancelled, totalEarnings };
   }, [parcels]);
+
+  if (isLoading)
+    return (
+      <div className="flex justify-center items-center h-80">
+        <LoadingSpinner></LoadingSpinner>
+      </div>
+    );
 
   return (
     <div className="w-full px-4 md:px-8 space-y-8">

@@ -21,6 +21,7 @@ import {
 } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useGetParcelStatisticsQuery } from "@/redux/features/parcels/parcelApi";
+import LoadingSpinner from "@/components/LoadingSpinner";
 
 // Colors
 const PIE_COLORS = ["#16a34a", "#3b82f6", "#ef4444", "#facc15"];
@@ -84,6 +85,13 @@ const ParcelAnalytics = () => {
       Pending: 12,
     },
   ];
+
+  if (isLoading)
+    return (
+      <div className="flex justify-center items-center h-80">
+        <LoadingSpinner></LoadingSpinner>
+      </div>
+    );
 
   return (
     <div className="p-6 space-y-8">

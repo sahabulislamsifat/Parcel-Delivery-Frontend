@@ -29,6 +29,7 @@ import {
   DialogTitle,
   DialogDescription,
 } from "@/components/ui/dialog";
+import LoadingSpinner from "@/components/LoadingSpinner";
 
 const MyParcels = () => {
   const [page, setPage] = useState(1);
@@ -48,6 +49,13 @@ const MyParcels = () => {
   const meta = data?.meta || { totalPages: 1, page: 1 };
 
   const parcel = parcelDetails?.data;
+
+  if (isLoading)
+    return (
+      <div className="flex justify-center items-center h-80">
+        <LoadingSpinner></LoadingSpinner>
+      </div>
+    );
 
   return (
     <div className="w-full px-4 md:px-8">

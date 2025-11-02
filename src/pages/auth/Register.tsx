@@ -6,6 +6,7 @@ import { useRegisterMutation } from "@/redux/features/auth/authApi";
 import { setUser } from "@/redux/features/auth/authSlice";
 import { useDispatch } from "react-redux";
 import config from "@/components/config";
+import LoadingSpinner from "@/components/LoadingSpinner";
 
 const Register = () => {
   const navigate = useNavigate();
@@ -80,6 +81,13 @@ const Register = () => {
   const handleGoogleRegister = () => {
     window.open(`${config.baseUrl}/auth/google`, "_self");
   };
+
+  if (isLoading)
+    return (
+      <div className="flex justify-center items-center h-80">
+        <LoadingSpinner></LoadingSpinner>
+      </div>
+    );
 
   return (
     <div className="grid min-h-screen lg:grid-cols-2 dark:bg-gray-900">

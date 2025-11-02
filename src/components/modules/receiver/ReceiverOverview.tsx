@@ -19,6 +19,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router";
 import { useGetReceiverStatsQuery } from "@/redux/features/parcels/parcelApi";
+import LoadingSpinner from "@/components/LoadingSpinner";
 
 const ReceiverOverview = () => {
   const navigate = useNavigate();
@@ -43,8 +44,8 @@ const ReceiverOverview = () => {
 
   if (isLoading)
     return (
-      <div className="flex justify-center items-center h-[70vh]">
-        <Loader2 className="h-8 w-8 animate-spin text-primary" />
+      <div className="flex justify-center items-center h-80">
+        <LoadingSpinner></LoadingSpinner>
       </div>
     );
 

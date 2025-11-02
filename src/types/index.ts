@@ -80,3 +80,5 @@ export interface IErrorResponse {
   };
   stack?: string;
 }
+
+export type IResponse<T> = IResponseWithMeta<T>;
