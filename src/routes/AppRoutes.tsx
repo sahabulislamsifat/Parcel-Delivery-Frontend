@@ -15,6 +15,7 @@ import { adminSidebarItems } from "./adminSidebarItem";
 import { senderSidebarItems } from "./senderSidebarItem";
 import { receiverSidebarItems } from "./receiverSidebarItem";
 import Profile from "@/components/modules/common/Profile";
+import TrackParcel from "@/pages/TrackParcel";
 
 export const router = createBrowserRouter([
   {
@@ -25,6 +26,10 @@ export const router = createBrowserRouter([
       {
         Component: Home,
         index: true,
+      },
+      {
+        Component: TrackParcel,
+        path: "track-parcel",
       },
       {
         Component: About,

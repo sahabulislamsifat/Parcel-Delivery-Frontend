@@ -83,16 +83,16 @@ const Navbar = () => {
                 Home
               </NavLink>
             </li>
-            <li>
+            {/* <li>
               <NavLink
-                to="/truckparcel"
+                to="/track-parcel"
                 className={({ isActive }) =>
                   isActive ? activeClass : normalClass
                 }
               >
-                TruckParcel
+                TrackParcel
               </NavLink>
-            </li>
+            </li> */}
             <li>
               <NavLink
                 to="/contact"
@@ -238,7 +238,7 @@ const Navbar = () => {
                 Home
               </NavLink>
             </li>
-            <li>
+            {/* <li>
               <NavLink
                 to="/truckparcel"
                 className={({ isActive }) =>
@@ -249,7 +249,7 @@ const Navbar = () => {
               >
                 TruckParcel
               </NavLink>
-            </li>
+            </li> */}
             <li>
               <NavLink
                 to="/contact"

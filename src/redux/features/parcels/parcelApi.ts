@@ -140,6 +140,15 @@ export const parcelApi = baseApi.injectEndpoints({
       }),
       providesTags: ["PARCEL"],
     }),
+
+    // Track Parcel (Public)
+    trackParcel: builder.query<any, string>({
+      query: (trackingId) => ({
+        url: `/parcel/track/${trackingId}`,
+        method: "GET",
+      }),
+      providesTags: ["PARCEL"],
+    }),
   }),
 });
 
@@ -156,6 +165,7 @@ export const {
   useBlockUnblockParcelMutation,
   useDeleteParcelMutation,
   useGetParcelStatisticsQuery,
+  useLazyTrackParcelQuery,
 } = parcelApi;
 
 export type ParcelStatus =
