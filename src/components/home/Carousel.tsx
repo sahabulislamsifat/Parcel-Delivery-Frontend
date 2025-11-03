@@ -1,10 +1,12 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 // Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
 
 // Import Swiper styles
+// @ts-ignore - module may not have type declarations in this project
 import "swiper/css";
+// @ts-ignore - module may not have type declarations in this project
 import "swiper/css/pagination";
-import "swiper/css/navigation";
 
 // import required modules
 import { Autoplay, Pagination, Navigation } from "swiper/modules";
