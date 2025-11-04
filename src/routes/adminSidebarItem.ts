@@ -33,6 +33,12 @@ export const adminSidebarItems: ISidebarItem[] = [
         component: ManageAllUsers,
       },
       {
+        title: "User Details",
+        url: "/admin-dashboard/manage-all-users/:id",
+        component: lazy(() => import("@/components/modules/users/UserDetails")),
+        hidden: true,
+      },
+      {
         title: "Manage All Parcels",
         url: "/admin-dashboard/all-parcels",
         component: ManageAllParcels,

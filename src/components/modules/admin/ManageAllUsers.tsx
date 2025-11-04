@@ -23,6 +23,7 @@ import {
   AlertDialogAction,
 } from "@/components/ui/alert-dialog";
 import LoadingSpinner from "@/components/LoadingSpinner";
+import { Link } from "react-router";
 
 const ManageAllUsers = () => {
   const dispatch = useAppDispatch();
@@ -32,7 +33,11 @@ const ManageAllUsers = () => {
 
   const [localSearch, setLocalSearch] = useState(search);
   const [editingUser, setEditingUser] = useState<any>(null);
-  const [updateData, setUpdateData] = useState({ role: "", status: "" });
+  type UserRole = "SENDER" | "ADMIN" | "RECEIVER";
+  type UserStatus = "ACTIVE" | "BLOCKED";
+  const [updateData, setUpdateData] = useState<
+    Partial<{ role: UserRole; status: UserStatus }>
+  >({});
   const [selectedUserId, setSelectedUserId] = useState<string | null>(null); // for delete dialog
 
   const { data, isLoading, refetch } = useGetAllUsersQuery({
@@ -46,15 +51,15 @@ const ManageAllUsers = () => {
     isLoading: boolean;
     refetch: () => void;
   };
-  console.log(data);
+  // console.log(data);
 
-  const [blockUser] = useBlockUserMutation();
+  const [blockUser, { isLoading: isBlocking }] = useBlockUserMutation();
   const [deleteUser] = useDeleteUserMutation();
   const [updateUser] = useUpdateUserMutation();
 
   const users = Array.isArray(data?.data) ? data.data : [];
   const meta = data?.meta || { totalPages: 1, page: 1 };
-  console.log(users);
+  // console.log(users);
 
   useEffect(() => {
     refetch();
@@ -196,8 +201,15 @@ const ManageAllUsers = () => {
                         alt={user.name}
                         className="w-10 h-10 rounded-full"
                       />
-                      <span>{user.name || "N/A"}</span>
+                      <Link
+                        to={`/admin-dashboard/manage-all-users/${user._id}`}
+                        className="text-blue-600 hover:underline"
+                        title="See more..."
+                      >
+                        {user.name || "N/A"}
+                      </Link>
                     </td>
+
                     <td className="p-3">{user.email}</td>
                     <td className="p-3">{user.role}</td>
                     <td className="p-3">
@@ -213,6 +225,7 @@ const ManageAllUsers = () => {
                     </td>
                     <td className="p-3 text-right flex justify-end gap-2">
                       <button
+                        disabled={isBlocking}
                         onClick={() =>
                           handleBlockToggle(user._id, (user as any).status)
                         }
@@ -317,64 +330,69 @@ const ManageAllUsers = () => {
         >
           Next →
         </button>
-      </div>
+        {/* Edit Modal */}
+        {editingUser && (
+          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+            <div className="bg-white dark:bg-[#101828] rounded-none shadow-lg p-6 w-96">
+              <h3 className="text-xl font-semibold mb-4">
+                Edit User: {editingUser.name}
+              </h3>
+              <form onSubmit={handleUpdateSubmit} className="space-y-4">
+                <div>
+                  <label className="block mb-1 font-medium">Role</label>
+                  <select
+                    value={updateData.role ?? ""}
+                    onChange={(e) =>
+                      setUpdateData({
+                        ...updateData,
+                        role: e.target.value as UserRole,
+                      })
+                    }
+                    className="w-full border rounded-none dark:bg-[#101828] px-3 py-2"
+                  >
+                    <option value="ADMIN">Admin</option>
+                    <option value="SENDER">Sender</option>
+                    <option value="RECEIVER">Receiver</option>
+                  </select>
+                </div>
 
-      {/* Edit Modal */}
-      {editingUser && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-          <div className="bg-white dark:bg-[#101828] rounded-none shadow-lg p-6 w-96">
-            <h3 className="text-xl font-semibold mb-4">
-              Edit User: {editingUser.name}
-            </h3>
-            <form onSubmit={handleUpdateSubmit} className="space-y-4">
-              <div>
-                <label className="block mb-1 font-medium">Role</label>
-                <select
-                  value={updateData.role}
-                  onChange={(e) =>
-                    setUpdateData({ ...updateData, role: e.target.value })
-                  }
-                  className="w-full border rounded-none dark:bg-[#101828] px-3 py-2"
-                >
-                  <option value="ADMIN">Admin</option>
-                  <option value="SENDER">Sender</option>
-                  <option value="RECEIVER">Receiver</option>
-                </select>
-              </div>
+                <div>
+                  <label className="block mb-1 font-medium">Status</label>
+                  <select
+                    value={updateData.status ?? ""}
+                    onChange={(e) =>
+                      setUpdateData({
+                        ...updateData,
+                        status: e.target.value as UserStatus,
+                      })
+                    }
+                    className="w-full border rounded-none dark:bg-[#101828] px-3 py-2"
+                  >
+                    <option value="ACTIVE">Active</option>
+                    <option value="BLOCKED">Blocked</option>
+                  </select>
+                </div>
 
-              <div>
-                <label className="block mb-1 font-medium">Status</label>
-                <select
-                  value={updateData.status}
-                  onChange={(e) =>
-                    setUpdateData({ ...updateData, status: e.target.value })
-                  }
-                  className="w-full border rounded-none dark:bg-[#101828] px-3 py-2"
-                >
-                  <option value="ACTIVE">Active</option>
-                  <option value="BLOCKED">Blocked</option>
-                </select>
-              </div>
-
-              <div className="flex justify-end gap-2 pt-2">
-                <button
-                  type="button"
-                  onClick={() => setEditingUser(null)}
-                  className="px-4 py-2 border rounded-none"
-                >
-                  Cancel
-                </button>
-                <button
-                  type="submit"
-                  className="px-4 py-2 bg-blue-600 text-white rounded-none hover:bg-blue-700"
-                >
-                  Save Changes
-                </button>
-              </div>
-            </form>
+                <div className="flex justify-end gap-2 pt-2">
+                  <button
+                    type="button"
+                    onClick={() => setEditingUser(null)}
+                    className="px-4 py-2 border rounded-none"
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    type="submit"
+                    className="px-4 py-2 bg-blue-600 text-white rounded-none hover:bg-blue-700"
+                  >
+                    Save Changes
+                  </button>
+                </div>
+              </form>
+            </div>
           </div>
-        </div>
-      )}
+        )}
+      </div>
     </div>
   );
 };

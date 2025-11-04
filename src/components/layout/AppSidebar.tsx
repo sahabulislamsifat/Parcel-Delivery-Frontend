@@ -24,19 +24,27 @@ import { GrLogout } from "react-icons/gr";
 import { RiProfileLine } from "react-icons/ri";
 
 const AppSidebar = (props: any) => {
-  const { data: userData } = useUserInfoQuery(undefined);
+  const { data: userData, isLoading } = useUserInfoQuery(undefined);
   const [logout] = useLogoutMutation();
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
+  if (isLoading) {
+    return (
+      <Sidebar {...props}>
+        <SidebarHeader className="items-center pt-4 bg-white dark:bg-[#101828]">
+          <p className="text-center text-sm text-gray-400">Loading...</p>
+        </SidebarHeader>
+      </Sidebar>
+    );
+  }
+
   const role = userData?.data?.role ?? "SENDER";
-  const data = {
-    navMain: getSidebarItems(role),
-  };
+  const data = { navMain: getSidebarItems(role) };
 
   const handleLogout = async () => {
     try {
-      await logout(undefined);
+      await logout(undefined).unwrap();
       dispatch(authApi.util.resetApiState());
       toast.success("Logged out successfully");
       navigate("/login");
@@ -63,13 +71,15 @@ const AppSidebar = (props: any) => {
             <SidebarGroupLabel>{item.title}</SidebarGroupLabel>
             <SidebarGroupContent>
               <SidebarMenu>
-                {item.items.map((child) => (
-                  <SidebarMenuItem key={child.title}>
-                    <SidebarMenuButton className="rounded-none" asChild>
-                      <Link to={child.url}>{child.title}</Link>
-                    </SidebarMenuButton>
-                  </SidebarMenuItem>
-                ))}
+                {item.items
+                  .filter((child) => !child.hidden) // ✅ hidden item skip করবে
+                  .map((child) => (
+                    <SidebarMenuItem key={child.title}>
+                      <SidebarMenuButton className="rounded-none" asChild>
+                        <Link to={child.url}>{child.title}</Link>
+                      </SidebarMenuButton>
+                    </SidebarMenuItem>
+                  ))}
               </SidebarMenu>
             </SidebarGroupContent>
           </SidebarGroup>

@@ -83,16 +83,6 @@ const Navbar = () => {
                 Home
               </NavLink>
             </li>
-            {/* <li>
-              <NavLink
-                to="/track-parcel"
-                className={({ isActive }) =>
-                  isActive ? activeClass : normalClass
-                }
-              >
-                TrackParcel
-              </NavLink>
-            </li> */}
             <li>
               <NavLink
                 to="/contact"
@@ -170,7 +160,7 @@ const Navbar = () => {
                     <hr className="my-1 border-gray-200 dark:border-gray-700" />
                     <button
                       onClick={handleLogout}
-                      className="w-full text-left px-4 py-2 text-sm text-red-500 hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer"
+                      className="w-full text-left px-4 py-2 text-sm text-red-500 rounded-none hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer"
                     >
                       Logout
                     </button>
@@ -238,18 +228,6 @@ const Navbar = () => {
                 Home
               </NavLink>
             </li>
-            {/* <li>
-              <NavLink
-                to="/truckparcel"
-                className={({ isActive }) =>
-                  isActive
-                    ? "text-[#009CFE] font-semibold"
-                    : "text-gray-700 dark:text-gray-300"
-                }
-              >
-                TruckParcel
-              </NavLink>
-            </li> */}
             <li>
               <NavLink
                 to="/contact"
@@ -305,7 +283,7 @@ const Navbar = () => {
               <li>
                 <button
                   onClick={handleLogout}
-                  className="inline-flex items-center justify-center h-8 px-4 font-medium bg-red-500 hover:bg-red-600 text-white rounded"
+                  className="inline-flex items-center justify-center h-8 px-4 font-medium bg-red-500 hover:bg-red-600 text-white rounded-none"
                 >
                   Logout
                 </button>

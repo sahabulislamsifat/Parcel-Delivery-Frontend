@@ -5,6 +5,7 @@ import { toast } from "sonner";
 import { Loader2, User, Mail, Shield, Calendar, Lock } from "lucide-react";
 import { FiEdit } from "react-icons/fi";
 import LoadingSpinner from "@/components/LoadingSpinner";
+import EditUserModal from "../users/EditUserModal";
 
 const Profile = () => {
   const { data, isLoading, isError } = useUserInfoQuery(undefined);
@@ -15,6 +16,7 @@ const Profile = () => {
     confirmPassword: "",
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isEditOpen, setIsEditOpen] = useState(false);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setPasswords({ ...passwords, [e.target.name]: e.target.value });
@@ -118,11 +120,12 @@ const Profile = () => {
         {/* Buttons */}
         <div className="mt-8 flex flex-col sm:flex-row justify-between gap-3">
           <button
-            onClick={() => toast.info("Edit feature coming soon!")}
+            onClick={() => setIsEditOpen(true)}
             className="flex items-center justify-center gap-2 flex-1 py-2 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-none transition-all duration-200"
           >
             <FiEdit /> Edit Profile
           </button>
+
           <button
             onClick={() => setIsModalOpen(true)}
             className="flex items-center justify-center gap-2 flex-1 py-2 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-none transition-all duration-200"
@@ -136,7 +139,7 @@ const Profile = () => {
       {/* Change Password Modal */}
       {isModalOpen && (
         <div className="fixed inset-0 flex justify-center items-center bg-black bg-opacity-40 backdrop-blur-sm z-50">
-          <div className="bg-white dark:bg-gray-900 rounded-sm shadow-lg p-6 w-full max-w-sm mx-4">
+          <div className="bg-white dark:bg-gray-900 rounded-none shadow-lg p-6 w-full max-w-sm mx-4">
             <h3 className="text-lg font-semibold mb-4 text-gray-800 dark:text-gray-100">
               Change Password
             </h3>
@@ -190,6 +193,13 @@ const Profile = () => {
             </form>
           </div>
         </div>
+      )}
+      {isEditOpen && (
+        <EditUserModal
+          user={user}
+          onClose={() => setIsEditOpen(false)}
+          onSuccess={() => toast.success("Profile updated!")}
+        />
       )}
     </div>
   );

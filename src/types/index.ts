@@ -31,6 +31,7 @@ export interface ISidebarItem {
   items: {
     title: string;
     url: string;
+    hidden?: boolean;
     component: ComponentType;
   }[];
 }
@@ -46,6 +47,7 @@ export interface IUserQueryParams {
 }
 
 export interface IUserListResponse {
+  map(arg0: (u: IUser) => { type: "USER"; id: string }): unknown;
   data: IUser[];
   meta: {
     total: number;
@@ -54,7 +56,6 @@ export interface IUserListResponse {
     totalPages: number;
   };
 }
-
 export type ApiData<T> = IResponseWithMeta<T>["data"];
 
 type ZodIssue = {

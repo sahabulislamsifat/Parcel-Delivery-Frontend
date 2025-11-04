@@ -33,6 +33,12 @@ axiosInstance.interceptors.response.use(
       _retry?: boolean;
     };
 
+    if (error.response?.status === 401) {
+      // clear localstorage and dispatch logout
+      localStorage.removeItem("accessToken");
+      // optionally navigate to login
+    }
+
     if (
       error.response?.status === 500 &&
       error.response.data?.message === "jwt expired" &&
