@@ -72,10 +72,10 @@ const AppSidebar = (props: any) => {
             <SidebarGroupContent>
               <SidebarMenu>
                 {item.items
-                  .filter((child) => !child.hidden) // ✅ hidden item skip করবে
+                  .filter((child) => !child.hidden)
                   .map((child) => (
                     <SidebarMenuItem key={child.title}>
-                      <SidebarMenuButton className="rounded-none" asChild>
+                      <SidebarMenuButton className="rounded-[2.5px]" asChild>
                         <Link to={child.url}>{child.title}</Link>
                       </SidebarMenuButton>
                     </SidebarMenuItem>

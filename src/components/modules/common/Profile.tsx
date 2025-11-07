@@ -73,7 +73,7 @@ const Profile = () => {
 
   return (
     <div className="min-h-[80vh] flex justify-center items-center dark:bg-[#101828] py-10 px-4">
-      <div className="bg-white dark:bg-[#101828] shadow-lg rounded-none w-full max-w-md p-6 md:p-8 transition-all duration-300">
+      <div className="bg-white dark:bg-[#101828] shadow-lg rounded-[2.5px] w-full max-w-md p-6 md:p-8 transition-all duration-300">
         <div className="flex flex-col items-center gap-4">
           {/* Avatar */}
           <img
@@ -121,14 +121,14 @@ const Profile = () => {
         <div className="mt-8 flex flex-col sm:flex-row justify-between gap-3">
           <button
             onClick={() => setIsEditOpen(true)}
-            className="flex items-center justify-center gap-2 flex-1 py-2 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-none transition-all duration-200"
+            className="flex items-center justify-center gap-2 flex-1 py-2 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-[2.5px] transition-all duration-200"
           >
             <FiEdit /> Edit Profile
           </button>
 
           <button
             onClick={() => setIsModalOpen(true)}
-            className="flex items-center justify-center gap-2 flex-1 py-2 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-none transition-all duration-200"
+            className="flex items-center justify-center gap-2 flex-1 py-2 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-[2.5px] transition-all duration-200"
           >
             <Lock size={18} />
             Change Password
@@ -139,7 +139,7 @@ const Profile = () => {
       {/* Change Password Modal */}
       {isModalOpen && (
         <div className="fixed inset-0 flex justify-center items-center bg-black bg-opacity-40 backdrop-blur-sm z-50">
-          <div className="bg-white dark:bg-gray-900 rounded-none shadow-lg p-6 w-full max-w-sm mx-4">
+          <div className="bg-white dark:bg-gray-900 rounded-[2.5px] shadow-lg p-6 w-full max-w-sm mx-4">
             <h3 className="text-lg font-semibold mb-4 text-gray-800 dark:text-gray-100">
               Change Password
             </h3>
@@ -151,7 +151,7 @@ const Profile = () => {
                 placeholder="Old Password"
                 value={passwords.oldPassword}
                 onChange={handleChange}
-                className="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-none bg-transparent text-gray-800 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-[2.5px] bg-transparent text-gray-800 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
               <input
                 type="password"
@@ -159,7 +159,7 @@ const Profile = () => {
                 placeholder="New Password"
                 value={passwords.newPassword}
                 onChange={handleChange}
-                className="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-none bg-transparent text-gray-800 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-[2.5px] bg-transparent text-gray-800 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
               <input
                 type="password"
@@ -167,21 +167,21 @@ const Profile = () => {
                 placeholder="Confirm New Password"
                 value={passwords.confirmPassword}
                 onChange={handleChange}
-                className="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-none bg-transparent text-gray-800 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-[2.5px] bg-transparent text-gray-800 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
 
               <div className="flex justify-between gap-3 mt-5">
                 <button
                   type="button"
                   onClick={() => setIsModalOpen(false)}
-                  className="flex-1 py-2 bg-gray-300 dark:bg-gray-700 hover:bg-gray-400 dark:hover:bg-gray-600 text-gray-800 dark:text-gray-200 rounded-none font-medium"
+                  className="flex-1 py-2 bg-gray-300 dark:bg-gray-700 hover:bg-gray-400 dark:hover:bg-gray-600 text-gray-800 dark:text-gray-200 rounded-[2.5px] font-medium"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="flex-1 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-none font-medium flex items-center justify-center"
+                  className="flex-1 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-[2.5px] font-medium flex items-center justify-center"
                 >
                   {isSubmitting ? (
                     <Loader2 className="w-4 h-4 animate-spin" />

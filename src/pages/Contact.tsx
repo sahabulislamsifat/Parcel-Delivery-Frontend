@@ -38,7 +38,7 @@ const Contact = () => {
 
       <div className="grid gap-8 lg:grid-cols-2">
         {/* Contact Form */}
-        <div className="bg-white rounded-none dark:bg-gray-800 shadow-sm p-8">
+        <div className="bg-white rounded-[2.5px] dark:bg-gray-800 shadow-sm p-8">
           <h3 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-6">
             Send a Message
           </h3>
@@ -49,7 +49,7 @@ const Contact = () => {
               value={formData.name}
               onChange={handleChange}
               placeholder="Your Name"
-              className="w-full px-4 py-3 rounded-none border border-gray-300 dark:border-gray-700 focus:outline-none focus:ring-2 dark:bg-gray-700 dark:text-gray-100"
+              className="w-full px-4 py-3 rounded-[2.5px] border border-gray-300 dark:border-gray-700 focus:outline-none focus:ring-2 dark:bg-gray-700 dark:text-gray-100"
               required
             />
             <input
@@ -58,7 +58,7 @@ const Contact = () => {
               value={formData.email}
               onChange={handleChange}
               placeholder="Your Email"
-              className="w-full px-4 py-3 border rounded-none border-gray-300 dark:border-gray-700 focus:outline-none focus:ring-2 dark:bg-gray-700 dark:text-gray-100"
+              className="w-full px-4 py-3 border rounded-[2.5px] border-gray-300 dark:border-gray-700 focus:outline-none focus:ring-2 dark:bg-gray-700 dark:text-gray-100"
               required
             />
             <input
@@ -67,7 +67,7 @@ const Contact = () => {
               value={formData.subject}
               onChange={handleChange}
               placeholder="Subject"
-              className="w-full px-4 py-3 border border-gray-300 rounded-none dark:border-gray-700 focus:outline-none focus:ring-2 dark:bg-gray-700 dark:text-gray-100"
+              className="w-full px-4 py-3 border border-gray-300 rounded-[2.5px] dark:border-gray-700 focus:outline-none focus:ring-2 dark:bg-gray-700 dark:text-gray-100"
               required
             />
             <textarea

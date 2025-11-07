@@ -85,7 +85,7 @@ const SenderOverview = () => {
           variant="outline"
           onClick={() => refetch()}
           disabled={isFetching}
-          className="rounded-none mt-4 md:mt-0 cursor-pointer"
+          className="rounded-[2.5px] mt-4 md:mt-0 cursor-pointer"
         >
           {isFetching ? (
             <Loader2 className="h-4 w-4 mr-2 animate-spin" />
@@ -127,7 +127,7 @@ const SenderOverview = () => {
         ].map((card) => (
           <Card
             key={card.title}
-            className="rounded-none border dark:bg-[#101828] bg-white shadow-sm"
+            className="rounded-[2.5px] border dark:bg-[#101828] bg-white shadow-sm"
           >
             <CardHeader className="flex flex-row items-center justify-between pb-2">
               <CardTitle className="text-sm font-medium">
@@ -143,7 +143,7 @@ const SenderOverview = () => {
       </div>
 
       {/* Recent Parcels */}
-      <Card className="rounded-none border-none dark:bg-[#101828] bg-white">
+      <Card className="rounded-[2.5px] border-none dark:bg-[#101828] bg-white">
         <CardHeader>
           <CardTitle className="text-xl font-bold">Recent Parcels</CardTitle>
           <CardDescription>Last 5 parcels you created.</CardDescription>
@@ -175,7 +175,7 @@ const SenderOverview = () => {
                       <TableCell>{p.weight} kg</TableCell>
                       <TableCell>
                         <span
-                          className={`px-2 py-1 text-xs font-semibold rounded-none ${
+                          className={`px-2 py-1 text-xs font-semibold rounded-[2.5px] ${
                             p.status === "DELIVERED"
                               ? "bg-green-100 text-green-700"
                               : p.status === "CANCELLED"

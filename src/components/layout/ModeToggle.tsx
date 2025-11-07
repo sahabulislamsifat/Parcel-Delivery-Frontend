@@ -16,7 +16,7 @@ const ModeToggle = () => {
       <DropdownMenuTrigger asChild>
         <Button
           variant="outline"
-          className="cursor-pointer rounded-none shadow-none border-none dark:bg-gray-900"
+          className="cursor-pointer rounded-[2.5px] shadow-none border-none dark:bg-gray-900"
           size="icon"
         >
           <Sun className="h-[1.2rem] w-[1.2rem] scale-100 rotate-0 transition-all dark:scale-0 dark:-rotate-90" />
@@ -24,7 +24,7 @@ const ModeToggle = () => {
           <span className="sr-only">Toggle theme</span>
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent className="rounded-none" align="end">
+      <DropdownMenuContent className="rounded-[2.5px]" align="end">
         <DropdownMenuItem onClick={() => setTheme("light")}>
           Light
         </DropdownMenuItem>

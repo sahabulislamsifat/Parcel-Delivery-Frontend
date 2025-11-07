@@ -147,7 +147,7 @@ const ParcelAnalytics = () => {
         ].map((card, idx) => (
           <Card
             key={idx}
-            className={`rounded-none ${card.color} dark:bg-[#101828] dark:border-gray-700 transition hover:shadow-md`}
+            className={`rounded-[2.5px] ${card.color} dark:bg-[#101828] dark:border-gray-700 transition hover:shadow-md`}
           >
             <CardHeader className="flex flex-row items-center justify-between pb-2">
               <CardTitle className="text-gray-700 dark:text-gray-300 text-base font-medium">
@@ -167,7 +167,7 @@ const ParcelAnalytics = () => {
       {/* Charts Section */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Pie Chart */}
-        <div className="p-6 rounded-none bg-white dark:bg-gray-900 hover:shadow-sm border border-gray-200 dark:border-gray-700">
+        <div className="p-6 rounded-[2.5px] bg-white dark:bg-gray-900 hover:shadow-sm border border-gray-200 dark:border-gray-700">
           <h3 className="text-xl font-semibold mb-4 text-gray-800 dark:text-gray-100">
             Delivery Status Breakdown
           </h3>
@@ -194,7 +194,7 @@ const ParcelAnalytics = () => {
         </div>
 
         {/* Line Chart */}
-        <div className="p-6 bg-white rounded-none dark:bg-gray-900 hover:shadow-sm border border-gray-200 dark:border-gray-700">
+        <div className="p-6 bg-white rounded-[2.5px] dark:bg-gray-900 hover:shadow-sm border border-gray-200 dark:border-gray-700">
           <h3 className="text-xl font-semibold mb-4 text-gray-800 dark:text-gray-100">
             Monthly Parcel Trends
           </h3>

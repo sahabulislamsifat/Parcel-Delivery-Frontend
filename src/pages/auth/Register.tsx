@@ -298,8 +298,8 @@ const Register = () => {
     );
 
   return (
-    <div className="grid min-h-screen lg:grid-cols-2 dark:bg-gray-900">
-      <div className="w-full sm:w-10/12 md:w-8/12 lg:w-6/12 mx-auto flex flex-col justify-center p-6 md:p-12 bg-white dark:bg-gray-900 rounded-lg shadow-md">
+    <div className="grid min-h-screen lg:grid-cols-2 dark:bg-[#101828]">
+      <div className="w-full sm:w-10/12 md:w-8/12 lg:w-6/12 mx-auto flex flex-col justify-center p-6 md:p-12 bg-white dark:bg-[#101828] rounded-[2.5px] dark:border shadow-md">
         <div className="mb-8 text-center">
           <img
             src="https://play-lh.googleusercontent.com/J3Ew-toK2n80uS4m85sKELgXNgNZ798HeOlk5iHI99aDccULENBJK4ZuYMyE_68Ye_59"
@@ -321,7 +321,7 @@ const Register = () => {
             placeholder="Full Name"
             value={formData.name}
             onChange={handleChange}
-            className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-none focus:outline-none focus:ring-2 focus:ring-[#009CFE] dark:bg-gray-700 dark:text-gray-100"
+            className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-[2.5px] focus:outline-none focus:ring-2 focus:ring-[#009CFE] dark:bg-gray-700 dark:text-gray-100"
             required
           />
           <input
@@ -330,7 +330,7 @@ const Register = () => {
             placeholder="Email"
             value={formData.email}
             onChange={handleChange}
-            className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-none focus:outline-none focus:ring-2 focus:ring-[#009CFE] dark:bg-gray-700 dark:text-gray-100"
+            className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-[2.5px] focus:outline-none focus:ring-2 focus:ring-[#009CFE] dark:bg-gray-700 dark:text-gray-100"
             required
           />
           <input
@@ -340,7 +340,7 @@ const Register = () => {
             value={formData.phone}
             onChange={handleChange}
             pattern="^(\+?\d{1,3}[- ]?)?\d{10,15}$"
-            className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-none focus:outline-none focus:ring-2 focus:ring-[#009CFE] dark:bg-gray-700 dark:text-gray-100"
+            className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-[2.5px] focus:outline-none focus:ring-2 focus:ring-[#009CFE] dark:bg-gray-700 dark:text-gray-100"
             required
           />
           <input
@@ -349,7 +349,7 @@ const Register = () => {
             placeholder="Password"
             value={formData.password}
             onChange={handleChange}
-            className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-none focus:outline-none focus:ring-2 focus:ring-[#009CFE] dark:bg-gray-700 dark:text-gray-100"
+            className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-[2.5px] focus:outline-none focus:ring-2 focus:ring-[#009CFE] dark:bg-gray-700 dark:text-gray-100"
             required
           />
           <input
@@ -358,7 +358,7 @@ const Register = () => {
             placeholder="Confirm Password"
             value={formData.confirmPassword}
             onChange={handleChange}
-            className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-none focus:outline-none focus:ring-2 focus:ring-[#009CFE] dark:bg-gray-700 dark:text-gray-100"
+            className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-[2.5px] focus:outline-none focus:ring-2 focus:ring-[#009CFE] dark:bg-gray-700 dark:text-gray-100"
             required
           />
 
@@ -368,7 +368,7 @@ const Register = () => {
           <button
             type="submit"
             disabled={isLoading}
-            className="w-full py-3 bg-[#009CFE] hover:bg-[#005DB5] text-white font-semibold rounded-none cursor-pointer transition-colors duration-300"
+            className="w-full py-3 bg-[#009CFE] hover:bg-[#005DB5] text-white font-semibold rounded-[2.5px] cursor-pointer transition-colors duration-300"
           >
             {isLoading ? "Creating Account..." : "Register"}
           </button>
@@ -384,7 +384,7 @@ const Register = () => {
         <button
           type="button"
           onClick={handleGoogleRegister}
-          className="w-full flex items-center justify-center gap-2 py-3 border border-gray-300 dark:border-gray-600 rounded-none hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors cursor-pointer dark:text-gray-100"
+          className="w-full flex items-center justify-center gap-2 py-3 border border-gray-300 dark:border-gray-600 rounded-[2.5px] hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors cursor-pointer dark:text-gray-100"
         >
           <FaGoogle />
           Register with Google

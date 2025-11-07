@@ -1,11 +1,48 @@
-// src/redux/features/parcels/parcelApi.ts
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { baseApi } from "../api/baseApi";
 
+export type ParcelStatus =
+  | "REQUESTED"
+  | "APPROVED"
+  | "DISPATCHED"
+  | "IN_TRANSIT"
+  | "OUT_FOR_DELIVERY"
+  | "DELIVERED"
+  | "CANCELLED"
+  | "RETURNED"
+  | "BLOCKED";
+
+export interface Parcel {
+  _id: string;
+  senderId: string;
+  receiverId: string;
+  status: ParcelStatus;
+  trackingId: string;
+  createdAt: string;
+  updatedAt: string;
+  [key: string]: any; // other fields
+}
+
+export interface ParcelPaginationResponse {
+  data: Parcel[];
+  total: number;
+  page: number;
+  limit: number;
+}
+
+export interface ParcelStatistics {
+  totalParcels: number;
+  delivered: number;
+  pending: number;
+  cancelled: number;
+  [key: string]: number;
+}
+
 export const parcelApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
+    //* SENDER
     // Create Parcel (Sender)
-    createParcel: builder.mutation<any, any>({
+    createParcel: builder.mutation<Parcel, Partial<Parcel>>({
       query: (data) => ({
         url: "/parcel/create",
         method: "POST",
@@ -16,7 +53,7 @@ export const parcelApi = baseApi.injectEndpoints({
 
     // Sender’s own parcels
     getMyParcels: builder.query<
-      any,
+      ParcelPaginationResponse,
       { page?: number; limit?: number; search?: string }
     >({
       query: ({ page = 1, limit = 10, search }) => {
@@ -34,9 +71,52 @@ export const parcelApi = baseApi.injectEndpoints({
       providesTags: ["PARCEL"],
     }),
 
-    // Receiver
+    // Delivered parcels (sender view)
+    getDeliveredParcels: builder.query<
+      ParcelPaginationResponse,
+      { page?: number; limit?: number }
+    >({
+      query: ({ page = 1, limit = 10 }) => {
+        const params = new URLSearchParams({
+          page: page.toString(),
+          limit: limit.toString(),
+        });
+        return { url: `/parcel/delivered?${params.toString()}`, method: "GET" };
+      },
+      providesTags: ["PARCEL"],
+    }),
+
+    updateParcelStatus: builder.mutation<
+      Parcel,
+      { id: string; data: Partial<Parcel> }
+    >({
+      query: ({ id, data }) => ({
+        url: `/parcel/status/${id}`,
+        method: "PATCH",
+        data,
+      }),
+      invalidatesTags: ["PARCEL"],
+    }),
+
+    deleteParcel: builder.mutation<void, string>({
+      query: (id) => ({
+        url: `/parcel/${id}`,
+        method: "DELETE",
+      }),
+      invalidatesTags: ["PARCEL"],
+    }),
+
+    cancelParcel: builder.mutation<Parcel, string>({
+      query: (id) => ({
+        url: `/parcel/cancel/${id}`,
+        method: "PATCH",
+      }),
+      invalidatesTags: ["PARCEL"],
+    }),
+
+    //* Receiver
     getIncomingParcels: builder.query<
-      any,
+      ParcelPaginationResponse,
       { page?: number; limit?: number; search?: string }
     >({
       query: ({ page = 1, limit = 10, search }) => {
@@ -53,7 +133,7 @@ export const parcelApi = baseApi.injectEndpoints({
       providesTags: ["PARCEL"],
     }),
 
-    getReceiverStats: builder.query({
+    getReceiverStats: builder.query<ParcelStatistics, void>({
       query: () => ({
         url: "/parcel/receiver-statistics",
         method: "GET",
@@ -61,31 +141,18 @@ export const parcelApi = baseApi.injectEndpoints({
       providesTags: ["PARCEL"],
     }),
 
-    getParcelById: builder.query({
+    confirmDelivery: builder.mutation<Parcel, string>({
       query: (id) => ({
-        url: `/parcel/${id}`,
-        method: "GET",
+        url: `/parcel/confirm-delivery/${id}`,
+        method: "PATCH",
       }),
-      providesTags: ["PARCEL"],
-    }),
-    // Delivered parcels (sender view)
-    getDeliveredParcels: builder.query<any, { page?: number; limit?: number }>({
-      query: ({ page = 1, limit = 10 }) => {
-        const params = new URLSearchParams({
-          page: page.toString(),
-          limit: limit.toString(),
-        });
-        return {
-          url: `/parcel/delivered?${params.toString()}`,
-          method: "GET",
-        };
-      },
-      providesTags: ["PARCEL"],
+      invalidatesTags: ["PARCEL"],
     }),
 
+    //* ADMIN
     // Get all parcels (Admin)
     getAllParcels: builder.query<
-      any,
+      ParcelPaginationResponse,
       { page?: number; limit?: number; search?: string }
     >({
       query: ({ page = 1, limit = 10, search }) => {
@@ -94,7 +161,6 @@ export const parcelApi = baseApi.injectEndpoints({
           limit: limit.toString(),
         });
         if (search) params.append("search", search);
-
         return {
           url: `/parcel/all-parcels?${params.toString()}`,
           method: "GET",
@@ -103,46 +169,63 @@ export const parcelApi = baseApi.injectEndpoints({
       providesTags: ["PARCEL"],
     }),
 
+    getParcelStatistics: builder.query<ParcelStatistics, void>({
+      query: () => ({ url: "/parcel/statistics", method: "GET" }),
+      providesTags: ["PARCEL"],
+    }),
+
     // Update parcel status
-    updateParcelStatus: builder.mutation({
+    updateParcelByAdmin: builder.mutation<
+      Parcel,
+      { id: string; data: Partial<Parcel> }
+    >({
       query: ({ id, data }) => ({
-        url: `/parcel/status/${id}`,
+        url: `/parcel/admin-update/${id}`,
         method: "PATCH",
-        data: data,
+        data,
       }),
       invalidatesTags: ["PARCEL"],
     }),
 
     // Block / Unblock a parcel
-    blockUnblockParcel: builder.mutation({
+    blockUnblockParcel: builder.mutation<
+      Parcel,
+      { id: string; data: { blocked: boolean } }
+    >({
       query: ({ id, data }) => ({
         url: `/parcel/block-unblock/${id}`,
         method: "PATCH",
-        data: data,
+        data,
       }),
       invalidatesTags: ["PARCEL"],
     }),
 
     // Delete parcel
-    deleteParcel: builder.mutation({
-      query: (id) => ({
-        url: `/parcel/${id}`,
-        method: "DELETE",
-      }),
+    deleteParcelByAdmin: builder.mutation<void, string>({
+      query: (id) => ({ url: `/parcel/admin-delete/${id}`, method: "DELETE" }),
       invalidatesTags: ["PARCEL"],
     }),
 
-    // Parcel Statistics
-    getParcelStatistics: builder.query<any, void>({
-      query: () => ({
-        url: "/parcel/statistics",
+    getParcelById: builder.query<Parcel, string>({
+      query: (id) => ({ url: `/parcel/${id}`, method: "GET" }),
+      providesTags: ["PARCEL"],
+    }),
+
+    getParcelHistory: builder.query({
+      query: (id) => ({
+        url: `/parcel/status-logs/${id}`,
         method: "GET",
       }),
       providesTags: ["PARCEL"],
     }),
 
+    getParcelNotifications: builder.query<any, void>({
+      query: () => ({ url: "/parcel/notifications", method: "GET" }),
+      providesTags: ["PARCEL"],
+    }),
+
     // Track Parcel (Public)
-    trackParcel: builder.query<any, string>({
+    trackParcel: builder.query<Parcel, string>({
       query: (trackingId) => ({
         url: `/parcel/track/${trackingId}`,
         method: "GET",
@@ -153,28 +236,30 @@ export const parcelApi = baseApi.injectEndpoints({
 });
 
 export const {
+  // Sender
   useCreateParcelMutation,
-  useLazyGetMyParcelsQuery,
   useGetMyParcelsQuery,
+  useLazyGetMyParcelsQuery,
+  useGetDeliveredParcelsQuery,
+  useUpdateParcelStatusMutation,
+  useDeleteParcelMutation,
+  useCancelParcelMutation,
+
+  // Receiver
   useGetIncomingParcelsQuery,
   useGetReceiverStatsQuery,
-  useGetParcelByIdQuery,
-  useGetDeliveredParcelsQuery,
+  useConfirmDeliveryMutation,
+
+  // Admin
   useGetAllParcelsQuery,
-  useUpdateParcelStatusMutation,
-  useBlockUnblockParcelMutation,
-  useDeleteParcelMutation,
   useGetParcelStatisticsQuery,
+  useUpdateParcelByAdminMutation,
+  useBlockUnblockParcelMutation,
+  useDeleteParcelByAdminMutation,
+  useGetParcelByIdQuery,
+  useGetParcelHistoryQuery,
+  useGetParcelNotificationsQuery,
+
+  // Public
   useLazyTrackParcelQuery,
 } = parcelApi;
-
-export type ParcelStatus =
-  | "REQUESTED"
-  | "APPROVED"
-  | "DISPATCHED"
-  | "IN_TRANSIT"
-  | "OUT_FOR_DELIVERY"
-  | "DELIVERED"
-  | "CANCELLED"
-  | "RETURNED"
-  | "BLOCKED";

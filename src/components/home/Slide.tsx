@@ -1,7 +1,25 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { role } from "@/constants/role";
+import { useUserInfoQuery } from "@/redux/features/auth/authApi";
 import { Link } from "react-router";
 
+const getDashboardRoute = (userRole: string) => {
+  switch (userRole) {
+    case role?.admin:
+      return "/admin-dashboard";
+    case role?.sender:
+      return "/sender-dashboard";
+    case role?.receiver:
+      return "/receiver-dashboard";
+    default:
+      return "/";
+  }
+};
+
 const Slide = ({ image, text }: any) => {
+  const { data } = useUserInfoQuery(undefined);
+  const user = data?.data;
+
   return (
     <div>
       <div
@@ -16,12 +34,14 @@ const Slide = ({ image, text }: any) => {
               {text}
             </h1>
             <br />
-            <Link
-              to="/login"
-              className="px-6 py-3 text-sm font-medium text-gray-200 capitalize transition-colors duration-300 transform bg-[#009CFE] hover:bg-[#005DB5] focus:outline-none focus:ring-2 focus:ring-[#009CFE]"
-            >
-              Get Started with ParcelXpress
-            </Link>
+            {user && (
+              <Link
+                to={getDashboardRoute(user?.role)}
+                className="px-6 py-3 text-sm font-medium text-gray-200 capitalize transition-colors rounded-[2.5px] duration-300 transform bg-[#009CFE] hover:bg-[#005DB5] focus:outline-none focus:ring-2 focus:ring-[#009CFE]"
+              >
+                Get Started with ParcelXpress
+              </Link>
+            )}
           </div>
         </div>
       </div>

@@ -2,6 +2,7 @@ import MyParcels from "@/components/modules/sender/MyParcels";
 import CreateParcel from "@/components/modules/sender/CreateParcel";
 import type { ISidebarItem } from "@/types";
 import { lazy } from "react";
+import TrackParcel from "@/pages/TrackParcel";
 
 const SenderOverview = lazy(
   () => import("@/components/modules/sender/SenderOverview")
@@ -30,6 +31,11 @@ export const senderSidebarItems: ISidebarItem[] = [
         title: "View My Parcels",
         url: "/sender-dashboard/my-parcels",
         component: MyParcels,
+      },
+      {
+        title: "Track Your Parcel",
+        url: "/sender-dashboard/track-parcel",
+        component: TrackParcel,
       },
     ],
   },

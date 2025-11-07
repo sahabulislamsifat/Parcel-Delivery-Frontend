@@ -75,7 +75,7 @@ const ReceiverOverview = () => {
           variant="outline"
           onClick={() => refetch()}
           disabled={isFetching}
-          className="rounded-none mt-4 md:mt-0 flex items-center"
+          className="rounded-[2.5px] mt-4 md:mt-0 flex items-center"
         >
           {isFetching ? (
             <Loader2 className="h-4 w-4 mr-2 animate-spin" />
@@ -117,7 +117,7 @@ const ReceiverOverview = () => {
         ].map((card) => (
           <Card
             key={card.title}
-            className="rounded-none border dark:bg-[#101828] bg-white shadow-sm"
+            className="rounded-[2.5px] border dark:bg-[#101828] bg-white shadow-sm"
           >
             <CardHeader className="flex justify-between pb-2">
               <CardTitle className="text-sm font-medium">
@@ -133,7 +133,7 @@ const ReceiverOverview = () => {
       </div>
 
       {/* Recent Parcels */}
-      <Card className="rounded-none border-none dark:bg-[#101828] bg-white">
+      <Card className="rounded-[2.5px] border-none dark:bg-[#101828] bg-white">
         <CardHeader>
           <CardTitle className="text-xl font-bold">Recent Parcels</CardTitle>
           <CardDescription>Latest parcels you’ve received.</CardDescription>
@@ -164,7 +164,7 @@ const ReceiverOverview = () => {
                       <td className="py-2 px-3">{p.sender?.name || "-"}</td>
                       <td className="py-2 px-3">
                         <span
-                          className={`px-2 py-1 text-xs font-semibold rounded-none ${
+                          className={`px-2 py-1 text-xs font-semibold rounded-[2.5px] ${
                             p.status === "DELIVERED"
                               ? "bg-green-100 text-green-700"
                               : p.status === "CANCELLED"
@@ -189,13 +189,13 @@ const ReceiverOverview = () => {
       <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 pt-4">
         <Button
           onClick={() => navigate("/receiver-dashboard/incoming-parcels")}
-          className="w-full rounded-none flex items-center cursor-pointer justify-center gap-2"
+          className="w-full rounded-[2.5px] flex items-center cursor-pointer justify-center gap-2"
         >
           View Incoming Parcels <ArrowRight className="h-4 w-4" />
         </Button>
         <Button
           onClick={() => navigate("/receiver-dashboard/delivery-history")}
-          className="w-full rounded-none cursor-pointer flex items-center justify-center gap-2"
+          className="w-full rounded-[2.5px] cursor-pointer flex items-center justify-center gap-2"
         >
           View Delivery History <ArrowRight className="h-4 w-4" />
         </Button>

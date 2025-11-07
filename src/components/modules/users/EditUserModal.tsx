@@ -65,7 +65,7 @@ const EditUserModal: React.FC<EditUserModalProps> = ({
 
   return (
     <div className="fixed inset-0 z-50 flex justify-center items-center bg-black/50 backdrop-blur-sm">
-      <div className="bg-white dark:bg-[#101828] rounded-none shadow-lg w-full max-w-md p-6 relative">
+      <div className="bg-white dark:bg-[#101828] rounded-[2.5px] shadow-lg w-full max-w-md p-6 relative">
         {/* Header */}
         <div className="flex justify-between items-center mb-4">
           <h2 className="text-xl font-semibold">Edit User Info</h2>
@@ -85,7 +85,7 @@ const EditUserModal: React.FC<EditUserModalProps> = ({
               name="name"
               value={formData.name}
               onChange={handleChange}
-              className="w-full border px-3 py-2 rounded-none dark:bg-[#101828]"
+              className="w-full border px-3 py-2 rounded-[2.5px] dark:bg-[#101828]"
             />
           </div>
           <div>
@@ -94,7 +94,7 @@ const EditUserModal: React.FC<EditUserModalProps> = ({
               name="email"
               value={formData.email}
               //   onChange={handleChange}
-              className="w-full border px-3 py-2 rounded-none dark:bg-[#101828]"
+              className="w-full border px-3 py-2 rounded-[2.5px] dark:bg-[#101828]"
             />
           </div>
           <div>
@@ -103,7 +103,7 @@ const EditUserModal: React.FC<EditUserModalProps> = ({
               name="phone"
               value={formData.phone || "N/A"}
               onChange={handleChange}
-              className="w-full border px-3 py-2 rounded-none dark:bg-[#101828]"
+              className="w-full border px-3 py-2 rounded-[2.5px] dark:bg-[#101828]"
             />
           </div>
           <div>
@@ -112,7 +112,7 @@ const EditUserModal: React.FC<EditUserModalProps> = ({
               name="role"
               value={formData.role}
               onChange={handleChange}
-              className="w-full border px-3 py-2 rounded-none dark:bg-[#101828]"
+              className="w-full border px-3 py-2 rounded-[2.5px] dark:bg-[#101828]"
             >
               <option value="SENDER">SENDER</option>
               <option value="RECEIVER">RECEIVER</option>
@@ -125,7 +125,7 @@ const EditUserModal: React.FC<EditUserModalProps> = ({
               name="address"
               value={formData.address || "N/A"}
               onChange={handleChange}
-              className="w-full border px-3 py-2 rounded-none dark:bg-[#101828]"
+              className="w-full border px-3 py-2 rounded-[2.5px] dark:bg-[#101828]"
             />
           </div>
 
@@ -133,14 +133,14 @@ const EditUserModal: React.FC<EditUserModalProps> = ({
             <button
               type="button"
               onClick={onClose}
-              className="px-4 py-2 border rounded-none text-gray-600 hover:bg-gray-100 dark:hover:bg-gray-800"
+              className="px-10 py-2 bg-gray-300 dark:bg-gray-700 hover:bg-gray-400 dark:hover:bg-gray-600 text-gray-800 dark:text-gray-200 rounded-[2.5px] font-medium"
             >
               Cancel
             </button>
             <button
               type="submit"
               disabled={isLoading}
-              className="px-4 py-2 bg-blue-600 text-white rounded-none hover:bg-blue-700"
+              className="px-4 py-2 bg-blue-600 text-white rounded-[2.5px] hover:bg-blue-700"
             >
               {isLoading ? "Saving..." : "Save Changes"}
             </button>

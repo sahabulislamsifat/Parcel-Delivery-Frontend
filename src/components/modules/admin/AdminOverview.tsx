@@ -38,7 +38,7 @@ const AdminOverview = () => {
 
       {/* ===== Quick Info Section ===== */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-        <Card className="dark:bg-[#101828] dark:border-gray-700 hover:shadow-sm rounded-none transition">
+        <Card className="dark:bg-[#101828] dark:border-gray-700 hover:shadow-sm rounded-[2.5px] transition">
           <CardHeader>
             <CardTitle className="text-gray-700 dark:text-gray-300 text-base font-medium">
               Role
@@ -51,7 +51,7 @@ const AdminOverview = () => {
           </CardContent>
         </Card>
 
-        <Card className="dark:bg-[#101828] dark:border-gray-700 hover:shadow-sm rounded-none transition">
+        <Card className="dark:bg-[#101828] dark:border-gray-700 hover:shadow-sm rounded-[2.5px] transition">
           <CardHeader>
             <CardTitle className="text-gray-700 dark:text-gray-300 text-base font-medium">
               Email
@@ -64,7 +64,7 @@ const AdminOverview = () => {
           </CardContent>
         </Card>
 
-        <Card className="dark:bg-[#101828] dark:border-gray-700 hover:shadow-sm rounded-none transition">
+        <Card className="dark:bg-[#101828] dark:border-gray-700 hover:shadow-sm rounded-[2.5px] transition">
           <CardHeader>
             <CardTitle className="text-gray-700 dark:text-gray-300 text-base font-medium">
               Joined On

@@ -1,3 +1,4 @@
+// CreateParcel.tsx
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { z } from "zod";
 import { useForm } from "react-hook-form";
@@ -41,7 +42,7 @@ import { useCreateParcelMutation } from "@/redux/features/parcels/parcelApi";
 import { useGetAllReceiversQuery } from "@/redux/features/users/usersApi";
 import LoadingSpinner from "@/components/LoadingSpinner";
 
-// Zod Schema for Validation
+// Zod Schema
 const parcelSchema = z.object({
   receiver: z.string().min(1, "Receiver ID is required"),
   senderAddress: z.string().min(1, "Sender address is required"),
@@ -63,17 +64,12 @@ const CreateParcel = () => {
     page: 1,
     limit: 50,
   });
-  // console.log(receiversData);
 
-  // Normalize receivers to always be an array: either receiversData (if it's already an array),
-  // or receiversData.data (if the API response wraps the list), or an empty array.
   const receivers: any[] = Array.isArray(receiversData)
     ? receiversData
     : Array.isArray(receiversData?.data)
     ? receiversData!.data
     : [];
-
-  // console.log(receivers);
 
   const form = useForm<ParcelFormValues>({
     resolver: zodResolver(parcelSchema),
@@ -117,13 +113,13 @@ const CreateParcel = () => {
   if (isLoading)
     return (
       <div className="flex justify-center items-center h-80">
-        <LoadingSpinner></LoadingSpinner>
+        <LoadingSpinner />
       </div>
     );
 
   return (
     <div className="w-full max-w-3xl mx-auto px-5">
-      <Card className="rounded-none border-none dark:bg-[#101828] bg-white">
+      <Card className="rounded-[2.5px] border dark:bg-[#101828] bg-white">
         <CardHeader>
           <CardTitle className="text-3xl text-center font-bold text-gray-800 dark:text-white mb-2">
             Create New Parcel
@@ -140,7 +136,7 @@ const CreateParcel = () => {
               className="space-y-5"
               onSubmit={form.handleSubmit(handleSubmit)}
             >
-              {/* Receiver ID */}
+              {/* Receiver */}
               <FormField
                 control={form.control}
                 name="receiver"
@@ -152,11 +148,11 @@ const CreateParcel = () => {
                       defaultValue={field.value}
                     >
                       <FormControl>
-                        <SelectTrigger className="w-full rounded-none dark:bg-[#101828]">
+                        <SelectTrigger className="w-full rounded-[2.5px] dark:bg-[#101828]">
                           <SelectValue placeholder="Select receiver" />
                         </SelectTrigger>
                       </FormControl>
-                      <SelectContent className="dark:bg-[#101828] rounded-none max-h-60 overflow-auto">
+                      <SelectContent className="dark:bg-[#101828] rounded-[2.5px] max-h-60 overflow-auto">
                         {receivers.map((user) => (
                           <SelectItem key={user._id} value={user._id}>
                             {user.name} ({user.email})
@@ -169,7 +165,7 @@ const CreateParcel = () => {
                 )}
               />
 
-              {/* Type + Weight */}
+              {/* Type & Weight */}
               <div className="flex gap-5">
                 <FormField
                   control={form.control}
@@ -182,11 +178,11 @@ const CreateParcel = () => {
                         defaultValue={field.value}
                       >
                         <FormControl>
-                          <SelectTrigger className="rounded-none dark:bg-[#101828]">
+                          <SelectTrigger className="rounded-[2.5px] dark:bg-[#101828]">
                             <SelectValue placeholder="Select parcel type" />
                           </SelectTrigger>
                         </FormControl>
-                        <SelectContent className="dark:bg-[#101828] rounded-none">
+                        <SelectContent className="dark:bg-[#101828] rounded-[2.5px]">
                           <SelectItem value="document">Document</SelectItem>
                           <SelectItem value="package">Package</SelectItem>
                           <SelectItem value="fragile">Fragile</SelectItem>
@@ -200,7 +196,6 @@ const CreateParcel = () => {
                     </FormItem>
                   )}
                 />
-
                 <FormField
                   control={form.control}
                   name="weight"
@@ -211,7 +206,7 @@ const CreateParcel = () => {
                         <Input
                           type="number"
                           step="0.1"
-                          className="rounded-none dark:bg-[#101828]"
+                          className="rounded-[2.5px] dark:bg-[#101828]"
                           placeholder="e.g. 2.5"
                           {...field}
                         />
@@ -222,7 +217,7 @@ const CreateParcel = () => {
                 />
               </div>
 
-              {/* Price + Delivery Charge */}
+              {/* Price & Delivery Charge */}
               <div className="flex gap-5">
                 <FormField
                   control={form.control}
@@ -233,7 +228,7 @@ const CreateParcel = () => {
                       <FormControl>
                         <Input
                           type="number"
-                          className="rounded-none dark:bg-[#101828]"
+                          className="rounded-[2.5px] dark:bg-[#101828]"
                           {...field}
                         />
                       </FormControl>
@@ -241,7 +236,6 @@ const CreateParcel = () => {
                     </FormItem>
                   )}
                 />
-
                 <FormField
                   control={form.control}
                   name="deliveryCharge"
@@ -251,7 +245,7 @@ const CreateParcel = () => {
                       <FormControl>
                         <Input
                           type="number"
-                          className="rounded-none dark:bg-[#101828]"
+                          className="rounded-[2.5px] dark:bg-[#101828]"
                           {...field}
                         />
                       </FormControl>
@@ -274,7 +268,7 @@ const CreateParcel = () => {
                           <Button
                             variant="outline"
                             className={cn(
-                              "w-full rounded-none dark:bg-[#101828] pl-3 text-left font-normal",
+                              "w-full rounded-[2.5px] dark:bg-[#101828] pl-3 text-left font-normal",
                               !field.value && "text-muted-foreground"
                             )}
                           >
@@ -289,7 +283,7 @@ const CreateParcel = () => {
                       </PopoverTrigger>
                       <PopoverContent
                         align="start"
-                        className="w-auto p-0 dark:bg-[#101828] rounded-none"
+                        className="w-auto p-0 dark:bg-[#101828] rounded-[2.5px]"
                       >
                         <Calendar
                           mode="single"
@@ -319,7 +313,7 @@ const CreateParcel = () => {
                     <FormControl>
                       <Input
                         placeholder="Enter sender full address"
-                        className="rounded-none dark:bg-[#101828]"
+                        className="rounded-[2.5px] dark:bg-[#101828]"
                         {...field}
                       />
                     </FormControl>
@@ -327,7 +321,6 @@ const CreateParcel = () => {
                   </FormItem>
                 )}
               />
-
               <FormField
                 control={form.control}
                 name="receiverAddress"
@@ -337,7 +330,7 @@ const CreateParcel = () => {
                     <FormControl>
                       <Input
                         placeholder="Enter receiver full address"
-                        className="rounded-none dark:bg-[#101828]"
+                        className="rounded-[2.5px] dark:bg-[#101828]"
                         {...field}
                       />
                     </FormControl>
@@ -346,7 +339,7 @@ const CreateParcel = () => {
                 )}
               />
 
-              {/* Payment Checkbox */}
+              {/* Payment */}
               <FormField
                 control={form.control}
                 name="isPaid"
@@ -370,10 +363,10 @@ const CreateParcel = () => {
 
         <CardFooter className="flex justify-end">
           <Button
-            className="rounded-none cursor-pointer"
             type="submit"
             form="create-parcel-form"
             disabled={isLoading}
+            className="rounded-[2.5px] cursor-pointer"
           >
             {isLoading ? (
               <Loader2 className="animate-spin mr-2" />

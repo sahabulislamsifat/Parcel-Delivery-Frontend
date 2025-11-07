@@ -123,11 +123,11 @@ const ManageAllParcels = () => {
             value={localSearch}
             onChange={(e) => setLocalSearch(e.target.value)}
             placeholder="Search by Tracking ID, Sender, or Receiver..."
-            className="border rounded-none px-3 py-2 w-72"
+            className="border rounded-[2.5px] px-3 py-2 w-72"
           />
           <button
             type="submit"
-            className="bg-blue-600 text-white px-4 py-2 rounded-none cursor-pointer hover:bg-blue-700"
+            className="bg-blue-600 text-white px-4 py-2 rounded-[2.5px] cursor-pointer hover:bg-blue-700"
           >
             Search
           </button>
@@ -135,7 +135,7 @@ const ManageAllParcels = () => {
       </div>
 
       {/* Parcels Table */}
-      <div className="overflow-x-auto bg-white dark:bg-gray-900 rounded-none">
+      <div className="overflow-x-auto bg-white dark:bg-gray-900 rounded-[2.5px]">
         <table className="min-w-full text-sm text-gray-700 dark:text-gray-300">
           <thead>
             <tr className="bg-gray-100 bg-gradient-to-l from-blue-300 via-white to-gray-200 text-black text-left">
@@ -164,7 +164,7 @@ const ManageAllParcels = () => {
                         onChange={(e) =>
                           handleStatusUpdate(parcel._id, e.target.value)
                         }
-                        className="border rounded-none px-2 py-1 text-sm bg-transparent dark:bg-gray-800"
+                        className="border rounded-[2.5px] px-2 py-1 text-sm bg-transparent dark:bg-gray-800"
                       >
                         {PARCEL_STATUSES.map((status) => (
                           <option key={status} value={status}>
@@ -215,7 +215,7 @@ const ManageAllParcels = () => {
                           <Trash2 size={18} />
                         </button>
                       </AlertDialogTrigger>
-                      <AlertDialogContent className="rounded-none">
+                      <AlertDialogContent className="rounded-[2.5px]">
                         <AlertDialogHeader>
                           <AlertDialogTitle>
                             Are you sure you want to delete this parcel?
@@ -227,7 +227,7 @@ const ManageAllParcels = () => {
                         </AlertDialogHeader>
                         <AlertDialogFooter>
                           <AlertDialogCancel
-                            className="rounded-none"
+                            className="rounded-[2.5px]"
                             onClick={() => setDeleteParcelId(null)}
                           >
                             Cancel
@@ -244,7 +244,7 @@ const ManageAllParcels = () => {
                                 toast.error("Failed to delete parcel");
                               }
                             }}
-                            className="bg-red-600 rounded-none text-white hover:bg-red-700"
+                            className="bg-red-600 rounded-[2.5px] text-white hover:bg-red-700"
                           >
                             Yes, Delete
                           </AlertDialogAction>
@@ -282,7 +282,7 @@ const ManageAllParcels = () => {
         <button
           disabled={page === 1}
           onClick={() => setPage(page - 1)}
-          className="px-4 py-1 rounded-none bg-gray-100 dark:bg-gray-800 disabled:opacity-50"
+          className="px-4 py-1 rounded-[2.5px] bg-gray-100 dark:bg-gray-800 disabled:opacity-50"
         >
           ← Prev
         </button>
@@ -292,7 +292,7 @@ const ManageAllParcels = () => {
         <button
           disabled={page === meta.totalPages}
           onClick={() => setPage(page + 1)}
-          className="px-4 py-1 rounded-none bg-gray-100 dark:bg-gray-800 disabled:opacity-50"
+          className="px-4 py-1 rounded-[2.5px] bg-gray-100 dark:bg-gray-800 disabled:opacity-50"
         >
           Next →
         </button>
@@ -303,7 +303,7 @@ const ManageAllParcels = () => {
         open={!!selectedParcelId}
         onOpenChange={() => setSelectedParcelId(null)}
       >
-        <DialogContent className="max-w-2xl max-h-[85vh] overflow-y-auto rounded-none dark:bg-[#101828] border-none">
+        <DialogContent className="max-w-2xl max-h-[85vh] overflow-y-auto rounded-[2.5px] dark:bg-[#101828] border-none">
           <DialogHeader className="pb-4 border-b">
             <DialogTitle className="text-2xl font-bold">
               Parcel Details
@@ -334,7 +334,7 @@ const ManageAllParcels = () => {
                   </p>
                 </div>
                 <span
-                  className={`px-3 py-1 rounded-none text-sm font-semibold ${
+                  className={`px-3 py-1 rounded-[2.5px] text-sm font-semibold ${
                     parcel.status === "DELIVERED"
                       ? "bg-green-100 text-green-700"
                       : parcel.status === "CANCELLED"

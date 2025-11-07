@@ -116,7 +116,7 @@ const UserDetails: React.FC = () => {
       <div className="flex items-center gap-3 mb-4">
         <button
           onClick={() => navigate(-1)}
-          className="p-2 rounded-none border hover:bg-gray-100 dark:hover:bg-gray-800"
+          className="p-2 rounded-[2.5px] border hover:bg-gray-100 dark:hover:bg-gray-800"
           title="Go back"
         >
           <ArrowLeft className="w-5 h-5" />
@@ -127,7 +127,7 @@ const UserDetails: React.FC = () => {
       {/* Main Content */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         {/* Profile Card */}
-        <div className="col-span-1 bg-white dark:bg-[#101828] p-4 rounded-none shadow">
+        <div className="col-span-1 bg-white dark:bg-[#101828] p-4 rounded-[2.5px] shadow">
           <img
             src={
               user.picture ||
@@ -164,7 +164,7 @@ const UserDetails: React.FC = () => {
             <button
               onClick={handleBlockToggle}
               disabled={isBlocking}
-              className={`flex-1 py-2 rounded-none border flex items-center justify-center gap-2 ${
+              className={`flex-1 py-2 rounded-[2.5px] border flex items-center justify-center gap-2 ${
                 user.status === "BLOCKED"
                   ? "text-green-600 border-green-600"
                   : "text-red-600 border-red-600"
@@ -178,7 +178,7 @@ const UserDetails: React.FC = () => {
             <button
               onClick={handleDelete}
               disabled={isDeleting}
-              className="py-2 px-3 rounded-none bg-red-600 text-white flex items-center gap-2 hover:bg-red-700"
+              className="py-2 px-3 rounded-[2.5px] bg-red-600 text-white flex items-center gap-2 hover:bg-red-700"
             >
               <Trash2 />
               Delete
@@ -187,7 +187,7 @@ const UserDetails: React.FC = () => {
         </div>
 
         {/* Details Card */}
-        <div className="col-span-2 bg-white dark:bg-[#101828] p-4 rounded-none shadow">
+        <div className="col-span-2 bg-white dark:bg-[#101828] p-4 rounded-[2.5px] shadow">
           <h4 className="text-lg font-semibold mb-3">Profile Information</h4>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
@@ -231,14 +231,14 @@ const UserDetails: React.FC = () => {
             <div className="flex gap-2">
               <button
                 onClick={handlePromoteToAdmin}
-                className="px-4 py-2 bg-yellow-400 text-black rounded-none hover:bg-yellow-500"
+                className="px-4 py-2 bg-yellow-400 text-black rounded-[2.5px] hover:bg-yellow-500"
               >
                 Promote to Admin
               </button>
 
               <button
                 onClick={() => setIsEditOpen(true)}
-                className="px-4 py-2 border rounded-none hover:bg-gray-100 dark:hover:bg-gray-800"
+                className="px-4 py-2 border rounded-[2.5px] hover:bg-gray-100 dark:hover:bg-gray-800"
               >
                 Edit (Full)
               </button>

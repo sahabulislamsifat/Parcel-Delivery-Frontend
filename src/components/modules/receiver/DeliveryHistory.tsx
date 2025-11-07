@@ -83,7 +83,7 @@ const DeliveryHistory = () => {
           variant="outline"
           onClick={() => refetch()}
           disabled={isFetching}
-          className="rounded-none mt-4 md:mt-0 flex items-center"
+          className="rounded-[2.5px] mt-4 md:mt-0 flex items-center"
         >
           {isFetching ? (
             <Loader2 className="h-4 w-4 mr-2 animate-spin" />
@@ -96,7 +96,7 @@ const DeliveryHistory = () => {
 
       {/* Stats Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-2 gap-5">
-        <Card className="rounded-none border dark:bg-[#101828] bg-white shadow-sm">
+        <Card className="rounded-[2.5px] border dark:bg-[#101828] bg-white shadow-sm">
           <CardHeader className="flex justify-between pb-2">
             <CardTitle className="text-sm font-medium">
               Delivered Parcels
@@ -108,7 +108,7 @@ const DeliveryHistory = () => {
           </CardContent>
         </Card>
 
-        <Card className="rounded-none border dark:bg-[#101828] bg-white shadow-sm">
+        <Card className="rounded-[2.5px] border dark:bg-[#101828] bg-white shadow-sm">
           <CardHeader className="flex justify-between pb-2">
             <CardTitle className="text-sm font-medium">
               Total Earnings
@@ -124,7 +124,7 @@ const DeliveryHistory = () => {
       </div>
 
       {/* Delivered Parcels Table */}
-      <Card className="rounded-none border-none dark:bg-[#101828] bg-white">
+      <Card className="rounded-[2.5px] border-none dark:bg-[#101828] bg-white">
         <CardHeader>
           <CardTitle className="text-xl font-bold">Delivered Parcels</CardTitle>
           <CardDescription>Details of all delivered parcels.</CardDescription>
@@ -178,7 +178,7 @@ const DeliveryHistory = () => {
                           variant="ghost"
                           size="icon"
                           title="View Details"
-                          className="cursor-pointer rounded-none"
+                          className="cursor-pointer rounded-[2.5px]"
                           onClick={() => setSelectedParcelId(p._id)}
                         >
                           <Eye className="h-4 w-4 text-blue-500" />
@@ -216,7 +216,7 @@ const DeliveryHistory = () => {
         open={!!selectedParcelId}
         onOpenChange={() => setSelectedParcelId(null)}
       >
-        <DialogContent className="max-w-2xl max-h-[85vh] overflow-y-auto rounded-none dark:bg-[#101828] border-none">
+        <DialogContent className="max-w-2xl max-h-[85vh] overflow-y-auto rounded-[2.5px] dark:bg-[#101828] border-none">
           <DialogHeader className="pb-4 border-b">
             <DialogTitle className="text-2xl font-bold">
               Parcel Details
@@ -243,7 +243,7 @@ const DeliveryHistory = () => {
                   </p>
                 </div>
                 <span
-                  className={`px-3 py-1 rounded-none text-sm font-semibold ${
+                  className={`px-3 py-1 rounded-[2.5px] text-sm font-semibold ${
                     parcel.status === "DELIVERED"
                       ? "bg-green-100 text-green-700"
                       : parcel.status === "CANCELLED"

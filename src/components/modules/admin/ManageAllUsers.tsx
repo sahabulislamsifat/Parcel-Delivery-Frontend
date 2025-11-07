@@ -134,11 +134,11 @@ const ManageAllUsers = () => {
             value={localSearch}
             onChange={(e) => setLocalSearch(e.target.value)}
             placeholder="Search by name, email..."
-            className="border rounded-none px-3 py-2 w-60"
+            className="border rounded-[2.5px] px-3 py-2 w-60"
           />
           <button
             type="submit"
-            className="bg-blue-600 text-white px-4 py-2 rounded-none cursor-pointer hover:bg-blue-700"
+            className="bg-blue-600 text-white px-4 py-2 rounded-[2.5px] cursor-pointer hover:bg-blue-700"
           >
             Search
           </button>
@@ -147,7 +147,7 @@ const ManageAllUsers = () => {
         <select
           value={role}
           onChange={(e) => dispatch(setFilters({ role: e.target.value || "" }))}
-          className="border dark:bg-[#101828] rounded-none px-3 py-2"
+          className="border dark:bg-[#101828] rounded-[2.5px] px-3 py-2"
         >
           <option value="">All Roles</option>
           <option value="ADMIN">Admin</option>
@@ -160,7 +160,7 @@ const ManageAllUsers = () => {
           onChange={(e) =>
             dispatch(setFilters({ status: e.target.value || "" }))
           }
-          className="border rounded-none bg-white dark:bg-[#101828] px-3 py-2"
+          className="border rounded-[2.5px] bg-white dark:bg-[#101828] px-3 py-2"
         >
           <option value="">All Status</option>
           <option value="ACTIVE">Active</option>
@@ -169,7 +169,7 @@ const ManageAllUsers = () => {
       </div>
 
       {/* Users Table */}
-      <div className="overflow-x-auto bg-white dark:bg-[#101828] rounded-none">
+      <div className="overflow-x-auto bg-white dark:bg-[#101828] rounded-[2.5px]">
         {isLoading ? (
           <div className="flex justify-center py-10">
             <Loader2 className="animate-spin h-8 w-8 text-blue-600" />
@@ -265,7 +265,7 @@ const ManageAllUsers = () => {
                             <Trash2 size={18} />
                           </button>
                         </AlertDialogTrigger>
-                        <AlertDialogContent className="rounded-none">
+                        <AlertDialogContent className="rounded-[2.5px]">
                           <AlertDialogHeader>
                             <AlertDialogTitle>
                               Are you sure you want to delete this user?
@@ -277,14 +277,14 @@ const ManageAllUsers = () => {
                           </AlertDialogHeader>
                           <AlertDialogFooter>
                             <AlertDialogCancel
-                              className="rounded-none"
+                              className="rounded-[2.5px]"
                               onClick={() => setSelectedUserId(null)}
                             >
                               Cancel
                             </AlertDialogCancel>
                             <AlertDialogAction
                               onClick={confirmDelete}
-                              className="bg-red-600 rounded-none text-white hover:bg-red-700"
+                              className="bg-red-600 rounded-[2.5px] text-white hover:bg-red-700"
                             >
                               Yes, Delete
                             </AlertDialogAction>
@@ -315,7 +315,7 @@ const ManageAllUsers = () => {
           title="Previous"
           onClick={() => handlePageChange(page - 1)}
           disabled={page <= 1}
-          className="px-4 py-1 rounded-none bg-gray-100 dark:bg-gray-800 disabled:opacity-50"
+          className="px-4 py-1 rounded-[2.5px] bg-gray-100 dark:bg-gray-800 disabled:opacity-50"
         >
           ← Prev
         </button>
@@ -326,14 +326,14 @@ const ManageAllUsers = () => {
           title="Next"
           onClick={() => handlePageChange(page + 1)}
           disabled={page >= meta.totalPages}
-          className="px-4 py-1 rounded-none bg-gray-100 dark:bg-gray-800 disabled:opacity-50"
+          className="px-4 py-1 rounded-[2.5px] bg-gray-100 dark:bg-gray-800 disabled:opacity-50"
         >
           Next →
         </button>
         {/* Edit Modal */}
         {editingUser && (
           <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-            <div className="bg-white dark:bg-[#101828] rounded-none shadow-lg p-6 w-96">
+            <div className="bg-white dark:bg-[#101828] rounded-[2.5px] shadow-lg p-6 w-96">
               <h3 className="text-xl font-semibold mb-4">
                 Edit User: {editingUser.name}
               </h3>
@@ -348,7 +348,7 @@ const ManageAllUsers = () => {
                         role: e.target.value as UserRole,
                       })
                     }
-                    className="w-full border rounded-none dark:bg-[#101828] px-3 py-2"
+                    className="w-full border rounded-[2.5px] dark:bg-[#101828] px-3 py-2"
                   >
                     <option value="ADMIN">Admin</option>
                     <option value="SENDER">Sender</option>
@@ -366,7 +366,7 @@ const ManageAllUsers = () => {
                         status: e.target.value as UserStatus,
                       })
                     }
-                    className="w-full border rounded-none dark:bg-[#101828] px-3 py-2"
+                    className="w-full border rounded-[2.5px] dark:bg-[#101828] px-3 py-2"
                   >
                     <option value="ACTIVE">Active</option>
                     <option value="BLOCKED">Blocked</option>
@@ -377,13 +377,13 @@ const ManageAllUsers = () => {
                   <button
                     type="button"
                     onClick={() => setEditingUser(null)}
-                    className="px-4 py-2 border rounded-none"
+                    className="px-4 py-2 border rounded-[2.5px]"
                   >
                     Cancel
                   </button>
                   <button
                     type="submit"
-                    className="px-4 py-2 bg-blue-600 text-white rounded-none hover:bg-blue-700"
+                    className="px-4 py-2 bg-blue-600 text-white rounded-[2.5px] hover:bg-blue-700"
                   >
                     Save Changes
                   </button>

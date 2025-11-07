@@ -110,7 +110,7 @@ const IncomingParcels = () => {
           variant="outline"
           onClick={() => refetch()}
           disabled={isFetching}
-          className="rounded-none mt-4 md:mt-0 flex items-center"
+          className="rounded-[2.5px] mt-4 md:mt-0 flex items-center"
         >
           {isFetching ? (
             <Loader2 className="h-4 w-4 mr-2 animate-spin" />
@@ -152,7 +152,7 @@ const IncomingParcels = () => {
         ].map((card) => (
           <Card
             key={card.title}
-            className="rounded-none border dark:bg-[#101828] bg-white shadow-sm"
+            className="rounded-[2.5px] border dark:bg-[#101828] bg-white shadow-sm"
           >
             <CardHeader className="flex justify-between pb-2">
               <CardTitle className="text-sm font-medium">
@@ -168,7 +168,7 @@ const IncomingParcels = () => {
       </div>
 
       {/* Parcels Table */}
-      <Card className="rounded-none border-none dark:bg-[#101828] bg-white">
+      <Card className="rounded-[2.5px] border-none dark:bg-[#101828] bg-white">
         <CardHeader>
           <CardTitle className="text-xl font-bold">Incoming Parcels</CardTitle>
           <CardDescription>Latest parcels assigned to you.</CardDescription>
@@ -203,7 +203,7 @@ const IncomingParcels = () => {
                       <TableCell>{p.weight} kg</TableCell>
                       <TableCell>
                         <span
-                          className={`px-2 py-1 text-xs font-semibold rounded-none ${
+                          className={`px-2 py-1 text-xs font-semibold rounded-[2.5px] ${
                             p.status === "DELIVERED"
                               ? "bg-green-100 text-green-700"
                               : p.status === "CANCELLED"
@@ -230,7 +230,7 @@ const IncomingParcels = () => {
                           variant="ghost"
                           size="icon"
                           title="View Details"
-                          className="cursor-pointer rounded-none"
+                          className="cursor-pointer rounded-[2.5px]"
                           onClick={() => setSelectedParcelId(p._id)}
                         >
                           <Eye className="h-4 w-4 text-blue-500" />
@@ -268,7 +268,7 @@ const IncomingParcels = () => {
         open={!!selectedParcelId}
         onOpenChange={() => setSelectedParcelId(null)}
       >
-        <DialogContent className="max-w-2xl max-h-[85vh] overflow-y-auto rounded-none dark:bg-[#101828] border-none">
+        <DialogContent className="max-w-2xl max-h-[85vh] overflow-y-auto rounded-[2.5px] dark:bg-[#101828] border-none">
           <DialogHeader className="pb-4 border-b">
             <DialogTitle className="text-2xl font-bold">
               Parcel Details
@@ -298,7 +298,7 @@ const IncomingParcels = () => {
                   </p>
                 </div>
                 <span
-                  className={`px-3 py-1 rounded-none text-sm font-semibold ${
+                  className={`px-3 py-1 rounded-[2.5px] text-sm font-semibold ${
                     parcel.status === "DELIVERED"
                       ? "bg-green-100 text-green-700"
                       : parcel.status === "CANCELLED"

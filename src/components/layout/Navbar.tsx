@@ -108,7 +108,7 @@ const Navbar = () => {
             {user && (
               <li>
                 <NavLink
-                  to={getDashboardRoute(user.role)}
+                  to={getDashboardRoute(user?.role)}
                   className={({ isActive }) =>
                     isActive ? activeClass : normalClass
                   }
@@ -153,14 +153,14 @@ const Navbar = () => {
 
                 {/* Dropdown */}
                 {isDropdownOpen && (
-                  <div className="absolute right-0 mt-3 w-40 bg-white dark:bg-gray-800 shadow-md rounded-none border border-gray-200 dark:border-gray-700 py-2 z-50">
+                  <div className="absolute right-0 mt-3 w-40 bg-white dark:bg-gray-800 shadow-md rounded-[2.5px] border border-gray-200 dark:border-gray-700 py-2 z-50">
                     <p className="text-sm text-gray-700 dark:text-gray-300 font-medium px-4">
                       {user?.name || "User"}
                     </p>
                     <hr className="my-1 border-gray-200 dark:border-gray-700" />
                     <button
                       onClick={handleLogout}
-                      className="w-full text-left px-4 py-2 text-sm text-red-500 rounded-none hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer"
+                      className="w-full text-left px-4 py-2 text-sm text-red-500 rounded-[2.5px] hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer"
                     >
                       Logout
                     </button>
@@ -283,7 +283,7 @@ const Navbar = () => {
               <li>
                 <button
                   onClick={handleLogout}
-                  className="inline-flex items-center justify-center h-8 px-4 font-medium bg-red-500 hover:bg-red-600 text-white rounded-none"
+                  className="inline-flex items-center justify-center h-8 px-4 font-medium bg-red-500 hover:bg-red-600 text-white rounded-[2.5px]"
                 >
                   Logout
                 </button>
