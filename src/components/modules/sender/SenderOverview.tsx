@@ -7,6 +7,7 @@ import {
   Clock,
   DollarSign,
   Loader2,
+  ArrowRight,
 } from "lucide-react";
 import {
   Card,
@@ -25,47 +26,64 @@ import {
 } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
 import LoadingSpinner from "@/components/LoadingSpinner";
-
-interface Parcel {
-  _id: string;
-  trackingId: string;
-  type: string;
-  weight: number;
-  status: string;
-  isPaid: boolean;
-  totalAmount?: number;
-}
+import { useNavigate } from "react-router";
 
 const SenderOverview = () => {
+  //  Fetch parcels with a higher limit for overview
   const { data, isLoading, refetch, isFetching } = useGetMyParcelsQuery({
     page: 1,
-    limit: 5,
+    limit: 50,
   });
 
-  const parcels: Parcel[] = Array.isArray(data?.data) ? data.data : [];
+  const router = useNavigate();
 
+  //  Safely extract parcel array
+  const parcels = useMemo(() => {
+    if (!data?.data) return [];
+    return Array.isArray(data.data) ? data.data : [];
+  }, [data?.data]);
+
+  //  Get total count from API response (if backend supports it)
+  const totalParcels = data?.total ?? parcels.length;
+
+  //  Sort by createdAt (newest first) and take 5 latest parcels
+  const recentParcels = useMemo(() => {
+    return [...parcels]
+      .sort(
+        (a, b) =>
+          new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+      )
+      .slice(0, 5);
+  }, [parcels]);
+
+  //  Compute stats for cards
   const stats = useMemo(() => {
-    const total = parcels.length;
     const delivered = parcels.filter((p) => p.status === "DELIVERED").length;
+    const cancelled = parcels.filter((p) => p.status === "CANCELLED").length;
     const pending = parcels.filter(
       (p) =>
         p.status === "REQUESTED" ||
         p.status === "APPROVED" ||
+        p.status === "DISPATCHED" ||
         p.status === "IN_TRANSIT" ||
         p.status === "OUT_FOR_DELIVERY"
     ).length;
-    const cancelled = parcels.filter((p) => p.status === "CANCELLED").length;
-    const totalEarnings = parcels
-      .filter((p) => p.isPaid)
-      .reduce((sum, p) => sum + (p.totalAmount ?? 0), 0);
 
-    return { total, delivered, pending, cancelled, totalEarnings };
-  }, [parcels]);
+    return {
+      total: totalParcels,
+      delivered,
+      pending,
+      cancelled,
+      totalEarnings: parcels
+        .filter((p) => p.isPaid)
+        .reduce((sum, p) => sum + (p.totalAmount ?? 0), 0),
+    };
+  }, [parcels, totalParcels]);
 
   if (isLoading)
     return (
       <div className="flex justify-center items-center h-80">
-        <LoadingSpinner></LoadingSpinner>
+        <LoadingSpinner />
       </div>
     );
 
@@ -78,7 +96,7 @@ const SenderOverview = () => {
             Sender Dashboard
           </h1>
           <p className="text-gray-500 dark:text-gray-400">
-            Overview of your recent parcel activity and earnings.
+            Overview of your parcel activities and earnings.
           </p>
         </div>
         <Button
@@ -144,16 +162,23 @@ const SenderOverview = () => {
 
       {/* Recent Parcels */}
       <Card className="rounded-[2.5px] border-none dark:bg-[#101828] bg-white">
-        <CardHeader>
-          <CardTitle className="text-xl font-bold">Recent Parcels</CardTitle>
-          <CardDescription>Last 5 parcels you created.</CardDescription>
+        <CardHeader className="flex justify-between items-center">
+          <div>
+            <CardTitle className="text-xl font-bold">Recent Parcels</CardTitle>
+            <CardDescription>Last 5 parcels you created.</CardDescription>
+          </div>
+          {/* See More Button */}
+          <Button
+            variant="link"
+            className="text-blue-600 hover:text-blue-800 flex items-center gap-1"
+            onClick={() => router("/sender-dashboard/my-parcels")}
+          >
+            See More <ArrowRight className="h-4 w-4" />
+          </Button>
         </CardHeader>
+
         <CardContent>
-          {isLoading ? (
-            <div className="flex justify-center py-10">
-              <Loader2 className="h-6 w-6 animate-spin text-primary" />
-            </div>
-          ) : parcels.length === 0 ? (
+          {recentParcels.length === 0 ? (
             <p className="text-center text-gray-500 py-6">No parcels found.</p>
           ) : (
             <div className="overflow-x-auto">
@@ -168,11 +193,11 @@ const SenderOverview = () => {
                   </TableRow>
                 </TableHeader>
                 <TableBody>
-                  {parcels.map((p) => (
+                  {recentParcels.map((p) => (
                     <TableRow key={p._id}>
                       <TableCell>{p.trackingId}</TableCell>
-                      <TableCell>{p.type}</TableCell>
-                      <TableCell>{p.weight} kg</TableCell>
+                      <TableCell>{p.type ?? "N/A"}</TableCell>
+                      <TableCell>{p.weight ?? 0} kg</TableCell>
                       <TableCell>
                         <span
                           className={`px-2 py-1 text-xs font-semibold rounded-[2.5px] ${

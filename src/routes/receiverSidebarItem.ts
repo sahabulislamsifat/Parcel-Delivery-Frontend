@@ -1,4 +1,4 @@
-import DeliveryHistory from "@/components/modules/receiver/DeliveryHistory";
+import ConfirmDelivery from "@/components/modules/receiver/ConfirmDelivery";
 import IncomingParcels from "@/components/modules/receiver/IncomingParcels";
 import type { ISidebarItem } from "@/types";
 import { lazy } from "react";
@@ -27,9 +27,9 @@ export const receiverSidebarItems: ISidebarItem[] = [
         component: IncomingParcels,
       },
       {
-        title: "Delivery History",
-        url: "/receiver-dashboard/delivery-history",
-        component: DeliveryHistory,
+        title: "Confirm Delivery",
+        url: "/receiver-dashboard/confirm-delivery",
+        component: ConfirmDelivery,
       },
     ],
   },

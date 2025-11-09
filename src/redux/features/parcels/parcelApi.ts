@@ -133,20 +133,41 @@ export const parcelApi = baseApi.injectEndpoints({
       providesTags: ["PARCEL"],
     }),
 
+    getDeliveredParcelsForReceiver: builder.query<
+      ParcelPaginationResponse,
+      { page?: number; limit?: number }
+    >({
+      query: ({ page = 1, limit = 10 }) => {
+        const params = new URLSearchParams({
+          page: page.toString(),
+          limit: limit.toString(),
+        });
+        return {
+          url: `/parcel/delivered?${params.toString()}`,
+          method: "GET",
+        };
+      },
+      providesTags: ["PARCEL"],
+    }),
+
+    confirmDelivery: builder.mutation<
+      Parcel,
+      { id: string; action: "DELIVERED" | "RETURNED" }
+    >({
+      query: ({ id, action }) => ({
+        url: `/parcel/confirm-delivery/${id}`,
+        method: "PATCH",
+        data: { action }, // Receiver can choose to deliver OR return
+      }),
+      invalidatesTags: ["PARCEL"],
+    }),
+
     getReceiverStats: builder.query<ParcelStatistics, void>({
       query: () => ({
         url: "/parcel/receiver-statistics",
         method: "GET",
       }),
       providesTags: ["PARCEL"],
-    }),
-
-    confirmDelivery: builder.mutation<Parcel, string>({
-      query: (id) => ({
-        url: `/parcel/confirm-delivery/${id}`,
-        method: "PATCH",
-      }),
-      invalidatesTags: ["PARCEL"],
     }),
 
     //* ADMIN
@@ -206,6 +227,7 @@ export const parcelApi = baseApi.injectEndpoints({
       invalidatesTags: ["PARCEL"],
     }),
 
+    //* Common
     getParcelById: builder.query<Parcel, string>({
       query: (id) => ({ url: `/parcel/${id}`, method: "GET" }),
       providesTags: ["PARCEL"],
@@ -216,11 +238,6 @@ export const parcelApi = baseApi.injectEndpoints({
         url: `/parcel/status-logs/${id}`,
         method: "GET",
       }),
-      providesTags: ["PARCEL"],
-    }),
-
-    getParcelNotifications: builder.query<any, void>({
-      query: () => ({ url: "/parcel/notifications", method: "GET" }),
       providesTags: ["PARCEL"],
     }),
 
@@ -247,8 +264,9 @@ export const {
 
   // Receiver
   useGetIncomingParcelsQuery,
-  useGetReceiverStatsQuery,
+  useGetDeliveredParcelsForReceiverQuery,
   useConfirmDeliveryMutation,
+  useGetReceiverStatsQuery,
 
   // Admin
   useGetAllParcelsQuery,
@@ -256,10 +274,9 @@ export const {
   useUpdateParcelByAdminMutation,
   useBlockUnblockParcelMutation,
   useDeleteParcelByAdminMutation,
+
+  // Common
   useGetParcelByIdQuery,
   useGetParcelHistoryQuery,
-  useGetParcelNotificationsQuery,
-
-  // Public
   useLazyTrackParcelQuery,
 } = parcelApi;

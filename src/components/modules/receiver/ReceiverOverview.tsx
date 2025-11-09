@@ -30,12 +30,13 @@ const ReceiverOverview = () => {
   const stats = useMemo(() => {
     const s = data?.data || {};
     return {
-      total: s.total || 0,
-      delivered: s.delivered || 0,
-      pending: s.pending || 0,
-      cancelled: s.cancelled || 0,
-      totalEarnings: s.revenue || 0,
-      recentParcels: Array.isArray(s.recentParcels) ? s.recentParcels : [],
+      total: (s as any).total || 0,
+      delivered: (s as any).delivered || 0,
+      pending: (s as any).pending || 0,
+      cancelled: (s as any).cancelled || 0,
+      totalEarnings: (s as any).revenue || 0,
+      // recentParcels: Array.isArray(s as any).recentParcel ? s.recentParcel : [],
+      recentParcels: [],
     };
   }, [data]);
 
