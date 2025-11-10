@@ -52,27 +52,28 @@ const Navbar = () => {
     "font-medium tracking-wide text-gray-700 dark:text-gray-300 hover:text-[#005DB5] dark:hover:text-[#33B7FF] transition-colors duration-200";
 
   return (
-    <div className="shadow-sm relative bg-white dark:bg-gray-900 transition-colors duration-300">
-      <div className="text-black dark:text-gray-100 px-4 py-1 mx-auto max-w-11/12 relative">
+    <div className="shadow-sm relative bg-white dark:bg-gray-900 transition-colors duration-300 w-full">
+      <div className="text-black dark:text-gray-100 px-4 sm:px-6 md:px-8 py-2 sm:py-3 mx-auto relative">
         <div className="relative flex items-center justify-between">
+          {/* Logo */}
           <a
             href="/"
             aria-label="ParcelXpress"
             title="ParcelXpress"
-            className="inline-flex items-center"
+            className="inline-flex items-center space-x-2"
           >
             <img
-              className="w-16 h-16 rounded-full"
+              className="w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 rounded-full"
               src="https://play-lh.googleusercontent.com/J3Ew-toK2n80uS4m85sKELgXNgNZ798HeOlk5iHI99aDccULENBJK4ZuYMyE_68Ye_59"
               alt="Logo"
             />
-            <span className="pt-6 text-xl font-semibold tracking-wide uppercase">
+            <span className="pt-4 sm:pt-5 md:pt-6 text-lg sm:text-xl md:text-2xl font-semibold tracking-wide uppercase">
               ParcelXpress
             </span>
           </a>
 
           {/* Desktop Menu */}
-          <ul className="flex items-center hidden space-x-8 lg:flex">
+          <ul className="hidden lg:flex items-center space-x-4 xl:space-x-8">
             <li>
               <NavLink
                 to="/"
@@ -119,7 +120,9 @@ const Navbar = () => {
             )}
 
             {/* Mode Toggler */}
-            <ModeToggle />
+            <div className="hidden md:block">
+              <ModeToggle />
+            </div>
 
             {/* Auth Section */}
             {!user ? (
@@ -128,8 +131,8 @@ const Navbar = () => {
                   to="/login"
                   className={({ isActive }) =>
                     isActive
-                      ? "inline-flex items-center justify-center h-8 px-4 font-medium bg-[#009CFE] text-white"
-                      : "inline-flex items-center justify-center h-8 px-4 font-medium bg-[#009CFE] hover:bg-[#005DB5] text-white"
+                      ? "inline-flex items-center justify-center h-8 sm:h-9 px-3 sm:px-4 font-medium bg-[#009CFE] text-white text-sm sm:text-base"
+                      : "inline-flex items-center justify-center h-8 sm:h-9 px-3 sm:px-4 font-medium bg-[#009CFE] hover:bg-[#005DB5] text-white text-sm sm:text-base"
                   }
                 >
                   Login
@@ -147,20 +150,20 @@ const Navbar = () => {
                       "https://cdn-icons-png.flaticon.com/512/149/149071.png"
                     }
                     alt="User Avatar"
-                    className="w-10 h-10 rounded-full border border-gray-300 dark:border-gray-700 cursor-pointer"
+                    className="w-9 h-9 sm:w-10 sm:h-10 rounded-full border border-gray-300 dark:border-gray-700 cursor-pointer"
                   />
                 </button>
 
                 {/* Dropdown */}
                 {isDropdownOpen && (
-                  <div className="absolute right-0 mt-3 w-40 bg-white dark:bg-gray-800 shadow-md rounded-[2.5px] border border-gray-200 dark:border-gray-700 py-2 z-50">
-                    <p className="text-sm text-gray-700 dark:text-gray-300 font-medium px-4">
+                  <div className="absolute right-0 mt-3 w-36 sm:w-40 bg-white dark:bg-gray-800 shadow-md rounded-md border border-gray-200 dark:border-gray-700 py-2 z-50">
+                    <p className="text-sm text-gray-700 dark:text-gray-300 font-medium px-4 truncate">
                       {user?.name || "User"}
                     </p>
                     <hr className="my-1 border-gray-200 dark:border-gray-700" />
                     <button
                       onClick={handleLogout}
-                      className="w-full text-left px-4 py-2 text-sm text-red-500 rounded-[2.5px] hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer"
+                      className="w-full text-left px-4 py-2 text-sm text-red-500 hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer"
                     >
                       Logout
                     </button>
@@ -180,7 +183,7 @@ const Navbar = () => {
             >
               {isMenuOpen ? (
                 <svg
-                  className="w-6 h-6 text-gray-700 dark:text-gray-300"
+                  className="w-6 h-6 sm:w-7 sm:h-7 text-gray-700 dark:text-gray-300"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -194,7 +197,7 @@ const Navbar = () => {
                 </svg>
               ) : (
                 <svg
-                  className="w-6 h-6 text-gray-700 dark:text-gray-300"
+                  className="w-6 h-6 sm:w-7 sm:h-7 text-gray-700 dark:text-gray-300"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -214,8 +217,8 @@ const Navbar = () => {
 
       {/* Mobile Dropdown Menu */}
       {isMenuOpen && (
-        <div className="lg:hidden bg-white dark:bg-gray-900 w-full border-t border-gray-200 dark:border-gray-700 shadow-sm absolute left-0 top-[100%] z-40 transition-colors duration-300">
-          <ul className="flex flex-col items-center space-y-4 py-5">
+        <div className="lg:hidden bg-white dark:bg-gray-900 w-full border-t border-gray-200 dark:border-gray-700 shadow-sm absolute left-0 top-[100%] z-40 transition-all duration-300">
+          <ul className="flex flex-col items-center space-y-3 sm:space-y-4 py-4 sm:py-5">
             <li>
               <NavLink
                 to="/"
@@ -274,7 +277,7 @@ const Navbar = () => {
               <li>
                 <NavLink
                   to="/login"
-                  className="inline-flex items-center justify-center h-8 px-4 font-medium bg-[#009CFE] hover:bg-[#005DB5] text-white"
+                  className="inline-flex items-center justify-center h-8 sm:h-9 px-4 sm:px-5 font-medium bg-[#009CFE] hover:bg-[#005DB5] text-white rounded-md text-sm sm:text-base"
                 >
                   Login
                 </NavLink>
@@ -283,7 +286,7 @@ const Navbar = () => {
               <li>
                 <button
                   onClick={handleLogout}
-                  className="inline-flex items-center justify-center h-8 px-4 font-medium bg-red-500 hover:bg-red-600 text-white rounded-[2.5px]"
+                  className="inline-flex items-center justify-center h-8 sm:h-9 px-4 sm:px-5 font-medium bg-red-500 hover:bg-red-600 text-white rounded-[2px] text-sm sm:text-base"
                 >
                   Logout
                 </button>

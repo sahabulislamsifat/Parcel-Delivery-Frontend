@@ -10,11 +10,11 @@ const Footer = () => {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="bg-white text-gray-700 border-t border-gray-200 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 transition-colors duration-300">
-      <div className="px-4 pt-16 mx-auto w-11/12">
-        <div className="grid row-gap-10 mb-8 lg:grid-cols-6">
+    <footer className="bg-white text-gray-700 border-t border-gray-200 dark:bg-[#101828] dark:text-gray-300 dark:border-gray-700 transition-colors duration-300">
+      <div className="px-4 pt-16 mx-auto w-[95%] sm:w-11/12 ">
+        <div className="grid row-gap-10 mb-8 lg:grid-cols-6 md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-10">
           {/* Links section */}
-          <div className="grid grid-cols-2 gap-5 row-gap-8 lg:col-span-4 md:grid-cols-4">
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-5 row-gap-8 lg:col-span-4">
             <div>
               <p className="font-medium tracking-wide text-black dark:text-white">
                 Services
@@ -23,7 +23,7 @@ const Footer = () => {
                 <li>
                   <Link
                     to="/track"
-                    className="text-gray-600 hover:text-black dark:text-gray-400 dark:hover:text-white transition-colors duration-300"
+                    className="text-gray-600 hover:text-black dark:text-gray-400 dark:hover:text-white transition-colors duration-300 text-sm sm:text-base"
                   >
                     Track Parcel
                   </Link>
@@ -31,7 +31,7 @@ const Footer = () => {
                 <li>
                   <Link
                     to="/dashboard"
-                    className="text-gray-600 hover:text-black dark:text-gray-400 dark:hover:text-white transition-colors duration-300"
+                    className="text-gray-600 hover:text-black dark:text-gray-400 dark:hover:text-white transition-colors duration-300 text-sm sm:text-base"
                   >
                     My Dashboard
                   </Link>
@@ -39,7 +39,7 @@ const Footer = () => {
                 <li>
                   <Link
                     to="/pricing"
-                    className="text-gray-600 hover:text-black dark:text-gray-400 dark:hover:text-white transition-colors duration-300"
+                    className="text-gray-600 hover:text-black dark:text-gray-400 dark:hover:text-white transition-colors duration-300 text-sm sm:text-base"
                   >
                     Pricing & Plans
                   </Link>
@@ -47,7 +47,7 @@ const Footer = () => {
                 <li>
                   <Link
                     to="/support"
-                    className="text-gray-600 hover:text-black dark:text-gray-400 dark:hover:text-white transition-colors duration-300"
+                    className="text-gray-600 hover:text-black dark:text-gray-400 dark:hover:text-white transition-colors duration-300 text-sm sm:text-base"
                   >
                     Support
                   </Link>
@@ -63,7 +63,7 @@ const Footer = () => {
                 <li>
                   <Link
                     to="/about"
-                    className="text-gray-600 hover:text-black dark:text-gray-400 dark:hover:text-white transition-colors duration-300"
+                    className="text-gray-600 hover:text-black dark:text-gray-400 dark:hover:text-white transition-colors duration-300 text-sm sm:text-base"
                   >
                     About Us
                   </Link>
@@ -71,7 +71,7 @@ const Footer = () => {
                 <li>
                   <Link
                     to="/careers"
-                    className="text-gray-600 hover:text-black dark:text-gray-400 dark:hover:text-white transition-colors duration-300"
+                    className="text-gray-600 hover:text-black dark:text-gray-400 dark:hover:text-white transition-colors duration-300 text-sm sm:text-base"
                   >
                     Careers
                   </Link>
@@ -79,7 +79,7 @@ const Footer = () => {
                 <li>
                   <Link
                     to="/contact"
-                    className="text-gray-600 hover:text-black dark:text-gray-400 dark:hover:text-white transition-colors duration-300"
+                    className="text-gray-600 hover:text-black dark:text-gray-400 dark:hover:text-white transition-colors duration-300 text-sm sm:text-base"
                   >
                     Contact
                   </Link>
@@ -87,7 +87,7 @@ const Footer = () => {
                 <li>
                   <Link
                     to="/terms"
-                    className="text-gray-600 hover:text-black dark:text-gray-400 dark:hover:text-white transition-colors duration-300"
+                    className="text-gray-600 hover:text-black dark:text-gray-400 dark:hover:text-white transition-colors duration-300 text-sm sm:text-base"
                   >
                     Terms & Conditions
                   </Link>
@@ -95,7 +95,7 @@ const Footer = () => {
                 <li>
                   <Link
                     to="/privacy"
-                    className="text-gray-600 hover:text-black dark:text-gray-400 dark:hover:text-white transition-colors duration-300"
+                    className="text-gray-600 hover:text-black dark:text-gray-400 dark:hover:text-white transition-colors duration-300 text-sm sm:text-base"
                   >
                     Privacy Policy
                   </Link>
@@ -111,7 +111,7 @@ const Footer = () => {
                 <li>
                   <Link
                     to="/blog"
-                    className="text-gray-600 hover:text-black dark:text-gray-400 dark:hover:text-white transition-colors duration-300"
+                    className="text-gray-600 hover:text-black dark:text-gray-400 dark:hover:text-white transition-colors duration-300 text-sm sm:text-base"
                   >
                     Blog
                   </Link>
@@ -119,7 +119,7 @@ const Footer = () => {
                 <li>
                   <Link
                     to="/faq"
-                    className="text-gray-600 hover:text-black dark:text-gray-400 dark:hover:text-white transition-colors duration-300"
+                    className="text-gray-600 hover:text-black dark:text-gray-400 dark:hover:text-white transition-colors duration-300 text-sm sm:text-base"
                   >
                     FAQ
                   </Link>
@@ -127,7 +127,7 @@ const Footer = () => {
                 <li>
                   <Link
                     to="/docs"
-                    className="text-gray-600 hover:text-black dark:text-gray-400 dark:hover:text-white transition-colors duration-300"
+                    className="text-gray-600 hover:text-black dark:text-gray-400 dark:hover:text-white transition-colors duration-300 text-sm sm:text-base"
                   >
                     API Docs
                   </Link>
@@ -143,7 +143,7 @@ const Footer = () => {
                 <li>
                   <Link
                     to="/help"
-                    className="text-gray-600 hover:text-black dark:text-gray-400 dark:hover:text-white transition-colors duration-300"
+                    className="text-gray-600 hover:text-black dark:text-gray-400 dark:hover:text-white transition-colors duration-300 text-sm sm:text-base"
                   >
                     Help Center
                   </Link>
@@ -151,7 +151,7 @@ const Footer = () => {
                 <li>
                   <Link
                     to="/contact"
-                    className="text-gray-600 hover:text-black dark:text-gray-400 dark:hover:text-white transition-colors duration-300"
+                    className="text-gray-600 hover:text-black dark:text-gray-400 dark:hover:text-white transition-colors duration-300 text-sm sm:text-base"
                   >
                     Contact Support
                   </Link>
@@ -159,7 +159,7 @@ const Footer = () => {
                 <li>
                   <a
                     href="mailto:support@parcelxpress.com"
-                    className="text-gray-600 hover:text-black dark:text-gray-400 dark:hover:text-white transition-colors duration-300"
+                    className="text-gray-600 hover:text-black dark:text-gray-400 dark:hover:text-white transition-colors duration-300 text-sm sm:text-base break-all"
                   >
                     support@parcelxpress.com
                   </a>
@@ -167,7 +167,7 @@ const Footer = () => {
                 <li>
                   <a
                     href="tel:+8801632165523"
-                    className="text-gray-600 hover:text-black dark:text-gray-400 dark:hover:text-white transition-colors duration-300"
+                    className="text-gray-600 hover:text-black dark:text-gray-400 dark:hover:text-white transition-colors duration-300 text-sm sm:text-base"
                   >
                     +880 1632 165 523
                   </a>
@@ -177,22 +177,22 @@ const Footer = () => {
           </div>
 
           {/* Branding & social */}
-          <div className="md:max-w-md lg:col-span-2">
-            <div className="flex items-center mb-4">
+          <div className="md:max-w-md lg:col-span-2 sm:col-span-2 col-span-1">
+            <div className="flex flex-col sm:flex-row sm:items-center mb-4">
               <img
                 src="https://play-lh.googleusercontent.com/J3Ew-toK2n80uS4m85sKELgXNgNZ798HeOlk5iHI99aDccULENBJK4ZuYMyE_68Ye_59"
                 alt="ParcelXpress Logo"
-                className="w-10 h-10"
+                className="w-10 h-10 mx-auto sm:mx-0"
               />
-              <span className="ml-2 text-2xl font-bold text-black dark:text-white">
+              <span className="mt-2 sm:mt-0 sm:ml-2 text-2xl font-bold text-black dark:text-white text-center sm:text-left">
                 ParcelXpress
               </span>
             </div>
-            <p className="text-gray-600 dark:text-gray-400">
+            <p className="text-gray-600 dark:text-gray-400 text-sm sm:text-base text-center sm:text-left">
               Delivering parcels seamlessly across Bangladesh. Send, track, and
               manage every shipment from one smart dashboard.
             </p>
-            <div className="mt-6 flex space-x-4">
+            <div className="mt-6 flex justify-center sm:justify-start space-x-4">
               <a
                 href="https://facebook.com/yourpage"
                 target="_blank"
@@ -230,26 +230,26 @@ const Footer = () => {
         </div>
 
         {/* Bottom section */}
-        <div className="flex flex-col justify-between pt-5 pb-10 border-t border-gray-200 dark:border-gray-700 sm:flex-row">
+        <div className="flex flex-col justify-between pt-5 pb-10 border-t border-gray-200 dark:border-gray-700 sm:flex-row text-center sm:text-left space-y-4 sm:space-y-0">
           <p className="text-sm text-gray-500 dark:text-gray-400">
             &copy; {currentYear} ParcelXpress. All rights reserved.
           </p>
-          <div className="flex items-center mt-4 space-x-4 sm:mt-0">
+          <div className="flex justify-center sm:justify-end items-center space-x-4">
             <a
               href="/terms"
-              className="text-gray-600 hover:text-black dark:text-gray-400 dark:hover:text-white transition-colors duration-300"
+              className="text-gray-600 hover:text-black dark:text-gray-400 dark:hover:text-white transition-colors duration-300 text-sm"
             >
               Terms
             </a>
             <a
               href="/privacy"
-              className="text-gray-600 hover:text-black dark:text-gray-400 dark:hover:text-white transition-colors duration-300"
+              className="text-gray-600 hover:text-black dark:text-gray-400 dark:hover:text-white transition-colors duration-300 text-sm"
             >
               Privacy
             </a>
             <a
               href="/contact"
-              className="text-gray-600 hover:text-black dark:text-gray-400 dark:hover:text-white transition-colors duration-300"
+              className="text-gray-600 hover:text-black dark:text-gray-400 dark:hover:text-white transition-colors duration-300 text-sm"
             >
               Contact Us
             </a>

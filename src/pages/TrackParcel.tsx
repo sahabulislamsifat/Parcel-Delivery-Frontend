@@ -63,7 +63,7 @@ const TrackParcel = () => {
 
   return (
     <div className="w-full px-4 md:px-8 py-16">
-      <Card className="rounded-[2.5px] border-none dark:bg-[#101828] bg-white">
+      <Card className="rounded-[2.5px] border-none shadow-none dark:bg-[#101828] bg-white">
         <CardHeader className="text-center space-y-2">
           <CardTitle className="text-3xl font-bold text-gray-900 dark:text-white">
             Track Your Parcel

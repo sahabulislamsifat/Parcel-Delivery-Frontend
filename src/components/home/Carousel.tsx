@@ -24,10 +24,10 @@ import Slide from "./Slide";
 
 const Carousel = () => {
   return (
-    <div className="bg-white dark:bg-gray-900 transition-colors duration-300">
-      <div className="w-full">
+    <div className="bg-white dark:bg-gray-900 transition-colors duration-300 w-full">
+      <div className="w-full max-w-[100vw] overflow-hidden">
         <Swiper
-          spaceBetween={30}
+          spaceBetween={20}
           centeredSlides={true}
           loop={true}
           autoplay={{
@@ -39,7 +39,7 @@ const Carousel = () => {
           }}
           navigation={true}
           modules={[Autoplay, Pagination, Navigation]}
-          className="mySwiper"
+          className="mySwiper w-full h-[600px] sm:h-[350px] md:h-[450px] lg:h-[550px] xl:h-[650px]"
         >
           <SwiperSlide>
             <Slide

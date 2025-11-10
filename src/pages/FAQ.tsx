@@ -1,97 +1,110 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { ChevronDown, ChevronUp } from "lucide-react";
+import Lottie from "lottie-react";
+import faqImage from "@/assets/lottie-animation/FAQ.json"; // 🧩 Adjust the path based on your folder structure
 
-const Item = ({ title, children }: any) => {
-  const [isOpen, setIsOpen] = useState(false);
-
-  return (
-    <div className="border-b border-gray-200 dark:border-gray-700 transition-colors duration-300">
-      <button
-        type="button"
-        aria-label="Toggle FAQ item"
-        title="Toggle FAQ item"
-        className="flex items-center justify-between w-full p-4 focus:outline-none"
-        onClick={() => setIsOpen(!isOpen)}
-      >
-        <p className="text-lg font-medium text-gray-900 dark:text-white">
-          {title}
-        </p>
-        <svg
-          viewBox="0 0 24 24"
-          className={`w-4 h-4 text-gray-600 dark:text-gray-300 transform transition-transform duration-200 ${
-            isOpen ? "rotate-180" : ""
-          }`}
-        >
-          <polyline
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            points="2,7 12,17 22,7"
-          />
-        </svg>
-      </button>
-
-      {isOpen && (
-        <div className="p-4 pt-0">
-          <p className="text-gray-600 dark:text-gray-400">{children}</p>
-        </div>
-      )}
-    </div>
-  );
-};
+const faqItems = [
+  {
+    question: "How can I send a parcel with ParcelXpress?",
+    answer:
+      "You can easily send a parcel by creating an account, entering the delivery details, and scheduling a pickup from your dashboard. Our delivery agents will handle the rest.",
+  },
+  {
+    question: "How do I track my shipment?",
+    answer:
+      "Go to the “Track Parcel” page and enter your tracking ID. You’ll get real-time updates on your parcel’s current location and estimated delivery time.",
+  },
+  {
+    question: "What areas does ParcelXpress deliver to?",
+    answer:
+      "ParcelXpress currently delivers across all major cities and districts in Bangladesh. We’re constantly expanding to cover more areas.",
+  },
+  {
+    question: "What should I do if my parcel is delayed or lost?",
+    answer:
+      "You can contact our support team directly through the “Support” page or email us at support@parcelxpress.com. Our team will assist you promptly.",
+  },
+  {
+    question: "Does ParcelXpress offer same-day delivery?",
+    answer:
+      "Yes! We offer same-day and next-day delivery options within select cities. Delivery speed may vary depending on the pickup and destination locations.",
+  },
+];
 
 const FAQ = () => {
+  const [openIndex, setOpenIndex] = useState<number | null>(null);
+
+  const toggleFAQ = (index: number) => {
+    setOpenIndex(openIndex === index ? null : index);
+  };
+
   return (
-    <section className="bg-white dark:bg-gray-900 text-gray-700 dark:text-gray-300 transition-colors duration-300">
-      <div className="px-4 py-16 mx-auto w-11/12 sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8 lg:py-20">
-        <div className="max-w-xl sm:mx-auto lg:max-w-2xl">
-          {/* Heading */}
-          <div className="max-w-xl mb-10 text-center md:mx-auto md:mb-12">
-            <h2 className="text-3xl font-bold text-gray-900 dark:text-white sm:text-4xl mb-4">
-              Frequently Asked Questions
-            </h2>
-            <p className="text-base text-gray-600 dark:text-gray-400 md:text-lg">
-              Everything you need to know about sending, tracking, and managing
-              your parcels with ParcelXpress.
-            </p>
+    <section className="bg-white dark:bg-gray-900 text-gray-700 dark:text-gray-300 py-16 transition-colors duration-300">
+      <div className="w-11/12 max-w-7xl mx-auto px-4 md:px-10">
+        {/* Heading */}
+        <div className="text-center mb-10">
+          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-3">
+            Frequently Asked Questions
+          </h2>
+          <p className="text-base text-gray-600 dark:text-gray-400 md:text-lg">
+            Everything you need to know about sending, tracking, and managing
+            your parcels with ParcelXpress.
+          </p>
+        </div>
+
+        {/* FAQ Layout */}
+        <div className="flex flex-col md:flex-row items-center justify-between gap-10">
+          {/* Left: Lottie Animation */}
+          <div className="md:w-1/2 w-full">
+            <Lottie
+              animationData={faqImage}
+              className="w-full max-w-md mx-auto"
+            />
           </div>
 
-          {/* FAQ List */}
-          <div className="space-y-4">
-            <Item title="How can I send a parcel with ParcelXpress?">
-              You can easily send a parcel by creating an account, entering the
-              delivery details, and scheduling a pickup from your dashboard. Our
-              delivery agents will handle the rest.
-            </Item>
+          {/* Right: FAQ Accordion */}
+          <div className="md:w-1/2 w-full space-y-4">
+            {faqItems.map((item, index) => (
+              <div
+                key={index}
+                className=" p-4 shadow-sm hover:shadow-md transition-all duration-300"
+              >
+                <button
+                  onClick={() => toggleFAQ(index)}
+                  className="flex justify-between items-center w-full font-medium text-lg text-gray-800 dark:text-slate-200"
+                >
+                  {item.question}
+                  {openIndex === index ? (
+                    <ChevronUp
+                      className="text-gray-500 dark:text-slate-400"
+                      size={22}
+                    />
+                  ) : (
+                    <ChevronDown
+                      className="text-gray-500 dark:text-slate-400"
+                      size={22}
+                    />
+                  )}
+                </button>
 
-            <Item title="How do I track my shipment?">
-              Go to the “Track Parcel” page and enter your tracking ID. You’ll
-              get real-time updates on your parcel’s current location and
-              estimated delivery time.
-            </Item>
-
-            <Item title="What areas does ParcelXpress deliver to?">
-              ParcelXpress currently delivers across all major cities and
-              districts in Bangladesh. We’re constantly expanding to cover more
-              areas.
-            </Item>
-
-            <Item title="What should I do if my parcel is delayed or lost?">
-              You can contact our support team directly through the “Support”
-              page or email us at{" "}
-              <span className="text-[#009CFE] dark:text-[#33B7FF] font-medium">
-                support@parcelxpress.com
-              </span>
-              . Our team will assist you in resolving the issue promptly.
-            </Item>
-
-            <Item title="Does ParcelXpress offer same-day delivery?">
-              Yes! We offer same-day and next-day delivery options within select
-              cities. Delivery speed may vary depending on the pickup and
-              destination locations.
-            </Item>
+                <AnimatePresence>
+                  {openIndex === index && (
+                    <motion.div
+                      initial={{ opacity: 0, height: 0 }}
+                      animate={{ opacity: 1, height: "auto" }}
+                      exit={{ opacity: 0, height: 0 }}
+                      transition={{ duration: 0.3 }}
+                      className="overflow-hidden"
+                    >
+                      <p className="mt-3 text-gray-600 text-sm dark:text-slate-400 leading-relaxed">
+                        {item.answer}
+                      </p>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
+            ))}
           </div>
         </div>
       </div>

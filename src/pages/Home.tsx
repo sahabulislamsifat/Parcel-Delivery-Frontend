@@ -1,6 +1,9 @@
-import Hero from "../components/home/Hero";
-import FAQ from "./FAQ";
+import Hero from "@/components/home/Hero";
+import WhyChooseUs from "./WhyChooseUs";
 import TrackParcel from "./TrackParcel";
+import ExtraSection from "@/components/home/ExtraSection";
+import Testimonial from "@/components/home/Testimonial";
+import FAQ from "./FAQ";
 
 const Home = () => {
   return (
@@ -8,8 +11,17 @@ const Home = () => {
       {/* Hero Section */}
       <Hero />
 
-      {/* TrackParcel Section */}
+      {/* Why Choose Us Section (features + stats) */}
+      <WhyChooseUs />
+
+      {/* Track Parcel Section */}
       <TrackParcel />
+
+      {/* Extra / Community Section */}
+      <ExtraSection />
+
+      {/* Testimonial Section */}
+      <Testimonial />
 
       {/* FAQ Section */}
       <FAQ />
