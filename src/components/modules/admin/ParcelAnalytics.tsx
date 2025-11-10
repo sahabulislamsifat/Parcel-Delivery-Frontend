@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import {
   PieChart,
   Pie,
@@ -48,10 +49,10 @@ const ParcelAnalytics = () => {
   // console.log(stats);
 
   const chartData = [
-    { name: "Delivered", value: stats.delivered },
-    { name: "In Transit", value: stats.inTransit },
-    { name: "Cancelled", value: stats.cancelled },
-    { name: "Pending", value: stats.pending },
+    { name: "Delivered", value: (stats as any).delivered },
+    { name: "In Transit", value: (stats as any).stats.inTransit },
+    { name: "Cancelled", value: (stats as any).stats.cancelled },
+    { name: "Pending", value: (stats as any).stats.pending },
   ];
 
   // Example trend data (you can replace with monthly data if your backend supports it)
@@ -110,37 +111,37 @@ const ParcelAnalytics = () => {
         {[
           {
             title: "Total Parcels",
-            value: stats.total,
+            value: (stats as any).stats.total,
             icon: <PackageCheck className="text-indigo-500 w-7 h-7" />,
             color: "border-indigo-500/20",
           },
           {
             title: "Delivered",
-            value: stats.delivered,
+            value: (stats as any).stats.delivered,
             icon: <PackageCheck className="text-green-500 w-7 h-7" />,
             color: "border-green-500/20",
           },
           {
             title: "In Transit",
-            value: stats.inTransit,
+            value: (stats as any).stats.inTransit,
             icon: <Truck className="text-blue-500 w-7 h-7" />,
             color: "border-blue-500/20",
           },
           {
             title: "Cancelled",
-            value: stats.cancelled,
+            value: (stats as any).stats.cancelled,
             icon: <XCircle className="text-red-500 w-7 h-7" />,
             color: "border-red-500/20",
           },
           {
             title: "Pending",
-            value: stats.pending,
+            value: (stats as any).stats.pending,
             icon: <Clock className="text-yellow-500 w-7 h-7" />,
             color: "border-yellow-500/20",
           },
           {
             title: "Total Revenue",
-            value: `৳ ${stats.revenue.toLocaleString()}`,
+            value: `৳ ${(stats as any).stats.revenue.toLocaleString()}`,
             icon: <Wallet className="text-emerald-500 w-7 h-7" />,
             color: "border-emerald-500/20",
           },

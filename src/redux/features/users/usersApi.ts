@@ -45,7 +45,7 @@ export const userApi = baseApi.injectEndpoints({
         url: `/user/${id}`,
         method: "GET",
       }),
-      providesTags: (result, error, id) => [{ type: "USER", id }],
+      providesTags: (_result, _error, id) => [{ type: "USER", id }],
       keepUnusedDataFor: 60,
     }),
 
@@ -88,7 +88,7 @@ export const userApi = baseApi.injectEndpoints({
         method: "PATCH",
         data: { block },
       }),
-      invalidatesTags: (result, error, arg) => [
+      invalidatesTags: (_result, _error, arg) => [
         { type: "USER", id: arg.id },
         { type: "USER", id: "LIST" },
       ],
@@ -104,7 +104,7 @@ export const userApi = baseApi.injectEndpoints({
         method: "PATCH",
         data,
       }),
-      invalidatesTags: (result, error, arg) => [
+      invalidatesTags: (_result, _error, arg) => [
         { type: "USER", id: arg.id },
         { type: "USER", id: "LIST" },
       ],
@@ -116,7 +116,7 @@ export const userApi = baseApi.injectEndpoints({
         url: `/user/delete/${id}`,
         method: "DELETE",
       }),
-      invalidatesTags: (result, error, id) => [
+      invalidatesTags: (_result, _error, id) => [
         { type: "USER", id },
         { type: "USER", id: "LIST" },
       ],
