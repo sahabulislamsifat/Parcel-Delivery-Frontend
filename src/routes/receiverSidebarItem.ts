@@ -1,5 +1,6 @@
 import ConfirmDelivery from "@/components/modules/receiver/ConfirmDelivery";
 import IncomingParcels from "@/components/modules/receiver/IncomingParcels";
+import TrackParcel from "@/pages/TrackParcel";
 import type { ISidebarItem } from "@/types";
 import { lazy } from "react";
 
@@ -30,6 +31,11 @@ export const receiverSidebarItems: ISidebarItem[] = [
         title: "Confirm Delivery",
         url: "/receiver-dashboard/confirm-delivery",
         component: ConfirmDelivery,
+      },
+      {
+        title: "Track Your Parcel",
+        url: "/receiver-dashboard/track-parcel",
+        component: TrackParcel,
       },
     ],
   },

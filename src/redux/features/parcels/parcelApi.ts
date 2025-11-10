@@ -16,7 +16,7 @@ export interface Parcel {
   _id: string;
   senderId: string;
   receiverId: string;
-  status: ParcelStatus;
+  status: ParcelStatus | string;
   trackingId: string;
   createdAt: string;
   updatedAt: string;
@@ -211,7 +211,7 @@ export const parcelApi = baseApi.injectEndpoints({
     // Block / Unblock a parcel
     blockUnblockParcel: builder.mutation<
       Parcel,
-      { id: string; data: { blocked: boolean } }
+      { id: string; data: { block: boolean } }
     >({
       query: ({ id, data }) => ({
         url: `/parcel/block-unblock/${id}`,

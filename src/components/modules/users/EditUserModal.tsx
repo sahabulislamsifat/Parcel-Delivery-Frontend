@@ -65,13 +65,15 @@ const EditUserModal: React.FC<EditUserModalProps> = ({
 
   return (
     <div className="fixed inset-0 z-50 flex justify-center items-center bg-black/50 backdrop-blur-sm">
-      <div className="bg-white dark:bg-[#101828] rounded-[2.5px] shadow-lg w-full max-w-md p-6 relative">
+      <div className="bg-white dark:bg-[#101828] rounded-[2px] shadow-lg w-full max-w-md p-6 relative">
         {/* Header */}
         <div className="flex justify-between items-center mb-4">
-          <h2 className="text-xl font-semibold">Edit User Info</h2>
+          <h2 className="text-xl font-semibold text-gray-800 dark:text-gray-100">
+            Edit User Info
+          </h2>
           <button
             onClick={onClose}
-            className="text-gray-500 hover:text-gray-800"
+            className="text-gray-500 hover:text-gray-800 dark:hover:text-gray-200"
           >
             <X className="w-5 h-5" />
           </button>
@@ -80,52 +82,66 @@ const EditUserModal: React.FC<EditUserModalProps> = ({
         {/* Form */}
         <form onSubmit={handleSubmit} className="space-y-3">
           <div>
-            <label className="text-sm text-gray-600">Full Name</label>
+            <label className="text-sm text-gray-600 dark:text-gray-400">
+              Full Name
+            </label>
             <input
               name="name"
               value={formData.name}
               onChange={handleChange}
-              className="w-full border px-3 py-2 rounded-[2.5px] dark:bg-[#101828]"
+              className="w-full border px-3 py-2 rounded-[2px] dark:bg-[#101828]"
             />
           </div>
+
           <div>
-            <label className="text-sm text-gray-600">Email</label>
+            <label className="text-sm text-gray-600 dark:text-gray-400">
+              Email
+            </label>
             <input
               name="email"
               value={formData.email}
-              //   onChange={handleChange}
-              className="w-full border px-3 py-2 rounded-[2.5px] dark:bg-[#101828]"
+              disabled
+              className="w-full border px-3 py-2 rounded-[2px] bg-gray-100 dark:bg-[#1e293b]"
             />
           </div>
+
           <div>
-            <label className="text-sm text-gray-600">Phone</label>
+            <label className="text-sm text-gray-600 dark:text-gray-400">
+              Phone
+            </label>
             <input
               name="phone"
-              value={formData.phone || "N/A"}
+              value={formData.phone}
               onChange={handleChange}
-              className="w-full border px-3 py-2 rounded-[2.5px] dark:bg-[#101828]"
+              className="w-full border px-3 py-2 rounded-[2px] dark:bg-[#101828]"
             />
           </div>
+
           <div>
-            <label className="text-sm text-gray-600">Role</label>
+            <label className="text-sm text-gray-600 dark:text-gray-400">
+              Role
+            </label>
             <select
               name="role"
               value={formData.role}
               onChange={handleChange}
-              className="w-full border px-3 py-2 rounded-[2.5px] dark:bg-[#101828]"
+              className="w-full border px-3 py-2 rounded-[2px] dark:bg-[#101828]"
             >
               <option value="SENDER">SENDER</option>
               <option value="RECEIVER">RECEIVER</option>
               <option value="ADMIN">ADMIN</option>
             </select>
           </div>
+
           <div>
-            <label className="text-sm text-gray-600">Address</label>
+            <label className="text-sm text-gray-600 dark:text-gray-400">
+              Address
+            </label>
             <input
               name="address"
-              value={formData.address || "N/A"}
+              value={formData.address}
               onChange={handleChange}
-              className="w-full border px-3 py-2 rounded-[2.5px] dark:bg-[#101828]"
+              className="w-full border px-3 py-2 rounded-[2px] dark:bg-[#101828]"
             />
           </div>
 
@@ -133,14 +149,14 @@ const EditUserModal: React.FC<EditUserModalProps> = ({
             <button
               type="button"
               onClick={onClose}
-              className="px-10 py-2 bg-gray-300 dark:bg-gray-700 hover:bg-gray-400 dark:hover:bg-gray-600 text-gray-800 dark:text-gray-200 rounded-[2.5px] font-medium"
+              className="px-4 py-2 bg-gray-300 dark:bg-gray-700 hover:bg-gray-400 dark:hover:bg-gray-600 text-gray-800 dark:text-gray-200 rounded-[2px] font-medium"
             >
               Cancel
             </button>
             <button
               type="submit"
               disabled={isLoading}
-              className="px-4 py-2 bg-blue-600 text-white rounded-[2.5px] hover:bg-blue-700"
+              className="px-4 py-2 bg-blue-600 text-white rounded-[2px] hover:bg-blue-700"
             >
               {isLoading ? "Saving..." : "Save Changes"}
             </button>

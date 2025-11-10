@@ -1,6 +1,13 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useState, useMemo } from "react";
-import { Loader2, PackageCheck, Truck, RotateCcw, Eye } from "lucide-react";
+import {
+  Loader2,
+  PackageCheck,
+  Truck,
+  RotateCcw,
+  CheckCircle2,
+  Eye,
+} from "lucide-react";
 import {
   Card,
   CardHeader,
@@ -30,38 +37,35 @@ const ConfirmDelivery = () => {
   const [selectedParcelId, setSelectedParcelId] = useState<string | null>(null);
   const limit = 10;
 
-  // Fetch incoming parcels
   const { data, isLoading, isFetching, refetch } = useGetIncomingParcelsQuery({
     page,
     limit,
   });
 
-  // Confirm / Return mutation
+  const parcels = Array.isArray(data?.data) ? data.data : [];
+  const meta = data || { totalPages: 1, page: 1 };
+
   const [confirmDelivery, { isLoading: actionLoading }] =
     useConfirmDeliveryMutation();
 
-  const parcels = data?.data || [];
-  const total = data?.total || 0;
-  const currentPage = data?.page || 1;
-  const totalPages = Math.ceil(total / limit);
-
-  // Stats
   const stats = useMemo(() => {
-    const total = parcels.length;
-    const totalPending = parcels.filter(
-      (p: any) => p.status !== "DELIVERED"
+    const delivered = parcels.filter(
+      (p: any) => p.status === "DELIVERED"
     ).length;
-    return { total, totalPending };
+    const pending = parcels.filter((p: any) =>
+      ["REQUESTED", "IN_TRANSIT", "OUT_FOR_DELIVERY"].includes(p.status)
+    ).length;
+    const returned = parcels.filter((p: any) => p.status === "RETURNED").length;
+    return { total: parcels.length, delivered, pending, returned };
   }, [parcels]);
 
-  // Handle delivery actions
   const handleAction = async (id: string, action: "DELIVERED" | "RETURNED") => {
     try {
       await confirmDelivery({ id, action }).unwrap();
       toast.success(
         action === "DELIVERED"
-          ? "Parcel delivery confirmed successfully!"
-          : "Parcel marked as returned successfully!"
+          ? "Parcel delivery confirmed!"
+          : "Parcel marked as returned!"
       );
       refetch();
       setSelectedParcelId(null);
@@ -70,24 +74,21 @@ const ConfirmDelivery = () => {
     }
   };
 
-  if (isLoading) {
+  if (isLoading)
     return (
       <div className="flex justify-center items-center h-80">
         <LoadingSpinner />
       </div>
     );
-  }
 
   return (
     <div className="w-full px-4 md:px-8 space-y-8">
       {/* Header */}
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center">
         <div>
-          <h1 className="text-3xl font-bold text-gray-800 dark:text-white">
-            Confirm Delivery
-          </h1>
-          <p className="text-gray-500 dark:text-gray-400">
-            Confirm or return your incoming parcels.
+          <h1 className="text-3xl font-bold text-primary">Confirm Delivery</h1>
+          <p className="text-muted-foreground">
+            Confirm or return your received parcels.
           </p>
         </div>
         <Button
@@ -105,44 +106,62 @@ const ConfirmDelivery = () => {
         </Button>
       </div>
 
-      {/* Stats */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-2 gap-5">
-        <Card className="rounded-[2.5px] border dark:bg-[#101828] bg-white shadow-sm">
-          <CardHeader className="flex justify-between pb-2">
-            <CardTitle className="text-sm font-medium">Total Parcels</CardTitle>
-            <PackageCheck className="h-5 w-5 text-green-500" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">{stats.total}</div>
-          </CardContent>
-        </Card>
-
-        <Card className="rounded-[2.5px] border dark:bg-[#101828] bg-white shadow-sm">
-          <CardHeader className="flex justify-between pb-2">
-            <CardTitle className="text-sm font-medium">
-              Pending Confirmation
-            </CardTitle>
-            <RotateCcw className="h-5 w-5 text-yellow-500" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">{stats.totalPending}</div>
-          </CardContent>
-        </Card>
+      {/* Stats - modern layout */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4">
+        {[
+          {
+            title: "Total",
+            value: stats.total,
+            color: "text-blue-500",
+            icon: PackageCheck,
+          },
+          {
+            title: "Delivered",
+            value: stats.delivered,
+            color: "text-green-500",
+            icon: CheckCircle2,
+          },
+          {
+            title: "Pending",
+            value: stats.pending,
+            color: "text-yellow-500",
+            icon: Truck,
+          },
+          {
+            title: "Returned",
+            value: stats.returned,
+            color: "text-red-500",
+            icon: RotateCcw,
+          },
+        ].map((s) => (
+          <Card
+            key={s.title}
+            className="rounded-[2.5px] border dark:bg-[#111927] bg-gray-50 shadow-md hover:shadow-lg transition"
+          >
+            <CardHeader className="flex justify-between items-center pb-1">
+              <CardTitle className="text-sm font-semibold">{s.title}</CardTitle>
+              <s.icon className={`h-5 w-5 ${s.color}`} />
+            </CardHeader>
+            <CardContent>
+              <div className="text-3xl font-bold">{s.value}</div>
+            </CardContent>
+          </Card>
+        ))}
       </div>
 
       {/* Table */}
-      <Card className="rounded-[2.5px] border-none dark:bg-[#101828] bg-white">
+      <Card className="rounded-[2.5px] border dark:bg-[#101828] bg-white">
         <CardHeader>
-          <CardTitle className="text-xl font-bold">Incoming Parcels</CardTitle>
+          <CardTitle className="text-xl font-bold text-primary">
+            Delivery Actions
+          </CardTitle>
           <CardDescription>
-            Review, confirm or return your parcels.
+            Confirm successful deliveries or mark returns.
           </CardDescription>
         </CardHeader>
         <CardContent>
           {parcels.length === 0 ? (
-            <p className="text-center text-gray-500 py-6">
-              No incoming parcels found.
-            </p>
+            <p className="text-center text-gray-500 py-6">No parcels found.</p>
           ) : (
             <div className="overflow-x-auto">
               <Table>
@@ -152,7 +171,7 @@ const ConfirmDelivery = () => {
                     <TableHead>Sender</TableHead>
                     <TableHead>Weight</TableHead>
                     <TableHead>Status</TableHead>
-                    <TableHead>Action</TableHead>
+                    <TableHead className="text-right">Actions</TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
@@ -174,14 +193,14 @@ const ConfirmDelivery = () => {
                           {p.status}
                         </span>
                       </TableCell>
-                      <TableCell className="flex gap-2">
+                      <TableCell className="flex gap-2 justify-end">
                         {["OUT_FOR_DELIVERY", "IN_TRANSIT"].includes(
                           p.status
                         ) ? (
                           <>
                             <Button
                               size="sm"
-                              className="rounded-[2.5px]"
+                              className="bg-green-600 hover:bg-green-700 text-white rounded-[2.5px]"
                               onClick={() => handleAction(p._id, "DELIVERED")}
                               disabled={actionLoading}
                             >
@@ -225,27 +244,23 @@ const ConfirmDelivery = () => {
       </Card>
 
       {/* Pagination */}
-      {totalPages > 1 && (
+      {(meta as any)?.totalPages > 1 && (
         <div className="flex justify-end gap-2">
-          <Button
-            disabled={currentPage === 1}
-            onClick={() => setPage(currentPage - 1)}
-          >
+          <Button disabled={page === 1} onClick={() => setPage(page - 1)}>
             Prev
           </Button>
-          <span className="px-2 py-1 bg-gray-200 dark:bg-gray-700 rounded">
-            {currentPage}
+          <span className="px-3 py-1 bg-gray-200 dark:bg-gray-700 rounded">
+            {page}
           </span>
           <Button
-            disabled={currentPage === totalPages}
-            onClick={() => setPage(currentPage + 1)}
+            disabled={page === (meta as any).totalPages}
+            onClick={() => setPage(page + 1)}
           >
             Next
           </Button>
         </div>
       )}
 
-      {/* Parcel Details Modal */}
       {selectedParcelId && (
         <ParcelDetailsModal
           parcelId={selectedParcelId}
