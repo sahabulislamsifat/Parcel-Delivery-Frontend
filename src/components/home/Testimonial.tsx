@@ -1,7 +1,11 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Pagination } from "swiper/modules";
+// Import Swiper styles
+// @ts-ignore - module may not have type declarations in this project
 import "swiper/css";
+// @ts-ignore - module may not have type declarations in this project
 import "swiper/css/pagination";
 import { FaQuoteLeft } from "react-icons/fa";
 import { Loader2 } from "lucide-react";
@@ -52,37 +56,43 @@ const Testimonial = () => {
               1024: { slidesPerView: 3 },
             }}
           >
-            {users.slice(0, 6).map((user: any, idx: number) => (
-              <SwiperSlide key={user._id || idx}>
-                <div className="bg-white dark:bg-[#101828] rounded-[2px] shadow-sm p-6 mx-3 flex flex-col items-center justify-between transition-all hover:shadow-md duration-300 mb-2 h-[340px]">
-                  <div className="flex flex-col items-center">
-                    <FaQuoteLeft className="text-indigo-500 text-3xl mb-3" />
-                    <p className="text-gray-600 dark:text-gray-300 text-sm mb-5 leading-relaxed line-clamp-5">
-                      {fallbackTestimonials[idx % fallbackTestimonials.length]}
-                    </p>
-                  </div>
+            {(Array.isArray(users) ? users.slice(0, 6) : []).map(
+              (user: any, idx: number) => (
+                <SwiperSlide key={user._id || idx}>
+                  <div className="bg-white dark:bg-[#101828] rounded-[2px] shadow-sm p-6 mx-3 flex flex-col items-center justify-between transition-all hover:shadow-md duration-300 mb-2 h-[340px]">
+                    <div className="flex flex-col items-center">
+                      <FaQuoteLeft className="text-indigo-500 text-3xl mb-3" />
+                      <p className="text-gray-600 dark:text-gray-300 text-sm mb-5 leading-relaxed line-clamp-5">
+                        {
+                          fallbackTestimonials[
+                            idx % fallbackTestimonials.length
+                          ]
+                        }
+                      </p>
+                    </div>
 
-                  <div className="flex flex-col items-center mt-auto">
-                    <img
-                      src={
-                        user?.profileImage ||
-                        `https://randomuser.me/api/portraits/${
-                          idx % 2 === 0 ? "men" : "women"
-                        }/${idx + 20}.jpg`
-                      }
-                      alt={user?.name || "User"}
-                      className="w-16 h-16 rounded-full object-cover mb-2 border-2 border-indigo-500"
-                    />
-                    <h4 className="text-gray-800 dark:text-white font-semibold capitalize">
-                      {user?.name || "Anonymous User"}
-                    </h4>
-                    <span className="text-sm text-gray-500 dark:text-gray-400">
-                      Receiver
-                    </span>
+                    <div className="flex flex-col items-center mt-auto">
+                      <img
+                        src={
+                          user?.profileImage ||
+                          `https://randomuser.me/api/portraits/${
+                            idx % 2 === 0 ? "men" : "women"
+                          }/${idx + 20}.jpg`
+                        }
+                        alt={user?.name || "User"}
+                        className="w-16 h-16 rounded-full object-cover mb-2 border-2 border-indigo-500"
+                      />
+                      <h4 className="text-gray-800 dark:text-white font-semibold capitalize">
+                        {user?.name || "Anonymous User"}
+                      </h4>
+                      <span className="text-sm text-gray-500 dark:text-gray-400">
+                        Receiver
+                      </span>
+                    </div>
                   </div>
-                </div>
-              </SwiperSlide>
-            ))}
+                </SwiperSlide>
+              )
+            )}
           </Swiper>
         )}
       </div>
