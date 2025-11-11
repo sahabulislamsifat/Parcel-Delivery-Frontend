@@ -298,7 +298,13 @@ const Register = () => {
     );
 
   return (
-    <div className="grid min-h-screen lg:grid-cols-2 dark:bg-[#101828]">
+    <div
+      data-aos="fade-zoom-up"
+      data-aos-easing="ease-in-back"
+      data-aos-delay="100"
+      data-aos-offset="0"
+      className="grid min-h-screen lg:grid-cols-2 dark:bg-[#101828]"
+    >
       <div className="w-full sm:w-10/12 md:w-8/12 lg:w-6/12 mx-auto flex flex-col justify-center p-6 md:p-12 bg-white dark:bg-[#101828] rounded-[2.5px] dark:border shadow-md">
         <div className="mb-8 text-center">
           <img

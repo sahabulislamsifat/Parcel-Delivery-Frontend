@@ -72,7 +72,13 @@ const Login = () => {
     );
 
   return (
-    <div className="grid min-h-screen lg:grid-cols-2 dark:bg-[#101828]">
+    <div
+      data-aos="fade-zoom-up"
+      data-aos-easing="ease-in-back"
+      data-aos-delay="100"
+      data-aos-offset="0"
+      className="grid min-h-screen lg:grid-cols-2 dark:bg-[#101828]"
+    >
       <div className="hidden lg:block relative">
         <img
           src="https://png.pngtree.com/png-clipart/20231005/original/pngtree-courier-with-a-lot-of-parcels-isolated-on-white-background-illustration-png-image_13122703.png"
