@@ -132,6 +132,7 @@ const CreateParcel = () => {
         <CardContent>
           <Form {...form}>
             <form
+              data-aos="zoom-in"
               id="create-parcel-form"
               className="space-y-5"
               onSubmit={form.handleSubmit(handleSubmit)}

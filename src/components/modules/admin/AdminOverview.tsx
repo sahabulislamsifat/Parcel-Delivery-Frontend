@@ -20,7 +20,7 @@ const AdminOverview = () => {
       </div>
     );
 
-  const admin = data.data;
+  const admin = data?.data;
 
   return (
     <div className="p-6 space-y-10 w-full mx-auto">
@@ -37,7 +37,10 @@ const AdminOverview = () => {
       </div>
 
       {/* ===== Quick Info Section ===== */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div
+        data-aos="flip-up"
+        className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
+      >
         <Card className="dark:bg-[#101828] dark:border-gray-700 hover:shadow-sm rounded-[2.5px] transition">
           <CardHeader>
             <CardTitle className="text-gray-700 dark:text-gray-300 text-base font-medium">

@@ -181,7 +181,11 @@ const SenderOverview = () => {
           {recentParcels.length === 0 ? (
             <p className="text-center text-gray-500 py-6">No parcels found.</p>
           ) : (
-            <div className="overflow-x-auto">
+            <div
+              data-aos="fade-up"
+              data-aos-anchor-placement="top-center"
+              className="overflow-x-auto"
+            >
               <Table>
                 <TableHeader>
                   <TableRow>

@@ -76,6 +76,7 @@ const TrackParcel = () => {
         <CardContent>
           {/* Search Form */}
           <form
+            data-aos="zoom-in"
             onSubmit={handleTrack}
             className="max-w-xl mx-auto flex flex-col sm:flex-row items-center gap-3 mt-4"
           >

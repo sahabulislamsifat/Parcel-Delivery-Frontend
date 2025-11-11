@@ -118,7 +118,11 @@ const MyParcels = () => {
               <p>No parcels found.</p>
             </div>
           ) : (
-            <div className="overflow-x-auto">
+            <div
+              data-aos="fade-up"
+              data-aos-anchor-placement="top-center"
+              className="overflow-x-auto"
+            >
               <Table>
                 <TableHeader>
                   <TableRow>

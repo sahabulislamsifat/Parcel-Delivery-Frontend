@@ -7,6 +7,10 @@ import { router } from "./routes/AppRoutes";
 import ThemeProvider from "./providers/theme.provider";
 import { store } from "./redux/store/store";
 import { Toaster } from "./components/sooner";
+import AOS from "aos";
+import "aos/dist/aos.css"; // You can also use <link> for styles
+// ..
+AOS.init();
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>

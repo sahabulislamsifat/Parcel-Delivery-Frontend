@@ -72,7 +72,7 @@ const Profile = () => {
     );
   }
 
-  const user = data.data;
+  const user = data?.data;
 
   const handleProfileUpdate = async (formData: Partial<typeof user>) => {
     try {

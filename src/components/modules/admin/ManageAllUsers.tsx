@@ -169,7 +169,11 @@ const ManageAllUsers = () => {
       </div>
 
       {/* Users Table */}
-      <div className="overflow-x-auto bg-white dark:bg-[#101828] rounded-[2.5px]">
+      <div
+        data-aos="fade-up"
+        data-aos-anchor-placement="center-bottom"
+        className="overflow-x-auto bg-white dark:bg-[#101828] rounded-[2.5px]"
+      >
         {isLoading ? (
           <div className="flex justify-center py-10">
             <Loader2 className="animate-spin h-8 w-8 text-blue-600" />

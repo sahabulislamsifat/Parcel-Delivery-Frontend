@@ -120,7 +120,11 @@ const ManageAllParcels = () => {
       </div>
 
       {/* Parcels Table */}
-      <div className="overflow-x-auto bg-white dark:bg-gray-900 rounded-[2.5px]">
+      <div
+        data-aos="fade-up"
+        data-aos-anchor-placement="center-bottom"
+        className="overflow-x-auto bg-white dark:bg-gray-900 rounded-[2.5px]"
+      >
         <table className="min-w-full text-sm text-gray-700 dark:text-gray-300">
           <thead>
             <tr className="bg-gray-100 bg-gradient-to-l from-blue-300 via-white to-gray-200 text-black text-left">

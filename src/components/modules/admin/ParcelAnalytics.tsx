@@ -45,14 +45,20 @@ const ParcelAnalytics = () => {
       </div>
     );
 
-  const stats = data.data;
-  // console.log(stats);
+  const stats = data?.data || {
+    delivered: 0,
+    inTransit: 0,
+    cancelled: 0,
+    pending: 0,
+    total: 0,
+    revenue: 0,
+  };
 
   const chartData = [
     { name: "Delivered", value: (stats as any).delivered },
-    { name: "In Transit", value: (stats as any).stats.inTransit },
-    { name: "Cancelled", value: (stats as any).stats.cancelled },
-    { name: "Pending", value: (stats as any).stats.pending },
+    { name: "In Transit", value: (stats as any).inTransit },
+    { name: "Cancelled", value: (stats as any).cancelled },
+    { name: "Pending", value: (stats as any).pending },
   ];
 
   // Example trend data (you can replace with monthly data if your backend supports it)
@@ -111,37 +117,37 @@ const ParcelAnalytics = () => {
         {[
           {
             title: "Total Parcels",
-            value: (stats as any).stats.total,
+            value: (stats as any).total,
             icon: <PackageCheck className="text-indigo-500 w-7 h-7" />,
             color: "border-indigo-500/20",
           },
           {
             title: "Delivered",
-            value: (stats as any).stats.delivered,
+            value: (stats as any).delivered,
             icon: <PackageCheck className="text-green-500 w-7 h-7" />,
             color: "border-green-500/20",
           },
           {
             title: "In Transit",
-            value: (stats as any).stats.inTransit,
+            value: (stats as any).inTransit,
             icon: <Truck className="text-blue-500 w-7 h-7" />,
             color: "border-blue-500/20",
           },
           {
             title: "Cancelled",
-            value: (stats as any).stats.cancelled,
+            value: (stats as any).cancelled,
             icon: <XCircle className="text-red-500 w-7 h-7" />,
             color: "border-red-500/20",
           },
           {
             title: "Pending",
-            value: (stats as any).stats.pending,
+            value: (stats as any).pending,
             icon: <Clock className="text-yellow-500 w-7 h-7" />,
             color: "border-yellow-500/20",
           },
           {
             title: "Total Revenue",
-            value: `৳ ${(stats as any).stats.revenue.toLocaleString()}`,
+            value: `৳ ${(stats as any).revenue.toLocaleString()}`,
             icon: <Wallet className="text-emerald-500 w-7 h-7" />,
             color: "border-emerald-500/20",
           },

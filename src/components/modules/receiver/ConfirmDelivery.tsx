@@ -150,7 +150,11 @@ const ConfirmDelivery = () => {
       </div>
 
       {/* Table */}
-      <Card className="rounded-[2.5px] border dark:bg-[#101828] bg-white">
+      <Card
+        data-aos="fade-up"
+        data-aos-anchor-placement="top-center"
+        className="rounded-[2.5px] border dark:bg-[#101828] bg-white"
+      >
         <CardHeader>
           <CardTitle className="text-xl font-bold text-primary">
             Delivery Actions
