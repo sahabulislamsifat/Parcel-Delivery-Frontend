@@ -277,7 +277,7 @@ const Navbar = () => {
               <li>
                 <NavLink
                   to="/login"
-                  className="inline-flex items-center justify-center h-8 sm:h-9 px-4 sm:px-5 font-medium bg-[#009CFE] hover:bg-[#005DB5] text-white rounded-md text-sm sm:text-base"
+                  className="inline-flex items-center justify-center h-8 sm:h-9 px-4 sm:px-5 font-medium bg-[#009CFE] hover:bg-[#005DB5] text-white rounded-[2px] text-sm sm:text-base"
                 >
                   Login
                 </NavLink>
