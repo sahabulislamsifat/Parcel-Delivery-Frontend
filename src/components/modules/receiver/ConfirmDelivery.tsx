@@ -150,11 +150,7 @@ const ConfirmDelivery = () => {
       </div>
 
       {/* Table */}
-      <Card
-        data-aos="fade-up"
-        data-aos-anchor-placement="top-center"
-        className="rounded-[2.5px] border dark:bg-[#101828] bg-white"
-      >
+      <Card className="rounded-[2.5px] border dark:bg-[#101828] bg-white">
         <CardHeader>
           <CardTitle className="text-xl font-bold text-primary">
             Delivery Actions
@@ -178,7 +174,7 @@ const ConfirmDelivery = () => {
                     <TableHead className="text-right">Actions</TableHead>
                   </TableRow>
                 </TableHeader>
-                <TableBody>
+                <TableBody data-aos="fade-down">
                   {parcels.map((p: any) => (
                     <TableRow key={p._id}>
                       <TableCell>{p.trackingId}</TableCell>

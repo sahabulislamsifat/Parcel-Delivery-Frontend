@@ -8,10 +8,10 @@ const ExtraSection = () => {
     <section className="relative py-16 px-6 md:px-12 text-center dark:bg-[#101828] transition-colors duration-300">
       {/* Heading */}
       <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white leading-snug">
-        Join the <span className="text-indigo-600">ParcelXpress</span>{" "}
-        community. <br className="hidden md:block" />
-        <span className="text-indigo-500">Deliver Faster.</span> Stay Connected.
-        Earn Trust.
+        Join the <span className="text-[#009CFE]">ParcelXpress</span> community.{" "}
+        <br className="hidden md:block" />
+        <span className="text-[#009dfee0]">Deliver Faster.</span> Stay
+        Connected. Earn Trust.
       </h2>
 
       {/* Animated Lottie Section */}

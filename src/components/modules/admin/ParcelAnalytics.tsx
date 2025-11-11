@@ -15,18 +15,16 @@ import {
 import {
   Loader2,
   PackageCheck,
-  Truck,
   XCircle,
   Clock,
   Wallet,
+  RotateCcw,
 } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useGetParcelStatisticsQuery } from "@/redux/features/parcels/parcelApi";
-import LoadingSpinner from "@/components/LoadingSpinner";
 
-// Colors
-const PIE_COLORS = ["#16a34a", "#3b82f6", "#ef4444", "#facc15"];
-// const LINE_COLOR = "#6366f1";
+// Pie chart colors
+const PIE_COLORS = ["#16a34a", "#3b82f6", "#ef4444", "#facc15", "#f97316"];
 
 const ParcelAnalytics = () => {
   const { data, isLoading, isError } = useGetParcelStatisticsQuery();
@@ -45,60 +43,29 @@ const ParcelAnalytics = () => {
       </div>
     );
 
-  const stats = data?.data || {
-    delivered: 0,
-    inTransit: 0,
-    cancelled: 0,
-    pending: 0,
+  const stats = data.data || {
     total: 0,
+    delivered: 0,
+    pending: 0,
+    cancelled: 0,
+    returned: 0,
     revenue: 0,
   };
 
-  const chartData = [
+  const pieData = [
     { name: "Delivered", value: (stats as any).delivered },
-    { name: "In Transit", value: (stats as any).inTransit },
-    { name: "Cancelled", value: (stats as any).cancelled },
     { name: "Pending", value: (stats as any).pending },
+    { name: "Cancelled", value: (stats as any).cancelled },
+    { name: "Returned", value: (stats as any).returned },
   ];
 
-  // Example trend data (you can replace with monthly data if your backend supports it)
+  // Example trend data (replace with API data if available)
   const trendData = [
-    {
-      month: "Jan",
-      Delivered: 45,
-      "In Transit": 30,
-      Cancelled: 10,
-      Pending: 20,
-    },
-    {
-      month: "Feb",
-      Delivered: 55,
-      "In Transit": 25,
-      Cancelled: 8,
-      Pending: 18,
-    },
-    {
-      month: "Mar",
-      Delivered: 60,
-      "In Transit": 22,
-      Cancelled: 6,
-      Pending: 15,
-    },
-    {
-      month: "Apr",
-      Delivered: 70,
-      "In Transit": 20,
-      Cancelled: 5,
-      Pending: 12,
-    },
+    { month: "Jan", Delivered: 45, Pending: 20, Cancelled: 10, Returned: 5 },
+    { month: "Feb", Delivered: 55, Pending: 18, Cancelled: 8, Returned: 3 },
+    { month: "Mar", Delivered: 60, Pending: 15, Cancelled: 6, Returned: 4 },
+    { month: "Apr", Delivered: 70, Pending: 12, Cancelled: 5, Returned: 2 },
   ];
-
-  if (isLoading)
-    return (
-      <div className="flex justify-center items-center h-80">
-        <LoadingSpinner></LoadingSpinner>
-      </div>
-    );
 
   return (
     <div className="p-6 space-y-8">
@@ -108,12 +75,13 @@ const ParcelAnalytics = () => {
           Parcel Analytics Overview
         </h2>
         <p className="text-gray-500 dark:text-gray-400">
-          Insights into deliveries, cancellations, and overall performance
+          Insights into deliveries, cancellations, returns, and overall
+          performance.
         </p>
       </div>
 
       {/* Summary Cards */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-6 gap-5">
         {[
           {
             title: "Total Parcels",
@@ -128,10 +96,10 @@ const ParcelAnalytics = () => {
             color: "border-green-500/20",
           },
           {
-            title: "In Transit",
-            value: (stats as any).inTransit,
-            icon: <Truck className="text-blue-500 w-7 h-7" />,
-            color: "border-blue-500/20",
+            title: "Pending",
+            value: (stats as any).pending,
+            icon: <Clock className="text-yellow-500 w-7 h-7" />,
+            color: "border-yellow-500/20",
           },
           {
             title: "Cancelled",
@@ -140,10 +108,10 @@ const ParcelAnalytics = () => {
             color: "border-red-500/20",
           },
           {
-            title: "Pending",
-            value: (stats as any).pending,
-            icon: <Clock className="text-yellow-500 w-7 h-7" />,
-            color: "border-yellow-500/20",
+            title: "Returned",
+            value: (stats as any).returned,
+            icon: <RotateCcw className="text-orange-500 w-7 h-7" />,
+            color: "border-orange-500/20",
           },
           {
             title: "Total Revenue",
@@ -156,7 +124,7 @@ const ParcelAnalytics = () => {
             key={idx}
             className={`rounded-[2.5px] ${card.color} dark:bg-[#101828] dark:border-gray-700 transition hover:shadow-md`}
           >
-            <CardHeader className="flex flex-row items-center justify-between pb-2">
+            <CardHeader className="flex justify-between items-center pb-2">
               <CardTitle className="text-gray-700 dark:text-gray-300 text-base font-medium">
                 {card.title}
               </CardTitle>
@@ -171,25 +139,25 @@ const ParcelAnalytics = () => {
         ))}
       </div>
 
-      {/* Charts Section */}
+      {/* Charts */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Pie Chart */}
-        <div className="p-6 rounded-[2.5px] bg-white dark:bg-gray-900 hover:shadow-sm border border-gray-200 dark:border-gray-700">
-          <h3 className="text-xl font-semibold mb-4 text-gray-800 dark:text-gray-100">
+        <Card className="p-6 bg-white dark:bg-gray-900 rounded-[2.5px] border border-gray-200 dark:border-gray-700 hover:shadow-sm">
+          <CardTitle className="text-xl font-semibold mb-4 text-gray-800 dark:text-gray-100">
             Delivery Status Breakdown
-          </h3>
+          </CardTitle>
           <div className="h-72">
             <ResponsiveContainer>
               <PieChart>
                 <Pie
-                  data={chartData}
+                  data={pieData}
+                  dataKey="value"
                   cx="50%"
                   cy="50%"
                   outerRadius={90}
-                  dataKey="value"
                   label
                 >
-                  {chartData.map((_, i) => (
+                  {pieData.map((_, i) => (
                     <Cell key={i} fill={PIE_COLORS[i % PIE_COLORS.length]} />
                   ))}
                 </Pie>
@@ -198,13 +166,13 @@ const ParcelAnalytics = () => {
               </PieChart>
             </ResponsiveContainer>
           </div>
-        </div>
+        </Card>
 
         {/* Line Chart */}
-        <div className="p-6 bg-white rounded-[2.5px] dark:bg-gray-900 hover:shadow-sm border border-gray-200 dark:border-gray-700">
-          <h3 className="text-xl font-semibold mb-4 text-gray-800 dark:text-gray-100">
+        <Card className="p-6 bg-white dark:bg-gray-900 rounded-[2.5px] border border-gray-200 dark:border-gray-700 hover:shadow-sm">
+          <CardTitle className="text-xl font-semibold mb-4 text-gray-800 dark:text-gray-100">
             Monthly Parcel Trends
-          </h3>
+          </CardTitle>
           <div className="h-72">
             <ResponsiveContainer>
               <LineChart data={trendData}>
@@ -221,8 +189,8 @@ const ParcelAnalytics = () => {
                 />
                 <Line
                   type="monotone"
-                  dataKey="In Transit"
-                  stroke="#3b82f6"
+                  dataKey="Pending"
+                  stroke="#facc15"
                   strokeWidth={3}
                 />
                 <Line
@@ -233,14 +201,14 @@ const ParcelAnalytics = () => {
                 />
                 <Line
                   type="monotone"
-                  dataKey="Pending"
-                  stroke="#facc15"
+                  dataKey="Returned"
+                  stroke="#f97316"
                   strokeWidth={3}
                 />
               </LineChart>
             </ResponsiveContainer>
           </div>
-        </div>
+        </Card>
       </div>
     </div>
   );

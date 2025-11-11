@@ -80,22 +80,22 @@ const Login = () => {
       className="grid min-h-screen lg:grid-cols-2 dark:bg-[#101828]"
     >
       <div className="hidden lg:block relative">
-        <Link to="/">
-          <img
-            src="https://png.pngtree.com/png-clipart/20231005/original/pngtree-courier-with-a-lot-of-parcels-isolated-on-white-background-illustration-png-image_13122703.png"
-            alt="Parcel Xpress"
-            className="absolute inset-0 w-full h-full object-cover brightness-95"
-          />
-        </Link>
+        <img
+          src="https://png.pngtree.com/png-clipart/20231005/original/pngtree-courier-with-a-lot-of-parcels-isolated-on-white-background-illustration-png-image_13122703.png"
+          alt="Parcel Xpress"
+          className="absolute inset-0 w-full h-full object-cover brightness-95"
+        />
       </div>
 
       <div className="w-full sm:w-10/12 md:w-8/12 lg:w-6/12 mx-auto flex flex-col justify-center p-6 md:p-12 bg-white dark:bg-[#101828] dark:border rounded-[2.5px] shadow-md">
         <div className="mb-8 text-center">
-          <img
-            src="https://play-lh.googleusercontent.com/J3Ew-toK2n80uS4m85sKELgXNgNZ798HeOlk5iHI99aDccULENBJK4ZuYMyE_68Ye_59"
-            alt="ParcelXpress Logo"
-            className="mx-auto w-16 h-16 rounded-full"
-          />
+          <Link to="/">
+            <img
+              src="https://play-lh.googleusercontent.com/J3Ew-toK2n80uS4m85sKELgXNgNZ798HeOlk5iHI99aDccULENBJK4ZuYMyE_68Ye_59"
+              alt="ParcelXpress Logo"
+              className="mx-auto w-16 h-16 rounded-full"
+            />
+          </Link>
           <h1 className="mt-4 text-3xl font-bold text-gray-900 dark:text-gray-100">
             Welcome Back
           </h1>

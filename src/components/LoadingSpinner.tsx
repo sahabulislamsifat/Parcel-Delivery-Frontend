@@ -9,7 +9,7 @@ const LoadingSpinner = ({ smallHeight }: { smallHeight?: boolean }) => {
       justify-center
       items-center `}
     >
-      <ScaleLoader height={55} width={5} color="blue" />
+      <ScaleLoader height={55} width={5} color="#009CFE" />
     </div>
   );
 };

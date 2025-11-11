@@ -34,8 +34,8 @@ import ParcelDetailsModal from "../parcels/ParcelDetailsModal";
 
 const IncomingParcels = () => {
   const [page, setPage] = useState(1);
-  const [selectedParcelId, setSelectedParcelId] = useState<string | null>(null);
   const limit = 10;
+  const [selectedParcelId, setSelectedParcelId] = useState<string | null>(null);
 
   // Fetch all incoming parcels
   const { data, isLoading, isFetching, refetch } = useGetIncomingParcelsQuery({
@@ -65,6 +65,7 @@ const IncomingParcels = () => {
 
     return { total, delivered, pending, returned };
   }, [parcels]);
+  console.log(stats);
 
   if (isLoading) {
     return (
@@ -143,11 +144,7 @@ const IncomingParcels = () => {
       </div>
 
       {/* Parcels Table */}
-      <Card
-        data-aos="fade-up"
-        data-aos-anchor-placement="top-center"
-        className="rounded-[2.5px] border-none dark:bg-[#101828] bg-white"
-      >
+      <Card className="rounded-[2.5px] border-none dark:bg-[#101828] bg-white">
         <CardHeader>
           <CardTitle className="text-xl font-bold">Incoming Parcels</CardTitle>
           <CardDescription>
@@ -171,7 +168,7 @@ const IncomingParcels = () => {
                     <TableHead>View</TableHead>
                   </TableRow>
                 </TableHeader>
-                <TableBody>
+                <TableBody data-aos="fade-down">
                   {parcels.map((p: any) => (
                     <TableRow key={p._id}>
                       <TableCell>{p.trackingId}</TableCell>

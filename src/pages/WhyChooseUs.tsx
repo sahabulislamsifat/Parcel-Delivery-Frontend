@@ -56,7 +56,7 @@ const WhyChooseUs = () => {
           viewport={{ once: true }}
           className="text-3xl md:text-4xl font-bold"
         >
-          Why Choose <span className="text-indigo-600">ParcelXpress</span>?
+          Why Choose <span className="text-[#009CFE]">ParcelXpress</span>?
         </motion.h2>
 
         <motion.p
@@ -85,7 +85,7 @@ const WhyChooseUs = () => {
             custom={i}
           >
             <div className="flex flex-col items-center text-center space-y-3">
-              <feature.icon className="w-10 h-10 text-indigo-600" />
+              <feature.icon className="w-10 h-10 text-[#009CFE]" />
               <h3 className="text-xl font-semibold">{feature.title}</h3>
               <p className="text-gray-600 dark:text-gray-400 text-sm">
                 {feature.description}
@@ -99,7 +99,7 @@ const WhyChooseUs = () => {
       <div className="mt-12 flex flex-wrap justify-center gap-12">
         {stats.map((stat) => (
           <div key={stat.label} className="text-center">
-            <p className="text-4xl font-bold text-indigo-600">
+            <p className="text-4xl font-bold text-[#009CFE]">
               <CountUp
                 end={stat.value}
                 duration={2.5}

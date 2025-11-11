@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import {
   Truck,
   PackageCheck,
@@ -9,6 +9,7 @@ import {
   Loader2,
   ArrowRight,
   BarChart3,
+  RotateCcw,
 } from "lucide-react";
 import {
   Card,
@@ -19,28 +20,44 @@ import {
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router";
-import { useGetReceiverStatsQuery } from "@/redux/features/parcels/parcelApi";
+import { useGetIncomingParcelsQuery } from "@/redux/features/parcels/parcelApi";
 import LoadingSpinner from "@/components/LoadingSpinner";
 import { motion } from "framer-motion";
 
 const ReceiverOverview = () => {
+  const page = useState(1);
+  const limit = 10;
   const navigate = useNavigate();
-
   const { data, isLoading, isFetching, refetch, isError } =
-    useGetReceiverStatsQuery(undefined);
+    useGetIncomingParcelsQuery({ page: page[0], limit });
 
+  const parcels = Array.isArray(data?.data) ? data.data : [];
+
+  //  Calculate stats (same logic as IncomingParcels)
   const stats = useMemo(() => {
-    const s = data?.data || {};
-    return {
-      total: (s as any).total || 0,
-      delivered: (s as any).delivered || 0,
-      pending: (s as any).pending || 0,
-      cancelled: (s as any).cancelled || 0,
-      totalEarnings: (s as any).revenue || 0,
-      recentParcels: [],
-    };
-  }, [data]);
+    const validParcels = parcels.filter((p: any) => p && typeof p === "object");
+    const total = validParcels.length;
+    const delivered = validParcels.filter(
+      (p: any) => p.status === "DELIVERED"
+    ).length;
+    const pending = validParcels.filter((p: any) =>
+      ["REQUESTED", "IN_TRANSIT", "OUT_FOR_DELIVERY"].includes(p.status)
+    ).length;
+    const returned = validParcels.filter(
+      (p: any) => p.status === "RETURNED"
+    ).length;
+    const cancelled = validParcels.filter(
+      (p: any) => p.status === "CANCELLED"
+    ).length;
+    const totalEarnings = validParcels.reduce(
+      (sum: number, p: any) => sum + (p.deliveryCharge || 0),
+      0
+    );
 
+    return { total, delivered, pending, returned, cancelled, totalEarnings };
+  }, [parcels]);
+
+  // ✅ Loading state
   if (isLoading)
     return (
       <div className="flex justify-center items-center h-80">
@@ -48,6 +65,7 @@ const ReceiverOverview = () => {
       </div>
     );
 
+  // ✅ Error state
   if (isError)
     return (
       <div className="flex flex-col items-center justify-center h-[70vh] text-center space-y-4">
@@ -58,14 +76,18 @@ const ReceiverOverview = () => {
       </div>
     );
 
-  // simple % calculation for chart
+  // ✅ Simple % calculations
   const deliveredPercent = stats.total
     ? ((stats.delivered / stats.total) * 100).toFixed(1)
     : 0;
   const pendingPercent = stats.total
     ? ((stats.pending / stats.total) * 100).toFixed(1)
     : 0;
+  const returnedPercent = stats.total
+    ? ((stats.returned / stats.total) * 100).toFixed(1)
+    : 0;
 
+  // ✅ Render UI
   return (
     <div className="w-full px-4 md:px-8 space-y-8">
       {/* Header */}
@@ -94,13 +116,13 @@ const ReceiverOverview = () => {
       </div>
 
       {/* Stats Cards */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-5 gap-5">
+      <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-6 gap-5">
         {[
           {
             title: "Total Parcels",
             value: stats.total,
             icon: (
-              <PackageCheck className="h-6 w-6 text-blue-500 bg-blue-100 p-1 rounded-[2px]" />
+              <PackageCheck className="h-6 w-6 text-[#009CFE] bg-blue-100 p-1 rounded-[2px]" />
             ),
             color: "from-blue-500/10 to-blue-500/20",
           },
@@ -127,6 +149,14 @@ const ReceiverOverview = () => {
               <XCircle className="h-6 w-6 text-red-500 bg-red-100 p-1 rounded-[2px]" />
             ),
             color: "from-red-500/10 to-red-500/20",
+          },
+          {
+            title: "Returned",
+            value: stats.returned,
+            icon: (
+              <RotateCcw className="h-6 w-6 text-orange-500 bg-orange-100 p-1 rounded-[2px]" />
+            ),
+            color: "from-orange-500/10 to-orange-500/20",
           },
           {
             title: "Total Spent",
@@ -173,29 +203,21 @@ const ReceiverOverview = () => {
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
-          <div>
-            <p className="text-sm mb-1 font-medium text-gray-700 dark:text-gray-300">
-              Delivered ({deliveredPercent}%)
-            </p>
-            <div className="w-full bg-gray-200 rounded-full h-3">
-              <div
-                className="bg-green-500 h-3 rounded-full transition-all"
-                style={{ width: `${deliveredPercent}%` }}
-              ></div>
-            </div>
-          </div>
-
-          <div>
-            <p className="text-sm mb-1 font-medium text-gray-700 dark:text-gray-300">
-              Pending ({pendingPercent}%)
-            </p>
-            <div className="w-full bg-gray-200 rounded-full h-3">
-              <div
-                className="bg-yellow-500 h-3 rounded-full transition-all"
-                style={{ width: `${pendingPercent}%` }}
-              ></div>
-            </div>
-          </div>
+          <ProgressItem
+            label="Delivered"
+            color="bg-green-500"
+            percent={deliveredPercent}
+          />
+          <ProgressItem
+            label="Pending"
+            color="bg-yellow-500"
+            percent={pendingPercent}
+          />
+          <ProgressItem
+            label="Returned"
+            color="bg-orange-500"
+            percent={returnedPercent}
+          />
         </CardContent>
       </Card>
 
@@ -217,5 +239,28 @@ const ReceiverOverview = () => {
     </div>
   );
 };
+
+// ✅ Progress bar helper
+const ProgressItem = ({
+  label,
+  color,
+  percent,
+}: {
+  label: string;
+  color: string;
+  percent: string | number;
+}) => (
+  <div>
+    <p className="text-sm mb-1 font-medium text-gray-700 dark:text-gray-300">
+      {label} ({percent}%)
+    </p>
+    <div className="w-full bg-gray-200 rounded-full h-3">
+      <div
+        className={`${color} h-3 rounded-full transition-all`}
+        style={{ width: `${percent}%` }}
+      ></div>
+    </div>
+  </div>
+);
 
 export default ReceiverOverview;

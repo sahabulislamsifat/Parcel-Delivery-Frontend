@@ -111,7 +111,7 @@ const Testimonial = () => {
             <SwiperSlide key={idx}>
               <div className="bg-white dark:bg-[#101828] rounded-[2px] shadow-sm p-6 mx-3 flex flex-col items-center justify-between transition-all hover:shadow-md duration-300 mb-10 h-[340px]">
                 <div className="flex flex-col items-center">
-                  <FaQuoteLeft className="text-indigo-500 text-3xl mb-3" />
+                  <FaQuoteLeft className="text-[#009CFE] text-3xl mb-3" />
                   <p className="text-gray-600 dark:text-gray-300 text-sm mb-5 leading-relaxed line-clamp-5">
                     {t.message}
                   </p>
@@ -121,7 +121,7 @@ const Testimonial = () => {
                   <img
                     src={t.image}
                     alt={t.name}
-                    className="w-16 h-16 rounded-full object-cover mb-2 border-2 border-indigo-500"
+                    className="w-16 h-16 rounded-full object-cover mb-2 border-2 border-[#009CFE]"
                   />
                   <h4 className="text-gray-800 dark:text-white font-semibold capitalize">
                     {t.name}
