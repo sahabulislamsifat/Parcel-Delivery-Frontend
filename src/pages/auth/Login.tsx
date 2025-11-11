@@ -80,11 +80,13 @@ const Login = () => {
       className="grid min-h-screen lg:grid-cols-2 dark:bg-[#101828]"
     >
       <div className="hidden lg:block relative">
-        <img
-          src="https://png.pngtree.com/png-clipart/20231005/original/pngtree-courier-with-a-lot-of-parcels-isolated-on-white-background-illustration-png-image_13122703.png"
-          alt="Parcel Xpress"
-          className="absolute inset-0 w-full h-full object-cover brightness-95"
-        />
+        <Link to="/">
+          <img
+            src="https://png.pngtree.com/png-clipart/20231005/original/pngtree-courier-with-a-lot-of-parcels-isolated-on-white-background-illustration-png-image_13122703.png"
+            alt="Parcel Xpress"
+            className="absolute inset-0 w-full h-full object-cover brightness-95"
+          />
+        </Link>
       </div>
 
       <div className="w-full sm:w-10/12 md:w-8/12 lg:w-6/12 mx-auto flex flex-col justify-center p-6 md:p-12 bg-white dark:bg-[#101828] dark:border rounded-[2.5px] shadow-md">
